@@ -1,0 +1,18 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = erykksc
+	email = 48735008+erykksc@users.noreply.github.com
+[color]
+	ui = auto
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[core]
+	pager = 
+[alias]
+	lol = log --graph --oneline --decorate --all
