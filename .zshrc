@@ -47,10 +47,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 eval "$(gh copilot alias -- zsh)"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
+
+alias ls='eza'
 
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
