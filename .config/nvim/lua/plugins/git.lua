@@ -13,5 +13,6 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 		})
 		vim.keymap.set("n", "[g", "<cmd>lua require('gitsigns').prev_hunk()<CR>", { silent = true })
 		vim.keymap.set("n", "]g", "<cmd>lua require('gitsigns').next_hunk()<CR>", { silent = true })
+		vim.keymap.set("n", "<leader>ph", require("gitsigns").preview_hunk, { silent = true })
 	end,
 }
