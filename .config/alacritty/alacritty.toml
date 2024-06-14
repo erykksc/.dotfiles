@@ -7,10 +7,13 @@ TERM = "xterm-256color"
 
 [window]
 decorations = "Buttonless"
+dynamic_padding = true
 opacity = 1
 blur = true
 
 [font]
 normal.family = "Hack Nerd Font"
-
 size=12
+
+[bell]
+duration = 5
