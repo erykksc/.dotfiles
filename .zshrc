@@ -28,7 +28,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
+# plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,6 +56,11 @@ alias ls='eza'
 
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
+#
+# Setting fd as the default source for fzf
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
+export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
+export FZF_ALT_C_COMMAND="fd --type d --hidden ."
 
 # Enable completions
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
@@ -64,5 +70,4 @@ compinit
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/.p10k.zsh.
-# If you run 'p10k configure' you need to move it afterwards to ~/.config/.p10k.zsh
 [[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh

@@ -1,4 +1,3 @@
--- See `:help gitsigns` to understand what the configuration keys do
 return { -- Adds git related signs to the gutter, as well as utilities for managing changes
 	"lewis6991/gitsigns.nvim",
 	config = function()
@@ -11,8 +10,8 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 				changedelete = { text = "~" },
 			},
 		})
-		vim.keymap.set("n", "[g", "<cmd>lua require('gitsigns').prev_hunk()<CR>", { silent = true })
-		vim.keymap.set("n", "]g", "<cmd>lua require('gitsigns').next_hunk()<CR>", { silent = true })
+		vim.keymap.set("n", "[g", require("gitsigns").prev_hunk, { desc = "Previous Git Hunk" })
+		vim.keymap.set("n", "]g", require("gitsigns").next_hunk, { desc = "Next Git Hunk" })
 		vim.keymap.set("n", "<leader>ph", require("gitsigns").preview_hunk, { silent = true })
 	end,
 }

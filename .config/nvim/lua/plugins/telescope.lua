@@ -23,20 +23,20 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 	},
 	config = function()
-		-- The easiest way to use Telescope, is to start by doing something like:
-		--  :Telescope help_tags
-		--
-		-- After running this command, a window will open up and you're able to
-		-- type in the prompt window. You'll see a list of `help_tags` options and
-		-- a corresponding preview of the help.
-		--
 		-- Two important keymaps to use while in Telescope are:
 		--  - Insert mode: <c-/>
 		--  - Normal mode: ?
 		--
-		-- This opens a window that shows you all of the keymaps for the current
-		-- Telescope picker. This is really useful to discover what Telescope can
-		-- do as well as how to actually do it!
+		local telescopeConfig = require("telescope.config")
+
+		-- Clone the default Telescope configuration
+		local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+		-- I want to search in hidden/dot files.
+		table.insert(vimgrep_arguments, "--hidden")
+		-- I don't want to search in the `.git` directory.
+		table.insert(vimgrep_arguments, "--glob")
+		table.insert(vimgrep_arguments, "!**/.git/*")
 
 		-- [[ Configure Telescope ]]
 		-- See `:help telescope` and `:help telescope.setup()`
@@ -44,12 +44,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			-- You can put your default mappings / updates / etc. in here
 			--  All the info you're looking for is in `:help telescope.setup()`
 			--
-			-- defaults = {
-			--   mappings = {
-			--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-			--   },
-			-- },
-			-- pickers = {}
+			defaults = {
+				vimgrep_arguments = vimgrep_arguments,
+				-- mappings = {
+				--   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+				-- },
+			},
+			pickers = {
+				find_files = {
+					find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
+				},
+			},
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
@@ -66,7 +71,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-		-- vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+		vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
