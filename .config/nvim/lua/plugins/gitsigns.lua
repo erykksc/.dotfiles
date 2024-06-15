@@ -10,8 +10,8 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 				changedelete = { text = "~" },
 			},
 		})
-		vim.keymap.set("n", "[g", require("gitsigns").prev_hunk, { desc = "Previous Git Hunk" })
-		vim.keymap.set("n", "]g", require("gitsigns").next_hunk, { desc = "Next Git Hunk" })
+		vim.keymap.set("n", "[c", require("gitsigns").prev_hunk, { desc = "Jump to Previous [C]hange" })
+		vim.keymap.set("n", "]c", require("gitsigns").next_hunk, { desc = "Jump to Next [C]hange" })
 		vim.keymap.set("n", "<leader>ph", require("gitsigns").preview_hunk, { silent = true })
 	end,
 }
