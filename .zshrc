@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # Exit early to prevent further processing
@@ -13,10 +6,9 @@ export PATH=$HOME/go/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="powerlevel10k/powerlevel10k"
-
+ZSH_THEME=""
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -28,10 +20,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+
+eval "$(starship init zsh)"
 
 # ======== USER CONFIGURATION ========
 
@@ -48,15 +41,19 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 eval "$(gh copilot alias -- zsh)"
 
+
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
+
+bindkey -v
+export KEYTIMEOUT=1
 
 alias ls='eza'
 
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
-#
+
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
@@ -67,7 +64,8 @@ fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.config/.p10k.zsh.
-[[ ! -f ~/.config/.p10k.zsh ]] || source ~/.config/.p10k.zsh
+bindkey '^P' up-line-or-history
+bindkey '^N' down-line-or-history
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^K' kill-line
