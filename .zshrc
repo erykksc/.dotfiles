@@ -45,6 +45,7 @@ eval "$(gh copilot alias -- zsh)"
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
+alias vc='nvim .'
 
 bindkey -v
 export KEYTIMEOUT=1
