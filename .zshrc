@@ -47,6 +47,9 @@ alias vi='nvim'
 alias v='nvim'
 alias vc='nvim .'
 
+alias gs='git status'
+alias gdv='git diff | vim'
+
 bindkey -v
 export KEYTIMEOUT=1
 

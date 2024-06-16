@@ -17,5 +17,7 @@ normal.family = "JetBrainsMono Nerd Font"
 size=12
 
 [shell]
-program = "/opt/homebrew/bin/tmux"
-args = ["new-session", "-A", "-s", "erykksc", "-c", "~"]
+program = "zsh"
+args = ["-il", "-c", "/Users/erykksc/.dotfiles/scripts/tmux-client.sh"]
+# program = "/opt/homebrew/bin/tmux"
+# args = ["new-session", "-A", "-s", "erykksc", "-c", "~"]

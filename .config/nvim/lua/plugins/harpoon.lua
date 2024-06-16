@@ -31,5 +31,8 @@ return {
 		vim.keymap.set("n", "<M-;>", function()
 			harpoon:list():select(4)
 		end)
+		vim.keymap.set("n", "<M-'>", function()
+			harpoon:list():select(5)
+		end)
 	end,
 }
