@@ -4,3 +4,4 @@
 # github-copilot stores the auth token
 .config/github-copilot/ 
 .config/tmux/plugins/
+**/node_modules/

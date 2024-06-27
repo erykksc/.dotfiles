@@ -43,6 +43,8 @@ alias vc='nvim .'
 
 alias gs='git status'
 alias gdv='git diff | vim'
+alias tupdate='~/.dotfiles/scripts/theme-update.sh'
+alias sp='spotify_player'
 
 bindkey -v
 export KEYTIMEOUT=1

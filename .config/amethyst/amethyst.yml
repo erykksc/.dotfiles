@@ -4,34 +4,34 @@ layouts:
   - fullscreen
   # - tall-right
   - wide
-  # - two-pane
+  - two-pane
   # - middle-wide
   # - 3column-left
   # - 3column-middle
   - middle-wide # The legacy name of "3column-middle"
   # - 3column-right
-  # - 4column-left
+  - 4column-left
   # - 4column-right
   - column
   # - row
   # - floating
-  # - widescreen-tall
+  - widescreen-tall
   # - widescreen-tall-right
   # - bsp
 
 # First mod (default option + shift).
 mod1:
   - option
-  - shift
-  # - control
-  # - command
+  # - shift
+  - control
+  - command
 
 # Second mod (default option + shift + control).
 mod2:
   - option
   - shift
   - control
-  # - command
+  - command
 
 # Commands:
 # special key values
@@ -104,12 +104,12 @@ focus-screen-cw:
 # Move the currently focused window onto the next screen in the list going counter-clockwise.
 swap-screen-ccw:
   mod: mod2
-  key: h
+  key: p
 
 # Move the currently focused window onto the next screen in the list going clockwise.
 swap-screen-cw:
   mod: mod2
-  key: l
+  key: n
 
 # Swap the position of the currently focused window with the next window in the list going counter-clockwise.
 swap-ccw:
@@ -126,20 +126,33 @@ swap-main:
   mod: mod1
   key: enter
 
-# Move focus to the n-th screen in the list; e.g., focus-screen-3 will move mouse focus to the 3rd screen. Note that the main window in the given screen will be focused.
-#focus-screen-n:
-# focus-screen-<screen-number>:
-#   mod: mod1
-#   key: y
+# Move focus to the n-th screen in the list; e.g., focus-screen-3 will move mouse focus to the 3rd screen. 
+# NOTE: that the main window in the given screen will be focused.
+
 # Move the currently focused window to the n-th screen; e.g., throw-screen-3 will move the window to the 3rd screen.
 # throw-screen-n:
-# throw-screen-<screen-number>:
 #   mod: mod1
-#   key: u
+#   key: 1
 # Move the currently focused window to the n-th space; e.g., throw-space-3 will move the window to the 3rd space.
-# throw-space-<screen-number>:
-#   mod: mod1
-#   key: i
+focus-space-1:
+  mod: mod1
+  key: '1'
+focus-space-2:
+  mod: mod1
+  key: '2'
+focus-space-3:
+  mod: mod1
+  key: '3'
+
+throw-space-1:
+  mod: mod2
+  key: '1'
+throw-space-2:
+  mod: mod2
+  key: '2'
+throw-space-3:
+  mod: mod2
+  key: '3'
 
 # Select tall layout
 select-tall-layout:
@@ -149,7 +162,7 @@ select-tall-layout:
 # Select wide layout
 select-wide-layout:
   mod: mod1
-  key: s
+  key: w
 
 # Select fullscreen layout
 select-fullscreen-layout:
@@ -165,15 +178,19 @@ select-middle-wide-layout:
   mod: mod1
   key: x
 
+select-two-pane-layout:
+  mod: mod1
+  key: s
+
 # Move the currently focused window to the space to the left.
 throw-space-left:
   mod: mod2
-  key: left
+  key: h
 
 # Move currently the focused window to the space to the right.
 throw-space-right:
   mod: mod2
-  key: right
+  key: l
 
 # Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
 toggle-float:
@@ -187,7 +204,7 @@ display-current-layout:
 
 # Turn on or off tiling entirely.
 toggle-tiling:
-  mod: mod1
+  mod: mod2
   key: t
 
 # Rerun the current layout's algorithm.
@@ -206,19 +223,19 @@ relaunch-amethyst:
   key: z
 
 # disable screen padding on builtin display
-disable-padding-on-builtin-display: false
+disable-padding-on-builtin-display: true
 
 # Boolean flag for whether or not to add margins between windows (default false).
 window-margins: false
 
 # Boolean flag for whether or not to set window margins if there is only one window on the screen, assuming window margins are enabled (default false).
-smart-window-margins: false
+smart-window-margins: true
 
 # # Add 10px margin between windows
 # window-margins: true
 # window-margin-size: 5
 # The size of the margins between windows (in px, default 0).
-window-margin-size: 0
+window-margin-size: 10
 
 # The max number of windows that may be visible on a screen at one time before
 # additional windows are minimized. A value of 0 disables the feature.
@@ -231,7 +248,9 @@ window-minimum-height: 0
 window-minimum-width: 0
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
-floating: []
+floating:
+  - com.apple.systempreferences
+  - com.raycast.macos
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
 floating-is-blacklist: true
@@ -252,10 +271,10 @@ mouse-follows-focus: false
 focus-follows-mouse: false
 
 # true if dragging and dropping windows on to each other should swap their positions (default false).
-mouse-swaps-windows: false
+mouse-swaps-windows: true
 
 # true if changing the frame of a window with the mouse should update the layout to accommodate the change (default false). Note that not all layouts will be able to respond to the change.
-mouse-resizes-windows: false
+mouse-resizes-windows: true
 
 # true to display the name of the layout when a new layout is selected (default true).
 enables-layout-hud: true

@@ -1,5 +1,5 @@
 import = [
-    "~/.config/alacritty/themes/themes/everforest_dark.toml",
+    "/Users/erykksc/.config/alacritty/themes/themes/github_light.toml",
 ]
 
 [env]
@@ -19,5 +19,3 @@ size=12
 [shell]
 program = "zsh"
 args = ["-il", "-c", "/Users/erykksc/.dotfiles/scripts/tmux-client.sh"]
-# program = "/opt/homebrew/bin/tmux"
-# args = ["new-session", "-A", "-s", "erykksc", "-c", "~"]

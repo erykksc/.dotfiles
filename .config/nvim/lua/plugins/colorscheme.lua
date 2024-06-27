@@ -1,12 +1,8 @@
 return {
-	-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-	-- "folke/tokyonight.nvim",
-	-- "projekt0n/github-nvim-theme",
-	"sainnhe/everforest",
-	priority = 1000, -- Make sure to load this before all the other start plugins.
+	"projekt0n/github-nvim-theme",
+	lazy = false,
+	priority = 1000,
 	init = function()
-		vim.cmd.colorscheme("everforest")
-		-- You can configure highlights by doing something like:
-		-- vim.cmd.hi("Comment gui=none")
+		vim.cmd("colorscheme github_dark")
 	end,
 }
