@@ -4,7 +4,7 @@ CONFIG_DIR="$HOME/.config"
 
 ALACRITTY_CONFIG_FILE="$XDG_CONFIG_HOME/alacritty/alacritty.toml"
 LIGHT_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/themes/github_light.toml"
-DARK_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/themes/github_dark.toml"
+DARK_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/themes/one_dark.toml"
 
 # Check if there is user override
 if [ "$1" == "dark" ]; then

@@ -18,15 +18,16 @@ return {
 		},
 		opts = {
 			debug = false,
-			auto_insert_mode = true,
+			auto_insert_mode = false,
+			show_help = false,
 		},
 		-- Quick chat with Copilot
-		vim.keymap.set({ "n", "x" }, "<leader>aq", function()
+		vim.keymap.set({ "n", "x" }, "<leader>ab", function()
 			local input = vim.fn.input("Quick Chat: ")
 			if input ~= "" then
 				require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
 			end
-		end, { desc = "[A]sk quick chat" }),
+		end, { desc = "[A]sk about [B]uffer" }),
 
 		vim.keymap.set({ "n", "x" }, "<leader>at", "<cmd>CopilotChatToggle<CR>", { desc = "[A]sk Copilot [T]oggle" }),
 		vim.keymap.set({ "n", "x" }, "<leader>ar", "<cmd>CopilotChatReview<CR>", { desc = "[A]sk for [R]eview" }),
