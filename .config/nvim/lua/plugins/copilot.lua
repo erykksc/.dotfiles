@@ -2,6 +2,7 @@ return {
 	{
 		"github/copilot.vim",
 		config = function()
+			vim.cmd(":Copilot disable")
 			vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
 				expr = true,
 				replace_keycodes = false,
@@ -21,22 +22,29 @@ return {
 			auto_insert_mode = false,
 			show_help = false,
 		},
-		-- Quick chat with Copilot
-		vim.keymap.set({ "n", "x" }, "<leader>ab", function()
-			local input = vim.fn.input("Quick Chat: ")
-			if input ~= "" then
-				require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-			end
-		end, { desc = "[A]sk about [B]uffer" }),
 
-		vim.keymap.set({ "n", "x" }, "<leader>at", "<cmd>CopilotChatToggle<CR>", { desc = "[A]sk Copilot [T]oggle" }),
-		vim.keymap.set({ "n", "x" }, "<leader>ar", "<cmd>CopilotChatReview<CR>", { desc = "[A]sk for [R]eview" }),
-		vim.keymap.set({ "n", "x" }, "<leader>ae", "<cmd>CopilotChatExplain<CR>", { desc = "[A]sk to [E]xplain" }),
-		vim.keymap.set(
-			{ "n", "x" },
-			"<leader>ac",
-			"<cmd>CopilotChatCommitStaged<CR>",
-			{ desc = "[A]sk for [C]ommit Message of Staged" }
-		),
+		keys = {
+			-- Quick chat with Copilot
+			{
+				"<leader>ab",
+				function()
+					local input = vim.fn.input("Quick Chat: ")
+					if input ~= "" then
+						require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+					end
+				end,
+				mode = { "n", "x" },
+				{ desc = "[A]sk about [B]uffer" },
+			},
+			{ "<leader>at", "<cmd>CopilotChatToggle<CR>", mode = { "n", "x" }, { desc = "[A]sk Copilot [T]oggle" } },
+			{ "<leader>ar", "<cmd>CopilotChatReview<CR>", mode = { "n", "x" }, { desc = "[A]sk for [R]eview" } },
+			{ "<leader>ae", "<cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, { desc = "[A]sk to [E]xplain" } },
+			{
+				"<leader>ac",
+				"<cmd>CopilotChatCommitStaged<CR>",
+				mode = { "n", "x" },
+				{ desc = "[A]sk for [C]ommit Message of Staged" },
+			},
+		},
 	},
 }
