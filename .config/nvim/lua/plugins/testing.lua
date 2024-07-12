@@ -10,7 +10,9 @@ return {
 	},
 
 	config = function()
-		require("neotest").setup({
+		local neotest = require("neotest")
+		---@diagnostic disable-next-line: missing-fields
+		neotest.setup({
 			adapters = {
 				require("neotest-playwright").adapter({
 					options = {
@@ -22,6 +24,6 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>tt", require("neotest").summary.toggle, { desc = "[T]est [T]oggle summary" })
+		vim.keymap.set("n", "<leader>tt", neotest.summary.toggle, { desc = "[T]est [T]oggle summary" })
 	end,
 }

@@ -43,6 +43,7 @@ return {
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
 				javascript = { { "prettierd", "prettier" } },
+				json = { { "prettierd", "prettier" } },
 
 				html = { { "prettierd", "prettier" } },
 			},
@@ -140,9 +141,31 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		config = function()
+			---@diagnostic disable-next-line: missing-fields
+			require("nvim-treesitter.configs").setup({
+				textobjects = {
+					lsp_interop = {
+						enable = true,
+						border = "none",
+						floating_preview_opts = {},
+						peek_definition_code = {
+							["<leader>pf"] = "@function.outer",
+							["<leader>pc"] = "@class.outer",
+						},
+					},
+				},
+			})
+		end,
+	},
 
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		config = function()
 			-- Better Around/Inside textobjects
 			--
@@ -150,7 +173,17 @@ return {
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [']quote
 			--  - ci'  - [C]hange [I]nside [']euote
-			require("mini.ai").setup({ n_lines = 500 })
+			local spec_treesitter = require("mini.ai").gen_spec.treesitter
+			require("mini.ai").setup({
+				n_lines = 500,
+				custom_textobjects = {
+					F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+					c = spec_treesitter({
+						a = "@class.outer",
+						i = "@class.inner",
+					}),
+				},
+			})
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--

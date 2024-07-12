@@ -3,7 +3,6 @@ return { -- Highlight, edit, and navigate code
 	build = ":TSUpdate",
 	opts = {
 		ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
-		-- Autoinstall languages that are not installed
 		auto_install = true,
 		highlight = {
 			enable = true,
@@ -15,8 +14,6 @@ return { -- Highlight, edit, and navigate code
 		indent = { enable = true, disable = { "ruby" } },
 	},
 	config = function(_, opts)
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
 		---@diagnostic disable-next-line: missing-fields
 		require("nvim-treesitter.configs").setup(opts)
 

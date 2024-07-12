@@ -1,20 +1,22 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	config = function()
-		require("nvim-tree").setup({
-			sort = {
-				sorter = "case_sensitive",
-			},
-			view = {
-				width = 30,
-			},
-			renderer = {
-				group_empty = true,
-			},
-			filters = {
-				enable = false,
-			},
-		})
+	opts = {
+		sort = {
+			sorter = "case_sensitive",
+		},
+		view = {
+			width = 30,
+		},
+		renderer = {
+			group_empty = true,
+		},
+		filters = {
+			enable = false,
+		},
+	},
+	config = function(_, opts)
+		local nvimTree = require("nvim-tree")
+		nvimTree.setup(opts)
 
 		vim.keymap.set("n", "<leader>et", require("nvim-tree.api").tree.toggle, { desc = "File [E]xplorer [T]oggle" })
 		vim.keymap.set(
