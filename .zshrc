@@ -1,5 +1,6 @@
 export XDG_CONFIG_HOME="$HOME/.config"
-export PATH=$HOME/go/bin:$PATH
+export JAVA_HOME=$(/opt/homebrew/bin/brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$HOME/go/bin:$PATH
 
 eval "$(starship init zsh)"
 
@@ -14,16 +15,45 @@ alias vi='nvim'
 alias v='nvim'
 alias vc='nvim .'
 
+# Use yazi to navigate to a directory upon exit
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+# GIT ALIASES
 alias gs='git status'
+alias gc='git commit'
 alias gdv='git diff | vim'
+alias ga='git add'
+alias gaa='git add .'
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
-alias sp='spotify_player'
 alias ls='eza'
 
+# CONFIGURE Vi-Mode
 bindkey -v
 export KEYTIMEOUT=1
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd) echo -ne '\e[1 q' ;; # Block cursor
+    main|viins) echo -ne '\e[6 q' ;; # Vertical bar cursor
+  esac
+}
+
+function zle-line-init {
+  echo -ne '\e[6 q' # Set to vertical bar initially
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
 
 
+# Set initial cursor shape
+echo -ne '\e[6 q'
 # FZF
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
@@ -31,6 +61,10 @@ eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_ALT_C_COMMAND="fd --type d --hidden ."
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # Enable completions
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
@@ -43,6 +77,6 @@ bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 bindkey '^K' kill-line
 
-# Enable syntax highlighting, should be kept at the end of the file
+# ZSH PLUGINS
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
