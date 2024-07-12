@@ -22,7 +22,6 @@ layouts:
 # First mod (default option + shift).
 mod1:
   - option
-  # - shift
   - control
   - command
 
@@ -226,7 +225,7 @@ relaunch-amethyst:
 disable-padding-on-builtin-display: true
 
 # Boolean flag for whether or not to add margins between windows (default false).
-window-margins: false
+window-margins: true
 
 # Boolean flag for whether or not to set window margins if there is only one window on the screen, assuming window margins are enabled (default false).
 smart-window-margins: true
@@ -235,7 +234,7 @@ smart-window-margins: true
 # window-margins: true
 # window-margin-size: 5
 # The size of the margins between windows (in px, default 0).
-window-margin-size: 10
+window-margin-size: 7
 
 # The max number of windows that may be visible on a screen at one time before
 # additional windows are minimized. A value of 0 disables the feature.
@@ -286,10 +285,10 @@ enables-layout-hud-on-space-change: true
 use-canary-build: false
 
 # true to insert new windows into the first position and false to insert new windows into the last position (default false).
-new-windows-to-main: false
+new-windows-to-main: true
 
 # true to automatically move to a space when throwing a window to it (default true).
-follow-space-thrown-windows: true
+follow-space-thrown-windows: false
 
 # The integer percentage of the screen dimension to increment and decrement main pane ratios by (default 5).
 window-resize-step: 5

@@ -1,9 +1,6 @@
 import = [
-    "/Users/erykksc/.config/alacritty/themes/themes/github_light.toml",
+    "/Users/erykksc/.config/alacritty/themes/themes/catppuccin_latte.toml",
 ]
-
-[env]
-TERM = "xterm-256color"
 
 [window]
 decorations = "Buttonless"

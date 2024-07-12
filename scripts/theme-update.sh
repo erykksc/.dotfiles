@@ -11,6 +11,12 @@ fi
 LIGHT_KITTY_THEME="Catppuccin-Latte"
 DARK_KITTY_THEME="Catppuccin-Mocha"
 
+YAZI_THEME_FILE="$XDG_CONFIG_HOME/yazi/theme.toml"
+YAZI_LIGHT_FLAVOR="catppuccin-latte"
+YAZI_DARK_FLAVOR="catppuccin-mocha"
+
+echo $YAZI_THEME_FILE
+
 # Check if there is user override
 if [ "$1" == "dark" ]; then
     APPLY_THEME="dark"
@@ -35,6 +41,7 @@ if [ "$APPLY_THEME" == "dark" ]; then
 #     \"$DARK_ALACRITTY_THEME\",\\
 # ]" "$ALACRITTY_CONFIG_FILE"
     kitty +kitten themes --cache-age 1 --reload-in=all $DARK_KITTY_THEME
+    sed -i '' -e "s/^use=.*/use=\"$YAZI_DARK_FLAVOR\"/g" $YAZI_THEME_FILE
 else
     # Switch to light theme
 #     sed -i '' -e "/import = \[/,/\]/c\\
@@ -42,4 +49,5 @@ else
 #     \"$LIGHT_ALACRITTY_THEME\",\\
 # ]" "$ALACRITTY_CONFIG_FILE"
     kitty +kitten themes --cache-age 1 --reload-in=all $LIGHT_KITTY_THEME
+    sed -i '' -e "s/^use=.*/use=\"$YAZI_LIGHT_FLAVOR\"/g" $YAZI_THEME_FILE
 fi
