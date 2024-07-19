@@ -5,6 +5,7 @@ return {
 	opts = {
 		settings = {
 			sync_on_ui_close = true,
+			save_on_toggle = true,
 		},
 	},
 	config = function(_, opts)

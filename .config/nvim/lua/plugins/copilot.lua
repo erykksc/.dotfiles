@@ -24,11 +24,11 @@ return {
 		},
 
 		keys = {
-			-- Quick chat with Copilot
+			-- Ask about Buffer with Copilot
 			{
 				"<leader>ab",
 				function()
-					local input = vim.fn.input("Quick Chat: ")
+					local input = vim.fn.input("Ask about Buffer: ")
 					if input ~= "" then
 						require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
 					end

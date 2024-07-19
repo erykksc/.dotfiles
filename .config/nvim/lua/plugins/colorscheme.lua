@@ -1,14 +1,5 @@
 return {
-	"olimorris/onedarkpro.nvim",
-	"projekt0n/github-nvim-theme",
-	"ellisonleao/gruvbox.nvim",
 	"catppuccin/nvim",
-	"gbprod/nord.nvim",
-	"sainnhe/everforest",
-	"shaunsingh/solarized.nvim",
-	"folke/tokyonight.nvim",
-	{ "rose-pine/neovim", name = "rose-pine" },
-	"Mofiqul/dracula.nvim",
 	-- lazy = false,
 	-- priority = 1000,
 	-- init = function()
@@ -23,7 +14,7 @@ return {
 			update_interval = 1000,
 			set_dark_mode = function()
 				vim.opt.background = "dark"
-				vim.cmd("colorscheme catppuccin")
+				vim.cmd("colorscheme catppuccin-mocha")
 			end,
 			set_light_mode = function()
 				vim.opt.background = "light"

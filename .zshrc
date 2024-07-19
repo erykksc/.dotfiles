@@ -15,15 +15,7 @@ alias vi='nvim'
 alias v='nvim'
 alias vc='nvim .'
 
-# Use yazi to navigate to a directory upon exit
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
+alias y='yazi'
 
 # GIT ALIASES
 alias gs='git status'
