@@ -4,7 +4,7 @@
 	required = true
 	clean = git-lfs clean -- %f
 [user]
-	name = erykksc
+	name = Eryk Ksciuczyk
 	email = 48735008+erykksc@users.noreply.github.com
 [color]
 	ui = auto
