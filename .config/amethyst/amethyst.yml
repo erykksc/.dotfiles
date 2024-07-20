@@ -48,12 +48,12 @@ mod2:
 # Move to the next layout in the list.
 cycle-layout:
   mod: mod1
-  key: space
+  key: "`"
 
 # Move to the previous layout in the list.
 cycle-layout-backward:
   mod: mod2
-  key: space
+  key: "`"
 
 # Shrink the main pane by a percentage of the screen dimension as defined by window-resize-step. Note that not all layouts respond to this command.
 shrink-main:
@@ -123,7 +123,7 @@ swap-cw:
 # Swap the position of the currently focused window with the main window in the list.
 swap-main:
   mod: mod1
-  key: enter
+  key: space
 
 # Move focus to the n-th screen in the list; e.g., focus-screen-3 will move mouse focus to the 3rd screen. 
 # NOTE: that the main window in the given screen will be focused.
