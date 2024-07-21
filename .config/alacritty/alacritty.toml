@@ -1,5 +1,5 @@
 import = [
-    "/Users/erykksc/.config/alacritty/themes/themes/catppuccin_latte.toml",
+    "/Users/erykksc/.config/alacritty/themes/themes/catppuccin.toml",
 ]
 
 [window]
