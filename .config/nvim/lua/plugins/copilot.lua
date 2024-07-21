@@ -22,9 +22,7 @@ return {
 			auto_insert_mode = false,
 			show_help = false,
 		},
-
 		keys = {
-			-- Ask about Buffer with Copilot
 			{
 				"<leader>ab",
 				function()
@@ -34,16 +32,16 @@ return {
 					end
 				end,
 				mode = { "n", "x" },
-				{ desc = "[A]sk about [B]uffer" },
+				desc = "[A]sk about [B]uffer",
 			},
-			{ "<leader>at", "<cmd>CopilotChatToggle<CR>", mode = { "n", "x" }, { desc = "[A]sk Copilot [T]oggle" } },
-			{ "<leader>ar", "<cmd>CopilotChatReview<CR>", mode = { "n", "x" }, { desc = "[A]sk for [R]eview" } },
-			{ "<leader>ae", "<cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, { desc = "[A]sk to [E]xplain" } },
+			{ "<leader>at", "<cmd>CopilotChatToggle<CR>", mode = { "n", "x" }, desc = "[A]sk Copilot [T]oggle" },
+			{ "<leader>ar", "<cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "[A]sk for [R]eview" },
+			{ "<leader>ae", "<cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "[A]sk to [E]xplain" },
 			{
 				"<leader>ac",
 				"<cmd>CopilotChatCommitStaged<CR>",
 				mode = { "n", "x" },
-				{ desc = "[A]sk for [C]ommit Message of Staged" },
+				desc = "[A]sk for [C]ommit Message of Staged",
 			},
 		},
 	},

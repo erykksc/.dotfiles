@@ -14,23 +14,22 @@ return {
 			enable = false,
 		},
 	},
-	config = function(_, opts)
-		local nvimTree = require("nvim-tree")
-		nvimTree.setup(opts)
-
-		vim.keymap.set("n", "<leader>et", require("nvim-tree.api").tree.toggle, { desc = "File [E]xplorer [T]oggle" })
-		vim.keymap.set(
-			"n",
-			"<leader>ef",
-			"<cmd>NvimTreeFindFileToggle<CR>",
-			{ desc = "File [E]xplorer [F]ind File Toggle" }
-		)
-		vim.keymap.set(
-			"n",
+	keys = {
+		{ "<leader>et", "<cmd>NvimTreeToggle<CR>", desc = "File [E]xplorer [T]oggle" },
+		{ "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", desc = "File [E]xplorer [F]ind File Toggle" },
+		{
 			"<leader>ew",
-			require("nvim-tree.api").tree.collapse_all,
-			{ desc = "File [E]xplorer [W]rap (Collapse)" }
-		)
-		vim.keymap.set("n", "<leader>er", require("nvim-tree.api").tree.reload, { desc = "File [E]xplorer [R]efresh" })
-	end,
+			function()
+				require("nvim-tree.api").tree.collapse_all()
+			end,
+			desc = "File [E]xplorer [W]rap (Collapse)",
+		},
+		{
+			"<leader>er",
+			function()
+				require("nvim-tree.api").tree.reload()
+			end,
+			desc = "File [E]xplorer [R]efresh",
+		},
+	},
 }
