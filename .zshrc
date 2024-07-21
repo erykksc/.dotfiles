@@ -59,7 +59,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # Enable completions
-fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+fpath=(/opt/homebrew/share/zsh/site-functions $HOME/.nix-profile/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit
 
