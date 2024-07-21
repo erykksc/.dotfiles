@@ -1,7 +1,8 @@
+**/node_modules/
 .DS_Store
 .config/raycast/
 .config/htop/
 # github-copilot stores the auth token
 .config/github-copilot/ 
 .config/tmux/plugins/
-**/node_modules/
+.config/karabiner/automatic_backups/
