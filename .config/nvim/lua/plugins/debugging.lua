@@ -56,8 +56,15 @@ return {
 			-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 			vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
 
+			local sign = vim.fn.sign_define
+
+			sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+			sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+			sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
+
 			-- Dap UI setup
 			-- For more information, see |:help nvim-dap-ui|
+			---@diagnostic disable-next-line: missing-fields
 			dapui.setup({
 				controls = {
 					element = "repl",
