@@ -1,0 +1,15 @@
+#  This ignore files is for telescope inside nvim
+go/
+.npm/
+.nvm/
+**/node_modules/
+Pictures/
+**/.cache/
+**/cache/
+.Trash/
+.platformio/
+Library/
+/Applications/
+shome/Photos/
+.vscode/extensions/
+.git/
