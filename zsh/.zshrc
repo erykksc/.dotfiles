@@ -12,7 +12,7 @@ export EDITOR='nvim'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-
+alias funshell='nix shell nixpkgs#pipes-rs nixpkgs#asciiquarium nixpkgs#cmatrix nixpkgs#cowsay nixpkgs#fortune nixpkgs#sl nixpkgs#figlet'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -30,7 +30,7 @@ alias gdv='git diff | vim'
 alias ga='git add'
 alias gaa='git add .'
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
-alias ls='eza'
+alias ls='eza --icons=auto'
 
 # CONFIGURE Vi-Mode
 bindkey -v
