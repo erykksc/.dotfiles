@@ -6,8 +6,8 @@
 # fi
 
 ALACRITTY_CONFIG_FILE="$XDG_CONFIG_HOME/alacritty/alacritty.toml"
-LIGHT_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/themes/catppuccin_latte.toml"
-DARK_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/themes/catppuccin.toml"
+LIGHT_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/catppuccin_latte.toml"
+DARK_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/catppuccin.toml"
 
 # LIGHT_KITTY_THEME="Catppuccin-Latte"
 # DARK_KITTY_THEME="Catppuccin-Mocha"
