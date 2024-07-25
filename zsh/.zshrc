@@ -58,6 +58,7 @@ eval "$(fzf --zsh)"
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
+export FZF_CTRL_T_OPTS="--bind 'ctrl-d:reload(fd --type d --hidden --strip-cwd-prefix),ctrl-f:reload(eval $FZF_CTRL_T_COMMAND)'"
 export FZF_ALT_C_COMMAND="fd --type d --hidden ."
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
