@@ -2,3 +2,13 @@
 on   = [ "<C-s>" ]
 run  = 'shell "$SHELL" --block --confirm'
 desc = "Open shell here"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "s" ]
+run  = 'cd ~/shome'
+desc = "Go to Synology home folder"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "t" ]
+run  = 'cd ~/shome/TU-Berlin/Semester-6/'
+desc = "Go to tu berlin semester folder"
