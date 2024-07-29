@@ -1,8 +1,8 @@
 # layouts - Ordered list of layouts to use by layout key (default tall, wide, fullscreen, and column).
 layouts:
+  - tall-right
   - tall
   - fullscreen
-  # - tall-right
   - wide
   - two-pane
   # - middle-wide
@@ -16,7 +16,7 @@ layouts:
   # - row
   # - floating
   - widescreen-tall
-  # - widescreen-tall-right
+  - widescreen-tall-right
   # - bsp
 
 # First mod (default option + shift).
@@ -155,6 +155,11 @@ throw-space-3:
 
 # Select tall layout
 select-tall-layout:
+  mod: mod3
+  key: a
+
+# Select tall layout
+select-tall-right-layout:
   mod: mod1
   key: a
 
@@ -249,7 +254,10 @@ window-minimum-width: 0
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
 floating:
   - com.apple.systempreferences
+  - com.apple.finder
+  - com.apple.Home
   - com.raycast.macos
+  - org.openvpn.client.app
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
 floating-is-blacklist: true
