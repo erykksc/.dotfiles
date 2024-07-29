@@ -36,6 +36,7 @@ return {
 			},
 			{ "<leader>at", "<cmd>CopilotChatToggle<CR>", mode = { "n", "x" }, desc = "[A]sk Copilot [T]oggle" },
 			{ "<leader>ar", "<cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "[A]sk for [R]eview" },
+			{ "<leader>au", "<cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "[A]sk for [U]nit tests" },
 			{ "<leader>ae", "<cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "[A]sk to [E]xplain" },
 			{
 				"<leader>ac",
