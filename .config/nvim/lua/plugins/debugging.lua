@@ -135,9 +135,9 @@ return {
 					-- and use the following configuration
 					{
 						type = "go",
-						name = "Debug cmd/main.go",
+						name = "Debug main.go",
 						request = "launch",
-						program = "./cmd/main.go",
+						program = "./main.go",
 					},
 				},
 				delve = {

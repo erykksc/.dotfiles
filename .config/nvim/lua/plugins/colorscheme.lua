@@ -4,7 +4,7 @@ return {
 		config = function()
 			require("catppuccin").setup({
 				integrations = {
-					-- harpoon = true,
+					harpoon = true,
 					mason = true,
 				},
 			})
