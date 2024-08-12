@@ -10,9 +10,10 @@ export EDITOR='nvim'
 # Use bat to syntax highlight output of
 # Page
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-alias funshell='nix shell nixpkgs#pipes-rs nixpkgs#asciiquarium nixpkgs#cmatrix nixpkgs#cowsay nixpkgs#fortune nixpkgs#sl nixpkgs#figlet'
+alias funshell='nix-shell --command zsh -p pipes-rs asciiquarium cmatrix cowsay fortune sl figlet htop cbonsai'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -49,21 +50,13 @@ function zle-line-init {
 zle -N zle-keymap-select
 zle -N zle-line-init
 
-
-# Set initial cursor shape
-echo -ne '\e[6 q'
 # FZF
-# Setup fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_OPTS="--bind 'ctrl-d:reload(fd --type d --hidden --strip-cwd-prefix),ctrl-f:reload(eval $FZF_CTRL_T_COMMAND)'"
 export FZF_ALT_C_COMMAND="fd --type d --hidden ."
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # Enable completions
 fpath=(/opt/homebrew/share/zsh/site-functions $HOME/.nix-profile/share/zsh/site-functions $fpath)
