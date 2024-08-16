@@ -11,17 +11,11 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = "unnamedplus"
-
--- Enable break indent
-vim.opt.breakindent = false
 
 -- Save undo history
 vim.opt.undofile = true
@@ -35,11 +29,8 @@ vim.opt.signcolumn = "yes"
 -- Decrease update time
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time
-vim.opt.timeoutlen = 500
-
 -- Configure how new splits should be opened
-vim.opt.splitright = true
+-- vim.opt.splitright = true
 -- vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
@@ -58,15 +49,11 @@ vim.opt.scrolloff = 8
 -- Disable line wrapping
 vim.opt.wrap = false
 
--- Set the number of spaces that a <Tab> in the file counts for
-vim.o.tabstop = 4
--- Controls the number of spaces that <Tab> uses while editing
+-- vim.o.tabstop = 4
 vim.o.softtabstop = 4
--- Number of spaces that a <Tab> counts for while editing
 vim.o.shiftwidth = 4
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
@@ -102,6 +89,7 @@ vim.g.loaded_ruby_provider = 0
 
 -- Install Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+---@diagnostic disable-next-line: undefined-field
 if not vim.loop.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -113,9 +101,6 @@ require("lazy").setup({
 	spec = {
 		-- import your plugins
 		{ import = "plugins" },
-	},
-	rocks = {
-		enabled = true,
 	},
 	ui = {
 		icons = vim.g.have_nerd_font and {} or {

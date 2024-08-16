@@ -19,6 +19,7 @@ return {
 				"dapui_watches",
 				"dap-repl",
 				"dapui_console",
+				"undotree",
 			},
 			always_divide_middle = true,
 			globalstatus = false,
@@ -44,9 +45,5 @@ return {
 			lualine_y = {},
 			lualine_z = { "location" },
 		},
-		tabline = {},
-		winbar = {},
-		inactive_winbar = {},
-		extensions = {},
 	},
 }

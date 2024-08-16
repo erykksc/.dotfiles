@@ -16,7 +16,7 @@ return {
 	},
 	keys = {
 		{ "<leader>et", "<cmd>NvimTreeToggle<CR>", desc = "File [E]xplorer [T]oggle" },
-		{ "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", desc = "File [E]xplorer [F]ind File Toggle" },
+		{ "<leader>ef", "<cmd>NvimTreeFindFile<CR>", desc = "File [E]xplorer [F]ind File" },
 		{
 			"<leader>ew",
 			function()
