@@ -1,5 +1,5 @@
 import = [
-    "/Users/erykksc/.config/alacritty/themes/catppuccin.toml",
+    "/Users/erykksc/.config/alacritty/themes/github_dark.toml",
 ]
 
 [window]
@@ -10,8 +10,11 @@ blur = true
 option_as_alt = "Both"
 
 [font]
-normal.family = "JetBrainsMono Nerd Font"
-size=12
+# normal.family = "JetBrainsMono Nerd Font"
+normal.family = "ComicShannsMono Nerd Font Mono"
+size=13
+# normal.family = "OpenDyslexicM Nerd Font Mono"
+# size=12
 
 [shell]
 program = "zsh"
