@@ -2,6 +2,7 @@
 .DS_Store
 .config/raycast/
 .config/htop/
+.config/cava/
 # github-copilot stores the auth token
 .config/github-copilot/ 
 .config/tmux/plugins/
