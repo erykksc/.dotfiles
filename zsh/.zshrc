@@ -1,6 +1,6 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export JAVA_HOME=$(/opt/homebrew/bin/brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home
-export PATH=$JAVA_HOME/bin:$HOME/go/bin:$PATH
+export PATH=/opt/homebrew/bin:$HOME/go/bin:$JAVA_HOME/bin:$PATH
 
 eval "$(starship init zsh)"
 
