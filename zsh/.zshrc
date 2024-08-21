@@ -24,6 +24,8 @@ alias vc='nvim .'
 
 alias y='yazi'
 
+alias s='~/.dotfiles/scripts/tmux-client.sh'
+
 # GIT ALIASES
 alias gs='git status'
 alias gc='git commit'
