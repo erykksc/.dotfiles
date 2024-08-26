@@ -258,6 +258,9 @@ floating:
   - com.apple.Home
   - com.raycast.macos
   - org.openvpn.client.app
+  - id: "com.brave.Browser"
+    window-titles:
+      - "Bitwarden"
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
 floating-is-blacklist: true

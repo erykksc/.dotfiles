@@ -1,10 +1,11 @@
 **/node_modules/
 .DS_Store
-.config/raycast/
-.config/htop/
-.config/cava/
+config/.config/raycast/
+config/.config/htop/
+config/.config/cava/
 # github-copilot stores the auth token
-.config/github-copilot/ 
-.config/tmux/plugins/
-.config/karabiner/automatic_backups/
-.config/chatreply/
+config/.config/github-copilot/ 
+config/.config/tmux/plugins/
+config/.config/karabiner/automatic_backups/
+config/.config/chatreply/
+config/.config/raycast/extensions/

@@ -1,0 +1,6 @@
+alt - 1 : open /System/Library/CoreServices/Finder.app
+alt - 2 : open "/Applications/Brave Browser.app"
+alt - 3 : open /Applications/kitty.app
+alt - 5 : open ~/Applications/Brave\ Browser\ Apps.localized/ChatGPT.app
+
+cmd + ctrl + alt - f : yabai -m window --toggle zoom-fullscreen

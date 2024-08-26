@@ -4,8 +4,9 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
 -- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+vim.g.netrw_banner = 0
 
 -- Make line numbers default
 vim.opt.number = true
@@ -71,6 +72,9 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+vim.keymap.set("n", "<leader>et", "<CMD>Explore .<CR>")
+vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>")
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
