@@ -198,8 +198,8 @@ throw-space-right:
 
 # Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
 toggle-float:
-  mod: mod1
-  key: y
+  mod: mod2
+  key: f
 
 # Display the layout HUD with the current layout on each screen.
 display-current-layout:
@@ -209,7 +209,7 @@ display-current-layout:
 # Turn on or off tiling entirely.
 toggle-tiling:
   mod: mod2
-  key: y
+  key: t
 
 # Rerun the current layout's algorithm.
 reevaluate-windows:
@@ -258,6 +258,7 @@ floating:
   - com.apple.Home
   - com.raycast.macos
   - org.openvpn.client.app
+  - com.riotgames.LeagueofLegends.LeagueClientUx
   - id: "com.brave.Browser"
     window-titles:
       - "Bitwarden"
