@@ -5,7 +5,6 @@ vim.g.have_nerd_font = true
 
 vim.g.netrw_banner = 0
 vim.g.netrw_preview = 1
-vim.g.netrw_liststyle = 3
 
 -- Make line numbers default
 vim.opt.number = true
