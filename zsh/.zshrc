@@ -1,6 +1,13 @@
 export XDG_CONFIG_HOME="$HOME/.config"
-export JAVA_HOME=$(/opt/homebrew/bin/brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home
-export PATH=/opt/homebrew/bin:$HOME/go/bin:$JAVA_HOME/bin:$PATH
+
+# MacOS paths
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	export JAVA_HOME=$(/opt/homebrew/bin/brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home
+	export PATH=/opt/homebrew/bin:$HOME/go/bin:$JAVA_HOME/bin:$PATH
+# Linux paths
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	export PATH=$HOME/go/bin:$JAVA_HOME/bin:$PATH
+fi
 
 eval "$(starship init zsh)"
 
@@ -71,5 +78,10 @@ bindkey '^E' end-of-line
 bindkey '^K' kill-line
 
 # ZSH PLUGINS
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
