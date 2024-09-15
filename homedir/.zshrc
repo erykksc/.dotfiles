@@ -1,14 +1,3 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-
-# MacOS paths
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	export JAVA_HOME=$(/opt/homebrew/bin/brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home
-	export PATH=/opt/homebrew/bin:$HOME/go/bin:$JAVA_HOME/bin:$PATH
-# Linux paths
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	export PATH=$HOME/go/bin:$JAVA_HOME/bin:$PATH
-fi
-
 eval "$(starship init zsh)"
 
 export LANG=en_US.UTF-8
