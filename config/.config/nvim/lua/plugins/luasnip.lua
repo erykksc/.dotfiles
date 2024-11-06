@@ -18,6 +18,7 @@ return {
 		},
 	},
 	config = function()
-		require("luasnip.loaders.from_lua").load({ paths = { "/Users/erykksc/.dotfiles/.config/nvim/lua/snippets" } })
+		-- require("luasnip.loaders.from_lua").load({ paths = { "/Users/erykksc/.dotfiles/.config/nvim/lua/snippets" } })
+		require("luasnip.loaders.from_snipmate").lazy_load()
 	end,
 }
