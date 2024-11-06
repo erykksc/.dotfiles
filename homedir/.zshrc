@@ -19,6 +19,8 @@ alias vc='nvim .'
 
 alias y='yazi'
 
+alias sgpt='python3 -m sgpt'
+
 alias s='~/.dotfiles/scripts/tmux-client.sh'
 
 # GIT ALIASES
