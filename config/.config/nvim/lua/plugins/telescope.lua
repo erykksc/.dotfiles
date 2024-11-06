@@ -45,7 +45,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			},
 			pickers = {
 				find_files = {
-					find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
+					hidden = true,
+					find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
+					-- find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
 				},
 			},
 			extensions = {

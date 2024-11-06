@@ -4,8 +4,8 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim" },
 	opts = {
 		settings = {
-			sync_on_ui_close = true,
-			save_on_toggle = true,
+			sync_on_ui_close = false,
+			save_on_toggle = false,
 		},
 	},
 	config = function(_, opts)
