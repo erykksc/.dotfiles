@@ -6,7 +6,11 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+	'workspace 9',
+	'layout h_accordion',
+	'workspace-back-and-forth'
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -80,17 +84,17 @@ outer.right =      0
 # end tell'
 # '''
 
-alt-enter = 'exec-and-forget kitty --single-instance -d ~'
-
+cmd-m = [] # Disable "hide application"
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
 alt-1 = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
 alt-2 = 'exec-and-forget open /Applications/Brave\ Browser.app'
 alt-3 = 'exec-and-forget open /Applications/kitty.app'
-alt-4 = 'exec-and-forget open /System/Applications/Preview.app'
-alt-5 = 'exec-and-forget open "/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app"'
+alt-4 = 'exec-and-forget open "/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app"'
+alt-5 = 'exec-and-forget open /System/Applications/Preview.app'
 alt-6 = 'exec-and-forget open /System/Applications/Mail.app'
+alt-7 = 'exec-and-forget open /System/Applications/Reminders.app'
 alt-8 = 'exec-and-forget open /Applications/Messenger.app'
 alt-9 = 'exec-and-forget open /Applications/WhatsApp.app'
 alt-0 = 'exec-and-forget open /Applications/Spotify.app'
@@ -166,6 +170,10 @@ ctrl-alt-cmd-shift-k = ['join-with up', 'mode main']
 ctrl-alt-cmd-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'Monkeytype'
+run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
 if.app-id = 'com.brave.Browser'
 run = "move-node-to-workspace 2"
 
@@ -175,11 +183,19 @@ run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser.app.cadlkienfkclaiaibeoongdcgmdikeeg'
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
 run = "move-node-to-workspace 5"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace 6"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = "move-node-to-workspace 7"
 
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
@@ -190,11 +206,9 @@ if.app-id = 'net.whatsapp.WhatsApp'
 run = "move-node-to-workspace 9"
 
 [[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace 10"
-
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace 9"
 
 [[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-if.window-title-regex-substring = 'Bitwarden'
-run = 'layout floating'
+if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace 10"
