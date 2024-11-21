@@ -1,91 +1,292 @@
 {
-    "profiles": [
-        {
-            "complex_modifications": {
-                "parameters": { "basic.to_if_alone_timeout_milliseconds": 500 },
-                "rules": [
-                    {
-                        "description": "Caps Lock → Hyper Key (⌃⌥⌘) | Escape if alone | Use fn + caps lock to enable caps lock",
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "caps_lock" },
-                                "to": [
-                                    {
-                                        "key_code": "right_command",
-                                        "modifiers": ["right_control", "right_option"]
-                                    }
-                                ],
-                                "to_after_key_up": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "to_if_alone": [{ "key_code": "escape" }],
-                                "type": "basic"
-                            }
-                        ]
+  "profiles": [
+    {
+      "complex_modifications": {
+        "parameters": { "basic.to_if_alone_timeout_milliseconds": 500 },
+        "rules": [
+          {
+            "description": "Caps Lock → Hyper Key (⌃⌥⌘) | Escape if alone | Use fn + caps lock to enable caps lock",
+            "manipulators": [
+              {
+                "from": { "key_code": "caps_lock" },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "modifiers": ["right_control", "right_option"]
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "hyper",
+                      "value": 0
                     }
+                  }
+                ],
+                "to_if_alone": [{ "key_code": "escape" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Alt+1 to run Finder.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "1",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /System/Library/CoreServices/Finder.app"
+                  }
                 ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+2 to run Brave Browser.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "2",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Brave Browser.app'"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+3 to run kitty.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "3",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /Applications/kitty.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+4 to run ChatGPT.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "4",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app'"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+5 to run Preview.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "5",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /System/Applications/Preview.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+6 to run Mail.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "6",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /System/Applications/Mail.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+7 to run Reminders.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "7",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /System/Applications/Reminders.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+8 to run Messenger.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "8",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /Applications/Messenger.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+9 to run WhatsApp.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "9",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /Applications/WhatsApp.app"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Alt+0 to run Spotify.app",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "0",
+                  "modifiers": {
+                    "mandatory": ["option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open /Applications/Spotify.app"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "devices": [
+        {
+          "fn_function_keys": [
+            {
+              "from": { "key_code": "f5" },
+              "to": [{ "consumer_key_code": "rewind" }]
             },
-            "devices": [
-                {
-                    "fn_function_keys": [
-                        {
-                            "from": { "key_code": "f5" },
-                            "to": [{ "consumer_key_code": "rewind" }]
-                        },
-                        {
-                            "from": { "key_code": "f6" },
-                            "to": [{ "consumer_key_code": "fast_forward" }]
-                        },
-                        {
-                            "from": { "key_code": "f7" },
-                            "to": [{ "consumer_key_code": "play_or_pause" }]
-                        },
-                        {
-                            "from": { "key_code": "f9" },
-                            "to": [{ "consumer_key_code": "mute" }]
-                        },
-                        {
-                            "from": { "key_code": "f10" },
-                            "to": [{ "consumer_key_code": "volume_decrement" }]
-                        },
-                        {
-                            "from": { "key_code": "f11" },
-                            "to": [{ "consumer_key_code": "volume_increment" }]
-                        }
-                    ],
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 34056,
-                        "vendor_id": 3141
-                    },
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "application" },
-                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
-                        },
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "left_option" }]
-                        },
-                        {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        },
-                        {
-                            "from": { "key_code": "right_option" },
-                            "to": [{ "key_code": "right_command" }]
-                        }
-                    ]
-                }
-            ],
-            "name": "Default profile",
-            "selected": true,
-            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+            {
+              "from": { "key_code": "f6" },
+              "to": [{ "consumer_key_code": "fast_forward" }]
+            },
+            {
+              "from": { "key_code": "f7" },
+              "to": [{ "consumer_key_code": "play_or_pause" }]
+            },
+            {
+              "from": { "key_code": "f9" },
+              "to": [{ "consumer_key_code": "mute" }]
+            },
+            {
+              "from": { "key_code": "f10" },
+              "to": [{ "consumer_key_code": "volume_decrement" }]
+            },
+            {
+              "from": { "key_code": "f11" },
+              "to": [{ "consumer_key_code": "volume_increment" }]
+            }
+          ],
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 34056,
+            "vendor_id": 3141
+          },
+          "simple_modifications": [
+            {
+              "from": { "key_code": "application" },
+              "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+            },
+            {
+              "from": { "key_code": "left_command" },
+              "to": [{ "key_code": "left_option" }]
+            },
+            {
+              "from": { "key_code": "left_option" },
+              "to": [{ "key_code": "left_command" }]
+            },
+            {
+              "from": { "key_code": "right_option" },
+              "to": [{ "key_code": "right_command" }]
+            }
+          ]
         }
-    ]
+      ],
+      "name": "Default profile",
+      "selected": true,
+      "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+    }
+  ]
 }
+
