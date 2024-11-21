@@ -23,6 +23,8 @@ alias sgpt='python3 -m sgpt'
 
 alias s='~/.dotfiles/scripts/tmux-client.sh'
 
+alias monitor='~/.dotfiles/scripts/monitor.sh'
+
 # GIT ALIASES
 alias gs='git status'
 alias gc='git commit'
@@ -32,22 +34,23 @@ alias gaa='git add .'
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
 alias ls='eza --icons=auto'
 
-# CONFIGURE Vi-Mode
-bindkey -v
-export KEYTIMEOUT=1
-function zle-keymap-select {
-  case $KEYMAP in
-    vicmd) echo -ne '\e[1 q' ;; # Block cursor
-    main|viins) echo -ne '\e[6 q' ;; # Vertical bar cursor
-  esac
-}
-
-function zle-line-init {
-  echo -ne '\e[6 q' # Set to vertical bar initially
-}
-
-zle -N zle-keymap-select
-zle -N zle-line-init
+# # CONFIGURE Vi-Mode
+# bindkey -v
+# export KEYTIMEOUT=1
+# function zle-keymap-select {
+#   case $KEYMAP in
+#     vicmd) echo -ne '\e[1 q' ;; # Block cursor
+#     main|viins) echo -ne '\e[6 q' ;; # Vertical bar cursor
+#   esac
+# }
+#
+# function zle-line-init {
+#   echo -ne '\e[6 q' # Set to vertical bar initially
+# }
+#
+# zle -N zle-keymap-select
+# zle -N zle-line-init
+bindkey -e
 
 # FZF
 eval "$(fzf --zsh)"
