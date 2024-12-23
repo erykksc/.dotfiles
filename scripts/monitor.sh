@@ -8,17 +8,33 @@ if [ $? != 0 ]; then
   tmux new-session -d -s monitoring
 
   # Rename the first window and split vertically
-  tmux rename-window -t monitoring:0 "Network"
-  tmux send-keys -t monitoring:0.0 "ping -a 1.1.1.1" C-m
-  tmux split-window -h -t monitoring:0
-  tmux send-keys -t monitoring:0.1 "watch nslookup google.com" C-m
-  tmux split-window -v -t monitoring:0.1
-  tmux send-keys -t monitoring:0.2 "watch -n 60 networkquality" C-m
+  tmux rename-window -t monitoring:1 "Network"
+  tmux send-keys -t monitoring:Network "ping -a 1.1.1.1" C-m
+
+  tmux split-window -h -t monitoring:Network
+  tmux send-keys -t monitoring:Network.2 "watch nslookup google.com" C-m
+
+  tmux split-window -v -t monitoring:Network.2
+  tmux send-keys -t monitoring:Network.3 "watch ifconfig en0" C-m
+
+  tmux split-window -h -t monitoring:Network.3
+  tmux send-keys -t monitoring:Network.4 "watch networkquality" C-m
+
+  tmux split-window -v -t monitoring:Network.4
+  tmux send-keys -t monitoring:Network.5 "watch traceroute onet.pl" C-m
+
+
+
+  #
+  # Set layout to tiled
+  tmux select-layout -t monitoring:Network tiled
 
   # Create a new window and run htop
   tmux new-window -t monitoring -n "System"
-  tmux send-keys -t monitoring:1 "htop" C-m
+  tmux send-keys -t monitoring:System "htop" C-m
 fi
+
+tmux select-window -t monitoring:Network
 
 # Check if already inside a tmux session
 if [ -n "$TMUX" ]; then
@@ -29,5 +45,3 @@ else
   tmux attach -t monitoring
 fi
 
-# Switch to window 0 "Network"
-tmux select-window -t monitoring:0
