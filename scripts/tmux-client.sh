@@ -4,7 +4,13 @@
 if [ -z "$1" ]; then
 	dir_path=$PWD
 else
-	dir_path="$1"
+	# Add current working directory to the dir_path
+	# if the path is relative
+	if [[ "$1" != /* ]]; then
+		dir_path="$PWD/$1"
+	else
+		dir_path="$1"
+	fi
 fi
 
 dir_name=$(basename "$dir_path")
