@@ -44,11 +44,20 @@ fpath=(/opt/homebrew/share/zsh/site-functions $HOME/.nix-profile/share/zsh/site-
 autoload -Uz compinit
 compinit
 
-# ZSH PLUGINS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# PLUGINS
+ZPLUGINDIR=${XDG_DATA_HOME:-$HOME/.local/share}/zsh-plugins
+mkdir -p $ZPLUGINDIR
+
+# zsh-autosuggestions
+if [[ ! -d $ZPLUGINDIR/zsh-autosuggestions ]]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions \
+            $ZPLUGINDIR/zsh-autosuggestions
 fi
+source $ZPLUGINDIR/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+# zsh-syntax-highlighting
+if [[ ! -d $ZPLUGINDIR/zsh-syntax-highlighting ]]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting \
+            $ZPLUGINDIR/zsh-syntax-highlighting
+fi
+source $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
