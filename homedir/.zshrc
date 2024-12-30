@@ -4,11 +4,11 @@ export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export MANPAGER="nvim +Man!"
 
-alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias vim='nvim'
 alias vi='nvim'
@@ -29,7 +29,20 @@ alias gaa='git add .'
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
 alias ls='eza --icons=auto'
 
+# KEYBINDINGS
 bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# HISTORY
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
 
 # FZF
 eval "$(fzf --zsh)"
@@ -40,7 +53,12 @@ export FZF_CTRL_T_OPTS="--bind 'ctrl-d:reload(fd --type d --hidden --strip-cwd-p
 export FZF_ALT_C_COMMAND="fd --type d --hidden ."
 
 # Enable completions
-fpath=(/opt/homebrew/share/zsh/site-functions $HOME/.nix-profile/share/zsh/site-functions $fpath)
+fpath=(
+    /opt/homebrew/share/zsh/site-functions
+    /usr/share/zsh/site-functions
+    /usr/local/share/zsh/site-functions
+    $fpath
+)
 autoload -Uz compinit
 compinit
 
