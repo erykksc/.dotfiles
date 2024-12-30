@@ -32,7 +32,6 @@
             "description": "Alt+1 to run Finder.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "1",
                   "modifiers": {
@@ -44,7 +43,8 @@
                   {
                     "shell_command": "open /System/Library/CoreServices/Finder.app"
                   }
-                ]
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -52,7 +52,6 @@
             "description": "Alt+2 to run Brave Browser.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "2",
                   "modifiers": {
@@ -61,10 +60,9 @@
                   }
                 },
                 "to": [
-                  {
-                    "shell_command": "open '/Applications/Brave Browser.app'"
-                  }
-                ]
+                  { "shell_command": "open '/Applications/Brave Browser.app'" }
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -72,7 +70,6 @@
             "description": "Alt+3 to run kitty.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "3",
                   "modifiers": {
@@ -80,19 +77,15 @@
                     "optional": ["any"]
                   }
                 },
-                "to": [
-                  {
-                    "shell_command": "open /Applications/kitty.app"
-                  }
-                ]
+                "to": [{ "shell_command": "open /Applications/kitty.app" }],
+                "type": "basic"
               }
             ]
           },
           {
-            "description": "Alt+4 to run ChatGPT.app",
+            "description": "Alt+4 to open AI chat",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "4",
                   "modifiers": {
@@ -102,9 +95,10 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open '/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app'"
+                    "shell_command": "open -a '/Applications/Perplexity.app'"
                   }
-                ]
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -112,7 +106,6 @@
             "description": "Alt+5 to run Preview.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "5",
                   "modifiers": {
@@ -121,10 +114,9 @@
                   }
                 },
                 "to": [
-                  {
-                    "shell_command": "open /System/Applications/Preview.app"
-                  }
-                ]
+                  { "shell_command": "open /System/Applications/Preview.app" }
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -132,7 +124,6 @@
             "description": "Alt+6 to run Mail.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "6",
                   "modifiers": {
@@ -141,10 +132,9 @@
                   }
                 },
                 "to": [
-                  {
-                    "shell_command": "open /System/Applications/Mail.app"
-                  }
-                ]
+                  { "shell_command": "open /System/Applications/Mail.app" }
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -152,7 +142,6 @@
             "description": "Alt+7 to run Reminders.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "7",
                   "modifiers": {
@@ -161,10 +150,9 @@
                   }
                 },
                 "to": [
-                  {
-                    "shell_command": "open /System/Applications/Reminders.app"
-                  }
-                ]
+                  { "shell_command": "open /System/Applications/Reminders.app" }
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -172,7 +160,6 @@
             "description": "Alt+8 to run Messenger.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "8",
                   "modifiers": {
@@ -180,11 +167,8 @@
                     "optional": ["any"]
                   }
                 },
-                "to": [
-                  {
-                    "shell_command": "open /Applications/Messenger.app"
-                  }
-                ]
+                "to": [{ "shell_command": "open /Applications/Messenger.app" }],
+                "type": "basic"
               }
             ]
           },
@@ -192,7 +176,6 @@
             "description": "Alt+9 to run WhatsApp.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "9",
                   "modifiers": {
@@ -200,11 +183,8 @@
                     "optional": ["any"]
                   }
                 },
-                "to": [
-                  {
-                    "shell_command": "open /Applications/WhatsApp.app"
-                  }
-                ]
+                "to": [{ "shell_command": "open /Applications/WhatsApp.app" }],
+                "type": "basic"
               }
             ]
           },
@@ -212,7 +192,6 @@
             "description": "Alt+0 to run Spotify.app",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
                   "key_code": "0",
                   "modifiers": {
@@ -220,11 +199,8 @@
                     "optional": ["any"]
                   }
                 },
-                "to": [
-                  {
-                    "shell_command": "open /Applications/Spotify.app"
-                  }
-                ]
+                "to": [{ "shell_command": "open /Applications/Spotify.app" }],
+                "type": "basic"
               }
             ]
           }
@@ -281,6 +257,31 @@
               "to": [{ "key_code": "right_command" }]
             }
           ]
+        },
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 8454,
+            "vendor_id": 16700
+          },
+          "simple_modifications": [
+            {
+              "from": { "key_code": "left_command" },
+              "to": [{ "key_code": "left_option" }]
+            },
+            {
+              "from": { "key_code": "left_option" },
+              "to": [{ "key_code": "left_command" }]
+            },
+            {
+              "from": { "key_code": "right_option" },
+              "to": [{ "key_code": "right_command" }]
+            },
+            {
+              "from": { "key_code": "right_command" },
+              "to": [{ "key_code": "right_option" }]
+            }
+          ]
         }
       ],
       "name": "Default profile",
@@ -289,4 +290,3 @@
     }
   ]
 }
-
