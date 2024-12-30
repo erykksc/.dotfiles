@@ -66,7 +66,16 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
-vim.keymap.set("n", "<leader>et", "<CMD>Explore .<CR>")
+-- Explorer toggle - checks if in netrw
+-- vim.keymap.set("n", "<leader>et", "<CMD>Explore .<CR>")
+vim.keymap.set("n", "<leader>et", function()
+	if vim.bo.filetype == "netrw" then
+		vim.cmd("Rex")
+	else
+		vim.cmd("Explore .")
+	end
+end)
+
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>")
 
 -- greatest remap ever
