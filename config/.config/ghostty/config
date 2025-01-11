@@ -1,0 +1,12 @@
+cursor-style = block
+
+theme = tokyonight_moon
+theme = light:Github,dark:tokyonight_moon
+
+font-family = FiraCode Nerd Font Mono
+font-size = 13
+
+# MacOS specific features
+macos-option-as-alt = true
+macos-titlebar-proxy-icon = hidden
+font-thicken = true
