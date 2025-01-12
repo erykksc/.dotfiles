@@ -1,13 +1,29 @@
 return {
 	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			style = "moon",
+			transparent = false,
+			terminal_colors = true,
+			styles = {
+				comments = { italic = false },
+				keywords = { italic = false },
+				sidebars = "dark",
+				floats = "dark",
+			},
+		},
+		config = function()
+			vim.cmd("colorscheme tokyonight")
+		end,
+	},
+
+	{
 		"projekt0n/github-nvim-theme",
 	},
 	{
 		"rebelot/kanagawa.nvim",
-		priority = 1000, -- Ensure it loads first
-		config = function()
-			vim.cmd("colorscheme kanagawa")
-		end,
 	},
 	{
 		"olimorris/onedarkpro.nvim",
@@ -19,11 +35,11 @@ return {
 		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
-				vim.cmd("colorscheme kanagawa")
-				vim.opt.background = "dark"
+				vim.cmd("colorscheme tokyonight-moon")
+				-- vim.opt.background = "dark"
 			end,
 			set_light_mode = function()
-				vim.cmd("colorscheme github_light")
+				vim.cmd("colorscheme tokyonight-day")
 				-- vim.opt.background = "light"
 			end,
 		},
