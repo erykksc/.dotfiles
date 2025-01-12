@@ -167,5 +167,8 @@ return { -- LSP Configuration & Plugins
 				end,
 			},
 		})
+
+		-- Add support for gdscript
+		require("lspconfig").gdscript.setup(capabilities)
 	end,
 }
