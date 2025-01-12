@@ -11,6 +11,7 @@ return {
 			auto_install = true,
 			highlight = {
 				enable = true,
+				disable = { "latex", "bibtex" },
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
 				--  If you are experiencing weird indenting issues, add the language to
 				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -22,10 +23,10 @@ return {
 					enable = true,
 					border = "none",
 					floating_preview_opts = {},
-					peek_definition_code = {
-						["<leader>pf"] = "@function.outer",
-						["<leader>pc"] = "@class.outer",
-					},
+					-- peek_definition_code = {
+					-- 	["<leader>pf"] = "@function.outer",
+					-- 	["<leader>pc"] = "@class.outer",
+					-- },
 				},
 				select = {
 					enable = true,
