@@ -96,6 +96,13 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 
+-- Listen to a godot host file
+-- This makes the nvim jump to correct line and file when file chosen in godot editor
+local projectfile = vim.fn.getcwd() .. "/project.godot"
+if vim.fn.filereadable(projectfile) == 1 then
+	vim.fn.serverstart("./godothost")
+end
+
 -- Install Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
