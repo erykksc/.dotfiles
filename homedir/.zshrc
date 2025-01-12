@@ -45,7 +45,8 @@ setopt hist_ignore_space
 setopt hist_ignore_all_dups
 
 # FZF
-eval "$(fzf --zsh)"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --strip-cwd-prefix'
