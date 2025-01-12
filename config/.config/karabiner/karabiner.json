@@ -5,25 +5,28 @@
         "parameters": { "basic.to_if_alone_timeout_milliseconds": 500 },
         "rules": [
           {
-            "description": "Caps Lock → Hyper Key (⌃⌥⌘) | Escape if alone | Use fn + caps lock to enable caps lock",
+            "description": "Caps Lock → left_control | Escape if alone",
             "manipulators": [
               {
                 "from": { "key_code": "caps_lock" },
+                "to": [{ "key_code": "left_control" }],
+                "to_if_alone": [{ "key_code": "escape" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Tab  → Meh Key (⌃⌥⌘) | Tab if alone",
+            "manipulators": [
+              {
+                "from": { "key_code": "tab" },
                 "to": [
                   {
                     "key_code": "right_command",
                     "modifiers": ["right_control", "right_option"]
                   }
                 ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "hyper",
-                      "value": 0
-                    }
-                  }
-                ],
-                "to_if_alone": [{ "key_code": "escape" }],
+                "to_if_alone": [{ "key_code": "tab" }],
                 "type": "basic"
               }
             ]
@@ -35,8 +38,7 @@
                 "from": {
                   "key_code": "1",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
@@ -55,8 +57,7 @@
                 "from": {
                   "key_code": "2",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
@@ -73,11 +74,10 @@
                 "from": {
                   "key_code": "3",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
-                "to": [{ "shell_command": "open /Applications/kitty.app" }],
+                "to": [{ "shell_command": "open /Applications/Ghostty.app" }],
                 "type": "basic"
               }
             ]
@@ -89,13 +89,12 @@
                 "from": {
                   "key_code": "4",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
                   {
-                    "shell_command": "open -a '/Applications/Perplexity.app'"
+                    "shell_command": "open -a '/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app'"
                   }
                 ],
                 "type": "basic"
@@ -109,8 +108,7 @@
                 "from": {
                   "key_code": "5",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
@@ -127,8 +125,7 @@
                 "from": {
                   "key_code": "6",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
@@ -145,8 +142,7 @@
                 "from": {
                   "key_code": "7",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [
@@ -163,8 +159,7 @@
                 "from": {
                   "key_code": "8",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Messenger.app" }],
@@ -179,8 +174,7 @@
                 "from": {
                   "key_code": "9",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/WhatsApp.app" }],
@@ -195,11 +189,55 @@
                 "from": {
                   "key_code": "0",
                   "modifiers": {
-                    "mandatory": ["option"],
-                    "optional": ["any"]
+                    "mandatory": ["option"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Spotify.app" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "hyper+g to run godot.app",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [{ "shell_command": "open /Applications/Godot.app" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "hyper+s to run skim.app",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [{ "shell_command": "open /Applications/Skim.app" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "hyper+v to run vial.app",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [{ "shell_command": "open /Applications/Vial.app" }],
                 "type": "basic"
               }
             ]
@@ -274,12 +312,12 @@
               "to": [{ "key_code": "left_command" }]
             },
             {
-              "from": { "key_code": "right_option" },
-              "to": [{ "key_code": "right_command" }]
-            },
-            {
               "from": { "key_code": "right_command" },
               "to": [{ "key_code": "right_option" }]
+            },
+            {
+              "from": { "key_code": "right_option" },
+              "to": [{ "key_code": "right_command" }]
             }
           ]
         }
@@ -290,3 +328,4 @@
     }
   ]
 }
+
