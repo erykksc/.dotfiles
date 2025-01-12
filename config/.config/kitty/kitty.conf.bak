@@ -6,8 +6,11 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
+
 # font_family      ComicShannsMono Nerd Font Mono
-font_family      SF Mono
+# font_family      Liga SFMono Nerd Font
+font_family      Helvetica Neue
+# font_family      SF Mono
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -2533,6 +2536,6 @@ map kitty_mod+f5 load_config_file
 #: }}}
 
 # BEGIN_KITTY_THEME
-# Atom One Light
+# OneDark-Pro
 include current-theme.conf
 # END_KITTY_THEME
