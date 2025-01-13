@@ -1,6 +1,6 @@
 cursor-style = block
 
-theme = light:tokyonight-day,dark:tokyonight_moon
+theme = light:Github,dark:Github Dark
 
 font-family = FiraCode Nerd Font Mono
 font-size = 13
