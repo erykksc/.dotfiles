@@ -7,7 +7,7 @@ export MANPAGER="nvim +Man!"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias bh='bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias vim='nvim'
