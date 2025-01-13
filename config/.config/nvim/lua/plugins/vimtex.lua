@@ -5,6 +5,10 @@ return {
 	init = function()
 		-- VimTeX configuration goes here, e.g.
 		vim.g.vimtex_view_method = "skim"
-		vim.g.maplocalleader = ","
+		-- vim.g.maplocalleader = ","
+		vim.g.vimtex_compiler_latexmk = {
+			build_dir = "out",
+			aux_dir = "aux", -- create a directory called aux that will contain all the auxiliary files
+		}
 	end,
 }
