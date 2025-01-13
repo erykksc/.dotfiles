@@ -19,8 +19,9 @@ return {
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, { desc = "Toggle Harpoon quick menu" })
 
-		for i = 1, 9 do
-			vim.keymap.set("n", "<space>" .. i, function()
+		local keys = { "a", "s", "d", "f", "g" }
+		for i, key in ipairs(keys) do
+			vim.keymap.set("n", "<M-" .. key .. ">", function()
 				harpoon:list():select(i)
 			end, { desc = "Select Harpoon file " .. i })
 		end
