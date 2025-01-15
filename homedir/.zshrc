@@ -31,8 +31,6 @@ alias ls='eza --icons=auto'
 
 # KEYBINDINGS
 bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
 
 # HISTORY
 HISTSIZE=5000
