@@ -86,7 +86,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a '/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app'"
+                    "shell_command": "open -a '/Applications/chatbox.app'"
                   }
                 ],
                 "type": "basic"
@@ -422,4 +422,3 @@
     }
   ]
 }
-
