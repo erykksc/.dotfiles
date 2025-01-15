@@ -143,7 +143,7 @@ return { -- LSP Configuration & Plugins
 		-- Ensure the servers and tools above are installed
 		require("mason").setup()
 
-		-- Make mason install tools
+		-- Make mason-tool-installer install tools
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
@@ -156,6 +156,8 @@ return { -- LSP Configuration & Plugins
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			ensure_installed = {},
+			automatic_installation = false,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
