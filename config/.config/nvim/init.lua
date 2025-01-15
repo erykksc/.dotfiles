@@ -48,9 +48,9 @@ vim.opt.scrolloff = 8
 -- Disable line wrapping
 vim.opt.wrap = false
 
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 0
--- vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 0
+vim.o.shiftwidth = 4
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
