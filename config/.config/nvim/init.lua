@@ -25,6 +25,8 @@ vim.opt.smartcase = true
 
 vim.opt.signcolumn = "yes"
 
+vim.opt.colorcolumn = "+1"
+
 -- Decrease update time
 vim.opt.updatetime = 250
 
