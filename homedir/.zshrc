@@ -27,6 +27,8 @@ alias gdv='git diff | vim'
 alias gl='git log'
 alias ga='git add'
 alias gaa='git add .'
+alias gd='git diff'
+
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
 alias ls='eza --icons=auto'
 
