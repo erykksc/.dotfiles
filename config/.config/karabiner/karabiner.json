@@ -32,7 +32,7 @@
             ]
           },
           {
-            "description": "Alt+1 to run Finder.app",
+            "description": "Alt+{num} to run Applications",
             "manipulators": [
               {
                 "from": {
@@ -45,12 +45,7 @@
                   }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+2 to run Brave Browser.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "2",
@@ -60,12 +55,7 @@
                   { "shell_command": "open '/Applications/Brave Browser.app'" }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+3 to run kitty.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "3",
@@ -73,29 +63,17 @@
                 },
                 "to": [{ "shell_command": "open /Applications/Ghostty.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+4 to open AI chat",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "4",
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  {
-                    "shell_command": "open -a '/Applications/chatbox.app'"
-                  }
+                  { "shell_command": "open -a '/Applications/chatbox.app'" }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+5 to run Preview.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "5",
@@ -105,12 +83,7 @@
                   { "shell_command": "open /System/Applications/Preview.app" }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+6 to run Mail.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "6",
@@ -120,12 +93,7 @@
                   { "shell_command": "open /System/Applications/Mail.app" }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+7 to run Reminders.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "7",
@@ -135,12 +103,7 @@
                   { "shell_command": "open /System/Applications/Reminders.app" }
                 ],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+8 to run Messenger.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "8",
@@ -148,12 +111,7 @@
                 },
                 "to": [{ "shell_command": "open /Applications/Messenger.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+9 to run WhatsApp.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "9",
@@ -161,12 +119,7 @@
                 },
                 "to": [{ "shell_command": "open /Applications/WhatsApp.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Alt+0 to run Spotify.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "0",
@@ -178,23 +131,18 @@
             ]
           },
           {
-            "description": "hyper+g to run godot.app",
+            "description": "Hyper+{key} to run application",
             "manipulators": [
               {
                 "from": {
-                  "key_code": "g",
+                  "key_code": "e",
                   "modifiers": {
                     "mandatory": ["control", "option", "command", "shift"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Godot.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "hyper+s to run skim.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "s",
@@ -204,12 +152,7 @@
                 },
                 "to": [{ "shell_command": "open /Applications/Skim.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "hyper+v to run vial.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "v",
@@ -219,12 +162,7 @@
                 },
                 "to": [{ "shell_command": "open /Applications/Vial.app" }],
                 "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "hyper+c to run claude.app",
-            "manipulators": [
+              },
               {
                 "from": {
                   "key_code": "c",
