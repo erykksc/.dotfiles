@@ -36,7 +36,7 @@ return {
 			{ "<leader>ae", "<cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "[A]sk to [E]xplain" },
 			{
 				"<leader>ac",
-				"<cmd>CopilotChatCommitStaged<CR>",
+				"<cmd>CopilotChatCommit<CR>",
 				mode = { "n", "x" },
 				desc = "[A]sk for [C]ommit Message of Staged",
 			},
