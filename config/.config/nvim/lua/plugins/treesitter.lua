@@ -35,6 +35,8 @@ return {
 						["af"] = "@function.outer",
 						["ia"] = "@parameter.inner",
 						["aa"] = "@parameter.outer",
+						["ic"] = "@class.inner",
+						["ac"] = "@class.outer",
 					},
 					selection_modes = {
 						-- ["@parameter.outer"] = "v", -- charwise
