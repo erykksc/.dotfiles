@@ -7,6 +7,9 @@ symbol = " "
 [c]
 symbol = " "
 
+[cmake]
+symbol = " "
+
 [conda]
 symbol = " "
 
@@ -38,6 +41,9 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+
+[git_commit]
+tag_symbol = '  '
 
 [golang]
 symbol = " "
@@ -80,6 +86,7 @@ symbol = "󰆥 "
 
 [nix_shell]
 symbol = " "
+heuristic = true
 
 [nodejs]
 symbol = " "
@@ -95,6 +102,7 @@ Amazon = " "
 Android = " "
 Arch = " "
 Artix = " "
+CachyOS = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -116,6 +124,7 @@ MidnightBSD = " "
 Mint = " "
 NetBSD = " "
 NixOS = " "
+Nobara = " "
 OpenBSD = "󰈺 "
 openSUSE = " "
 OracleLinux = "󰌷 "
@@ -154,7 +163,7 @@ symbol = "󰟔 "
 symbol = " "
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
 
 [scala]
 symbol = " "
@@ -164,3 +173,6 @@ symbol = " "
 
 [zig]
 symbol = " "
+
+[gradle]
+symbol = " "
