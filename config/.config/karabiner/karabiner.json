@@ -262,6 +262,20 @@
                   }
                 ],
                 "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/WireGuard.app'"
+                  }
+                ],
+                "type": "basic"
               }
             ]
           }
