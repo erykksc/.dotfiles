@@ -3,7 +3,7 @@ return {
 	event = "VeryLazy",
 	opts = {
 		hint_enable = false,
-		floating_window = true,
+		floating_window = false,
 		handler_opts = {
 			border = "single", -- double, rounded, single, shadow, none, or a table of borders
 		},
