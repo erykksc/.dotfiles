@@ -1,11 +1,9 @@
-cursor-style = block
+theme = GitHub-Dark-Default
 
-theme = light:Github,dark:Github Dark
-
-font-family = FiraCode Nerd Font Mono
 font-size = 13
 
 # MacOS specific features
 macos-option-as-alt = true
 macos-titlebar-proxy-icon = hidden
-font-thicken = true
+font-thicken = false
+quit-after-last-window-closed = true
