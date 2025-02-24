@@ -30,7 +30,7 @@ alias gaa='git add .'
 alias gd='git diff'
 
 alias tupdate='~/.dotfiles/scripts/theme-update.sh'
-alias ls='eza --icons=auto'
+alias l='eza --git'
 
 # KEYBINDINGS
 bindkey -e
@@ -63,6 +63,8 @@ fpath=(
 )
 autoload -Uz compinit
 compinit
+
+eval "$(direnv hook zsh)"
 
 # PLUGINS
 ZPLUGINDIR=${XDG_DATA_HOME:-$HOME/.local/share}/zsh-plugins
