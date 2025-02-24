@@ -121,6 +121,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	rocks = {
+		enabled = false, -- Disable LuaRocks support entirely
+	},
 	spec = {
 		-- import your plugins
 		{ import = "plugins" },
