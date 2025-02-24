@@ -87,6 +87,7 @@ symbol = "󰆥 "
 [nix_shell]
 symbol = " "
 heuristic = true
+format = "via [$symbol$state]($style) "
 
 [nodejs]
 symbol = " "
