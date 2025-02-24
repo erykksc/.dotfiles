@@ -13,41 +13,41 @@
       # Necessary if using determinate system installer of nix
       nix.enable = false;
 
-      environment.systemPackages = with pkgs; [
-        bat
-        eza
-        fzf
-        gh
-        git-lfs
-        htop
-        mosh
-        neovim
-        ripgrep
-        starship
-        tlrc
-        tmux
-        watch
-        wget
-        yazi
+      environment.systemPackages = with pkgs; [ ];
+
+      homebrew.enable = true;
+
+      homebrew.brews = [
+        "bat"
+        "direnv"
+        "eza"
+        "fzf"
+        "gh"
+        "git-lfs"
+        "htop"
+        "mosh"
+        "neovim"
+        "node"
+        "ripgrep"
+        "starship"
+        "tlrc"
+        "tmux"
+        "watch"
+        "wget"
+        "yazi"
       ];
 
       homebrew.casks = [
         "anki"
         "audacity"
         "background-music"
-        "brave-browser"
-        "calibre"
         "chatbox"
         "claude"
-        "cursor"
         "db-browser-for-sqlite"
         "discord"
         "docker"
-        "font-fira-code-nerd-font"
-        "foxitreader"
         "ghostty"
         "gimp"
-        "godot"
         "handbrake"
         "hiddenbar"
         "homerow"
@@ -80,13 +80,12 @@
         "AusweisApp" = 948660805;
         "Bitwarden" = 1352778147;
         "Magnet" = 441258766;
-        "Vinegar" = 1591303229;
         "WireGuard" = 1451685025;
       };
 
 
-      system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
-      system.defaults.NSGlobalDomain.KeyRepeat = 1;
+      system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
+      system.defaults.NSGlobalDomain.KeyRepeat = 2;
 
       system.defaults.dock.autohide = true;
       system.defaults.dock.mru-spaces = false;
