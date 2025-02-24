@@ -92,30 +92,14 @@
             ]
           },
           {
-            "description": "' → hyper key | ' if alone",
-            "manipulators": [
-              {
-                "from": { "key_code": "quote" },
-                "to": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": ["left_command", "left_option", "left_shift"]
-                  }
-                ],
-                "to_if_alone": [{ "key_code": "quote" }],
-                "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Tab  → Meh Key (⌃⌥⌘) | Tab if alone",
+            "description": "Tab  → Hyper Key (⌃⌥⌘) | Tab if alone",
             "manipulators": [
               {
                 "from": { "key_code": "tab" },
                 "to": [
                   {
-                    "key_code": "right_command",
-                    "modifiers": ["right_control", "right_option"]
+                    "key_code": "left_control",
+                    "modifiers": ["left_command", "left_option", "left_shift"]
                   }
                 ],
                 "to_if_alone": [{ "key_code": "tab" }],
@@ -144,7 +128,7 @@
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  { "shell_command": "open '/Applications/Brave Browser.app'" }
+                  { "shell_command": "open -a '/Applications/chatbox.app'" }
                 ],
                 "type": "basic"
               },
@@ -162,7 +146,7 @@
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  { "shell_command": "open -a '/Applications/chatbox.app'" }
+                  { "shell_command": "open '/Applications/Brave Browser.app'" }
                 ],
                 "type": "basic"
               },
@@ -182,7 +166,7 @@
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  { "shell_command": "open /System/Applications/Mail.app" }
+                  { "shell_command": "open /System/Applications/Reminders.app" }
                 ],
                 "type": "basic"
               },
@@ -192,7 +176,7 @@
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  { "shell_command": "open /System/Applications/Reminders.app" }
+                  { "shell_command": "open /System/Applications/Mail.app" }
                 ],
                 "type": "basic"
               },
@@ -247,7 +231,7 @@
                   }
                 },
                 "to": [
-                  { "shell_command": "open '/Applications/Brave Browser.app'" }
+                  { "shell_command": "open -a '/Applications/chatbox.app'" }
                 ],
                 "type": "basic"
               },
@@ -269,7 +253,7 @@
                   }
                 },
                 "to": [
-                  { "shell_command": "open -a '/Applications/chatbox.app'" }
+                  { "shell_command": "open '/Applications/Brave Browser.app'" }
                 ],
                 "type": "basic"
               },
@@ -341,42 +325,12 @@
               },
               {
                 "from": {
-                  "key_code": "e",
-                  "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
-                  }
-                },
-                "to": [{ "shell_command": "open /Applications/Godot.app" }],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "s",
-                  "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
-                  }
-                },
-                "to": [{ "shell_command": "open /Applications/Skim.app" }],
-                "type": "basic"
-              },
-              {
-                "from": {
                   "key_code": "v",
                   "modifiers": {
                     "mandatory": ["control", "option", "command", "shift"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Vial.app" }],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
-                  }
-                },
-                "to": [{ "shell_command": "open /Applications/Claude.app" }],
                 "type": "basic"
               },
               {
@@ -395,7 +349,7 @@
               },
               {
                 "from": {
-                  "key_code": "w",
+                  "key_code": "n",
                   "modifiers": {
                     "mandatory": ["control", "option", "command", "shift"]
                   }
