@@ -92,14 +92,14 @@
             ]
           },
           {
-            "description": "Tab  → Hyper Key (⌃⌥⌘) | Tab if alone",
+            "description": "Tab  → Meh Key (⌃⌥⌘) | Tab if alone",
             "manipulators": [
               {
                 "from": { "key_code": "tab" },
                 "to": [
                   {
                     "key_code": "left_control",
-                    "modifiers": ["left_command", "left_option", "left_shift"]
+                    "modifiers": ["left_command", "left_option"]
                   }
                 ],
                 "to_if_alone": [{ "key_code": "tab" }],
@@ -207,13 +207,13 @@
             ]
           },
           {
-            "description": "Hyper+{key} to run application",
+            "description": "Meh+{key} to run application",
             "manipulators": [
               {
                 "from": {
                   "key_code": "a",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -227,7 +227,7 @@
                 "from": {
                   "key_code": "s",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -239,7 +239,7 @@
                 "from": {
                   "key_code": "d",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Ghostty.app" }],
@@ -249,7 +249,7 @@
                 "from": {
                   "key_code": "f",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -261,7 +261,7 @@
                 "from": {
                   "key_code": "g",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -273,7 +273,7 @@
                 "from": {
                   "key_code": "h",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -285,7 +285,7 @@
                 "from": {
                   "key_code": "j",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -297,7 +297,7 @@
                 "from": {
                   "key_code": "k",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Messenger.app" }],
@@ -307,7 +307,7 @@
                 "from": {
                   "key_code": "l",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/WhatsApp.app" }],
@@ -317,7 +317,7 @@
                 "from": {
                   "key_code": "semicolon",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Spotify.app" }],
@@ -327,7 +327,7 @@
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Vial.app" }],
@@ -335,9 +335,51 @@
               },
               {
                 "from": {
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Xcode.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Users/erykksc/Applications/Brave Browser Apps.localized/Google Maps.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
                   "key_code": "u",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -349,9 +391,23 @@
               },
               {
                 "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/System/Applications/Calendar.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
                   "key_code": "n",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
@@ -365,7 +421,7 @@
                 "from": {
                   "key_code": "i",
                   "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
+                    "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [
