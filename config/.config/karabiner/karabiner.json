@@ -377,7 +377,21 @@
               },
               {
                 "from": {
-                  "key_code": "u",
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Discord.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "comma",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -422,6 +436,20 @@
                   "key_code": "i",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Inkscape.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "i",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
                   }
                 },
                 "to": [
