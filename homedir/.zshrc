@@ -64,6 +64,11 @@ fpath=(
 autoload -Uz compinit
 compinit
 
+# Add keybind to edit prompt in the editor
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 eval "$(direnv hook zsh)"
 
 # PLUGINS
