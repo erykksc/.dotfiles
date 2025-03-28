@@ -1,119 +1,41 @@
 {
-  description = "Erykksc's nix-darwin system flake";
+  description = "An empty flake template that you can adapt to your own environment";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-  };
+  # Flake inputs
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
-  let
-    configuration = { pkgs, ... }: {
-      # Necessary if using determinate system installer of nix
-      nix.enable = false;
-
-      environment.systemPackages = with pkgs; [ ];
-
-      homebrew.enable = true;
-
-      homebrew.brews = [
-        "bat"
-        "direnv"
-        "eza"
-        "fzf"
-        "gh"
-        "git-lfs"
-        "htop"
-        "mosh"
-        "neovim"
-        "node"
-        "ripgrep"
-        "starship"
-        "tlrc"
-        "tmux"
-        "watch"
-        "wget"
-        "yazi"
+  # Flake outputs
+  outputs = { self, nixpkgs }:
+    let
+      # The systems supported for this flake
+      supportedSystems = [
+        "x86_64-linux" # 64-bit Intel/AMD Linux
+        "aarch64-linux" # 64-bit ARM Linux
+        "x86_64-darwin" # 64-bit Intel macOS
+        "aarch64-darwin" # 64-bit ARM macOS
       ];
 
-      homebrew.casks = [
-        "anki"
-        "audacity"
-        "background-music"
-        "chatbox"
-        "claude"
-        "db-browser-for-sqlite"
-        "discord"
-        "docker"
-        "ghostty"
-        "gimp"
-        "handbrake"
-        "hiddenbar"
-        "homerow"
-        "karabiner-elements"
-        "keyboardcleantool"
-        "libreoffice"
-        "mac-mouse-fix"
-        "mactex-no-gui"
-        "messenger"
-        "netdownloadhelpercoapp"
-        "qlvideo"
-        "raycast"
-        "skim"
-        "slack"
-        "spotify"
-        "steam"
-        "synology-drive"
-        "syntax-highlight"
-        "telegram"
-        "vial"
-        "vlc"
-        "webpquicklook"
-        "whatsapp"
-        "windows-app"
-        "wireshark"
-        "zoom"
-      ];
+      # Helper to provide system-specific attributes
+      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+        pkgs = import nixpkgs { inherit system; };
+      });
+    in
+    {
+      devShells = forEachSupportedSystem ({ pkgs }: {
+        default = pkgs.mkShell {
+          # The Nix packages provided in the environment
+          # Add any you need here
+          packages = with pkgs; [
+            stow
+          ];
 
-      homebrew.masApps = {
-        "AusweisApp" = 948660805;
-        "Bitwarden" = 1352778147;
-        "Magnet" = 441258766;
-        "WireGuard" = 1451685025;
-      };
+          # Set any environment variables for your dev shell
+          env = { };
 
-
-      system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
-      system.defaults.NSGlobalDomain.KeyRepeat = 2;
-
-      system.defaults.dock.autohide = true;
-      system.defaults.dock.mru-spaces = false;
-
-      system.defaults.finder.AppleShowAllExtensions = true;
-
-      system.defaults.trackpad.Clicking = true;
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 6;
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+          # Add any shell logic you want executed any time the environment is activated
+          shellHook = ''
+          '';
+        };
+      });
     };
-  in
-  {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#eryk-macbook
-    darwinConfigurations."eryk-macbook" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
-    };
-  };
 }
