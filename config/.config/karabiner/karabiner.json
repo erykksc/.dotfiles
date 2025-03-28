@@ -127,9 +127,7 @@
                   "key_code": "2",
                   "modifiers": { "mandatory": ["option"] }
                 },
-                "to": [
-                  { "shell_command": "open -a '/Applications/chatbox.app'" }
-                ],
+                "to": [{ "shell_command": "open '/Applications/chatbox.app'" }],
                 "type": "basic"
               },
               {
@@ -146,7 +144,7 @@
                   "modifiers": { "mandatory": ["option"] }
                 },
                 "to": [
-                  { "shell_command": "open '/Applications/Brave Browser.app'" }
+                  { "shell_command": "open '/Applications/Zen Browser.app'" }
                 ],
                 "type": "basic"
               },
@@ -207,11 +205,11 @@
             ]
           },
           {
-            "description": "Meh+{key} to run application",
+            "description": "Meh+{key} to open application",
             "manipulators": [
               {
                 "from": {
-                  "key_code": "a",
+                  "key_code": "s",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -225,7 +223,7 @@
               },
               {
                 "from": {
-                  "key_code": "s",
+                  "key_code": "r",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -252,9 +250,7 @@
                     "mandatory": ["control", "option", "command"]
                   }
                 },
-                "to": [
-                  { "shell_command": "open '/Applications/Brave Browser.app'" }
-                ],
+                "to": [{ "shell_command": "open '/Applications/Safari.app'" }],
                 "type": "basic"
               },
               {
@@ -283,7 +279,7 @@
               },
               {
                 "from": {
-                  "key_code": "j",
+                  "key_code": "e",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -295,7 +291,7 @@
               },
               {
                 "from": {
-                  "key_code": "k",
+                  "key_code": "b",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -305,7 +301,7 @@
               },
               {
                 "from": {
-                  "key_code": "l",
+                  "key_code": "v",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
@@ -315,22 +311,12 @@
               },
               {
                 "from": {
-                  "key_code": "semicolon",
+                  "key_code": "q",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
                   }
                 },
                 "to": [{ "shell_command": "open /Applications/Spotify.app" }],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "v",
-                  "modifiers": {
-                    "mandatory": ["control", "option", "command"]
-                  }
-                },
-                "to": [{ "shell_command": "open /Applications/Vial.app" }],
                 "type": "basic"
               },
               {
@@ -377,20 +363,6 @@
               },
               {
                 "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "mandatory": ["control", "option", "command", "shift"]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open '/Applications/Discord.app'"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
                   "key_code": "comma",
                   "modifiers": {
                     "mandatory": ["control", "option", "command"]
@@ -426,7 +398,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open '/Applications/WireGuard.app'"
+                    "shell_command": "open '/System/Applications/Notes.app'"
                   }
                 ],
                 "type": "basic"
@@ -444,6 +416,21 @@
                   }
                 ],
                 "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Hyper+{key} to open application",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [{ "shell_command": "open /Applications/Vial.app" }],
+                "type": "basic"
               },
               {
                 "from": {
@@ -455,6 +442,34 @@
                 "to": [
                   {
                     "shell_command": "open '/Users/erykksc/Applications/Instagram.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/WireGuard.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": ["control", "option", "command", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open '/Applications/Discord.app'"
                   }
                 ],
                 "type": "basic"
