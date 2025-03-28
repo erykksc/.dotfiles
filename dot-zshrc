@@ -1,4 +1,8 @@
+#!/usr/bin/env zsh
 eval "$(starship init zsh)"
+
+# Add own scripts to path
+export PATH="$PATH:$HOME/scripts"
 
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
@@ -18,7 +22,6 @@ alias vc='nvim .'
 alias y='yazi'
 alias sgpt='python3 -m sgpt'
 alias s='~/.dotfiles/scripts/tmux-client.sh'
-alias monitor='~/.dotfiles/scripts/monitor.sh'
 
 # GIT ALIASES
 alias gs='git status'
