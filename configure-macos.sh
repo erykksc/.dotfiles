@@ -67,7 +67,4 @@ for APP_ID in "${APP_IDS[@]}"; do
 done
 mas upgrade
 
-wait
-
-
 echo "Installation complete!"
