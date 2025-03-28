@@ -1,0 +1,14 @@
+--dotfiles
+--ignore=.direnv
+--ignore=.envrc
+--ignore=.git
+--ignore=.gitignore
+--ignore=.gitmodules
+--ignore=.stowrc
+--ignore=Brewfile
+--ignore=Brewfile.lock.json
+--ignore=README.md
+--ignore=configure-dotfiles.sh
+--ignore=configure-macos.sh
+--ignore=flake.lock
+--ignore=flake.nix
