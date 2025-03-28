@@ -9,3 +9,4 @@ config/.config/tmux/plugins/
 config/.config/karabiner/automatic_backups/
 config/.config/chatreply/
 config/.config/raycast/extensions/
+config/.config/swiftpm/
