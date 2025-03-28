@@ -1,33 +1,44 @@
 return {
-	{
-		"folke/tokyonight.nvim",
-		-- lazy = false,
-		-- priority = 1000,
-		-- opts = {
-		-- 	style = "moon",
-		-- 	transparent = false,
-		-- 	terminal_colors = true,
-		-- 	styles = {
-		-- 		comments = { italic = false },
-		-- 		keywords = { italic = false },
-		-- 		sidebars = "dark",
-		-- 		floats = "dark",
-		-- 	},
-		-- },
-		-- config = function()
-		-- 	vim.cmd("colorscheme tokyonight")
-		-- end,
-	},
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- lazy = false,
+	-- priority = 1000,
+	-- opts = {
+	-- 	style = "moon",
+	-- 	transparent = false,
+	-- 	terminal_colors = true,
+	-- 	styles = {
+	-- 		comments = { italic = false },
+	-- 		keywords = { italic = false },
+	-- 		sidebars = "dark",
+	-- 		floats = "dark",
+	-- 	},
+	-- },
+	-- config = function()
+	-- 	vim.cmd("colorscheme tokyonight")
+	-- end,
+	-- },
 
 	{
 		"projekt0n/github-nvim-theme",
 		priority = 1000,
 	},
+
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- },
+
+	-- {
+	-- 	"olimorris/onedarkpro.nvim",
+	-- },
+
 	{
-		"rebelot/kanagawa.nvim",
-	},
-	{
-		"olimorris/onedarkpro.nvim",
+		"erykksc/ghostty-theme-sync.nvim",
+		branch = "main",
+		opts = {
+			persist_nvim_theme = true,
+			nvim_config_path = "~/.config/nvim/lua/plugins/colorscheme.lua", -- Add your configuration here
+		},
 	},
 	{
 		"f-person/auto-dark-mode.nvim",
@@ -36,11 +47,11 @@ return {
 		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
-				vim.cmd("colorscheme github_dark_default")
+				vim.cmd.colorscheme("github_dark_default")
 				-- vim.opt.background = "dark"
 			end,
 			set_light_mode = function()
-				vim.cmd("colorscheme github_light")
+				vim.cmd.colorscheme("github_dark_default")
 				-- vim.opt.background = "light"
 			end,
 		},

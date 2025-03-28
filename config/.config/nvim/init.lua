@@ -74,7 +74,6 @@ vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Explorer toggle - checks if in netrw
--- vim.keymap.set("n", "<leader>et", "<CMD>Explore .<CR>")
 vim.keymap.set("n", "<leader>et", function()
 	if vim.bo.filetype == "netrw" then
 		vim.cmd("Rex")
@@ -82,7 +81,6 @@ vim.keymap.set("n", "<leader>et", function()
 		vim.cmd("Explore .")
 	end
 end)
-
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>")
 
 -- greatest remap ever

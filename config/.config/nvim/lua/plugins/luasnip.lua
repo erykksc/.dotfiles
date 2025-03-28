@@ -22,15 +22,15 @@ return {
 		require("luasnip.loaders.from_snipmate").lazy_load()
 	end,
 	keys = {
-		{
-			"<C-K>",
-			function()
-				require("luasnip").expand()
-			end,
-			mode = "i",
-			silent = true,
-			desc = "Expand snippet",
-		},
+		-- {
+		-- 	"<C-K>",
+		-- 	function()
+		-- 		require("luasnip").expand()
+		-- 	end,
+		-- 	mode = "i",
+		-- 	silent = true,
+		-- 	desc = "Expand snippet",
+		-- },
 		{
 			"<C-L>",
 			function()

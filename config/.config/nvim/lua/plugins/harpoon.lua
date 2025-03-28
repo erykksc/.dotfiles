@@ -15,7 +15,7 @@ return {
 		vim.keymap.set("n", "<leader>a", function()
 			harpoon:list():add()
 		end, { desc = "Add file to Harpoon" })
-		vim.keymap.set("n", "<C-e>", function()
+		vim.keymap.set("n", "<M-e>", function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, { desc = "Toggle Harpoon quick menu" })
 
