@@ -1,21 +1,11 @@
 #!/usr/bin/env zsh
 eval "$(starship init zsh)"
 
-# Add own scripts to path
-export PATH="$PATH:$HOME/scripts"
-
-export LANG=en_US.UTF-8
-export EDITOR='nvim'
-export MANPAGER="nvim +Man!"
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 alias bh='bat --language=help --style=plain'
-alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
-alias vim='nvim'
-alias vi='nvim'
 alias v='nvim'
 alias vc='nvim .'
 
@@ -32,7 +22,6 @@ alias ga='git add'
 alias gaa='git add .'
 alias gd='git diff'
 
-alias tupdate='~/.dotfiles/scripts/theme-update.sh'
 alias l='eza --git'
 
 # KEYBINDINGS
