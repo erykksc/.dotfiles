@@ -23,6 +23,10 @@ return {
 		"projekt0n/github-nvim-theme",
 		priority = 1000,
 	},
+	{
+		"shaunsingh/nord.nvim",
+		priority = 1000,
+	},
 
 	-- {
 	-- 	"rebelot/kanagawa.nvim",
@@ -31,6 +35,7 @@ return {
 	-- {
 	-- 	"olimorris/onedarkpro.nvim",
 	-- },
+	{ "dracula/vim" },
 
 	{
 		"erykksc/ghostty-theme-sync.nvim",
@@ -47,12 +52,12 @@ return {
 		opts = {
 			update_interval = 1000,
 			set_dark_mode = function()
-				vim.cmd.colorscheme("github_dark_default")
-				-- vim.opt.background = "dark"
+				vim.cmd.colorscheme("nord")
+				vim.opt.background = "dark"
 			end,
 			set_light_mode = function()
-				vim.cmd.colorscheme("github_dark_default")
-				-- vim.opt.background = "light"
+				-- vim.cmd.colorscheme("github_light_default")
+				vim.opt.background = "light"
 			end,
 		},
 	},
