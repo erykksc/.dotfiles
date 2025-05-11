@@ -84,7 +84,10 @@
             "description": "Caps Lock → left_control | Escape if alone",
             "manipulators": [
               {
-                "from": { "key_code": "caps_lock" },
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": { "optional": ["any"] }
+                },
                 "to": [{ "key_code": "left_control" }],
                 "to_if_alone": [{ "key_code": "escape" }],
                 "type": "basic"
