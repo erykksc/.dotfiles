@@ -4,6 +4,10 @@ eval "$(starship init zsh)"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+
+# Load secrets
+[ -f ~/.secrets ] && source ~/.secrets
+
 alias bh='bat --language=help --style=plain'
 
 alias v='nvim'
@@ -36,6 +40,8 @@ setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
+
+setopt EXTENDED_GLOB
 
 # FZF
 # Set up fzf key bindings and fuzzy completion
