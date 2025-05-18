@@ -33,8 +33,7 @@ else
 fi
 
 echo "Running update: $UPDATE_CMD"
-# tolerate check-update exit code 100
-$UPDATE_CMD || true
+$UPDATE_CMD
 
 # Install package if not already installed
 install_if_missing() {
