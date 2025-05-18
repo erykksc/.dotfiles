@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -e
 
 echo "Detecting package manager"
 if command -v brew >/dev/null 2>&1; then
@@ -33,11 +33,12 @@ else
 fi
 
 echo "Running update: $UPDATE_CMD"
-$UPDATE_CMD || true  # tolerate check-update exit code 100
+# tolerate check-update exit code 100
+$UPDATE_CMD || true
 
 # Install package if not already installed
 install_if_missing() {
-    local pkg=$1
+    pkg=$1
     echo "Checking if $pkg is installed..."
     if ! $PACKAGE_CHECK_CMD "$pkg" >/dev/null 2>&1; then
         echo "Installing $pkg..."
@@ -52,9 +53,9 @@ install_if_missing git
 
 # Clone dotfiles repo if not already cloned
 DOTFILES_DIR="$HOME/.dotfiles"
-if [[ ! -d "$DOTFILES_DIR" ]]; then
+if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning .dotfiles repository to $DOTFILES_DIR"
-    if [[ ${1:-} == "--git-https" ]]; then
+    if [ "$1" = "--git-https" ]; then
         echo "Detected --git-https flag, cloning using HTTPS"
         git clone https://github.com/erykksc/.dotfiles.git "$DOTFILES_DIR"
     else
@@ -74,7 +75,6 @@ echo "Running stow to symlink dotfiles"
 )
 
 # Install basic tools if missing
-# Temporarily allow failures (in case package is not available)
 set +e
 for pkg in zsh tmux neovim direnv fzf ripgrep; do
     install_if_missing "$pkg"

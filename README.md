@@ -7,12 +7,12 @@ This repo contains my personal configurations and scripts.
 
 ### Install with github ssh key
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | sh
 ```
 
 ### Install without ssh key
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | bash -s -- --git-https
+curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | sh -s -- --git-https
 ```
 
 ### Clone repository
