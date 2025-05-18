@@ -60,10 +60,10 @@ export FZF_ALT_C_COMMAND="fd --type d --hidden ."
 
 # Enable completions
 fpath=(
-    /opt/homebrew/share/zsh/site-functions
-    /usr/share/zsh/site-functions
-    /usr/local/share/zsh/site-functions
-    $fpath
+  /opt/homebrew/share/zsh/site-functions
+  /usr/share/zsh/site-functions
+  /usr/local/share/zsh/site-functions
+  $fpath
 )
 autoload -Uz compinit
 compinit
@@ -84,13 +84,13 @@ mkdir -p $ZPLUGINDIR
 # zsh-autosuggestions
 if [[ ! -d $ZPLUGINDIR/zsh-autosuggestions ]]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions \
-            $ZPLUGINDIR/zsh-autosuggestions
+    $ZPLUGINDIR/zsh-autosuggestions
 fi
 source $ZPLUGINDIR/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # zsh-syntax-highlighting
 if [[ ! -d $ZPLUGINDIR/zsh-syntax-highlighting ]]; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting \
-            $ZPLUGINDIR/zsh-syntax-highlighting
+    $ZPLUGINDIR/zsh-syntax-highlighting
 fi
 source $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
