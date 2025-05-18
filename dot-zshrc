@@ -73,7 +73,9 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-eval "$(direnv hook zsh)"
+if command -v direnv > /dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
 
 # PLUGINS
 ZPLUGINDIR=${XDG_DATA_HOME:-$HOME/.local/share}/zsh-plugins
