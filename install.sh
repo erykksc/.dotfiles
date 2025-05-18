@@ -87,7 +87,7 @@ echo "Running stow to symlink dotfiles"
 
 # Install basic tools if missing
 set +e
-for pkg in zsh tmux neovim direnv fzf ripgrep; do
+for pkg in zsh tmux neovim direnv fzf ripgrep starship bat eza yazi; do
     install_if_missing "$pkg"
 done
 set -e
