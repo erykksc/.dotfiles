@@ -2,30 +2,42 @@
 
 set -e
 
+
+# Determine if sudo is needed
+SUDO=""
+if [ "$(id -u)" -ne 0 ]; then
+    if command -v sudo >/dev/null 2>&1; then
+        SUDO="sudo"
+    else
+        echo "This script must be run as root or have 'sudo' available."
+        exit 1
+    fi
+fi
+
 echo "Detecting package manager"
 if command -v brew >/dev/null 2>&1; then
     INSTALL_CMD="brew install"
     UPDATE_CMD="brew update"
     PACKAGE_CHECK_CMD="brew list"
 elif command -v apt-get >/dev/null 2>&1; then
-    INSTALL_CMD="apt-get -y install"
-    UPDATE_CMD="apt-get update"
+    INSTALL_CMD="$SUDO apt-get -y install"
+    UPDATE_CMD="$SUDO apt-get update"
     PACKAGE_CHECK_CMD="dpkg -s"
 elif command -v dnf >/dev/null 2>&1; then
-    INSTALL_CMD="dnf -y install"
-    UPDATE_CMD="dnf check-update"
+    INSTALL_CMD="$SUDO dnf -y install"
+    UPDATE_CMD="$SUDO dnf check-update"
     PACKAGE_CHECK_CMD="rpm -q"
 elif command -v yum >/dev/null 2>&1; then
-    INSTALL_CMD="yum -y install"
-    UPDATE_CMD="yum check-update"
+    INSTALL_CMD="$SUDO yum -y install"
+    UPDATE_CMD="$SUDO yum check-update"
     PACKAGE_CHECK_CMD="rpm -q"
 elif command -v pacman >/dev/null 2>&1; then
-    INSTALL_CMD="pacman -S --noconfirm"
-    UPDATE_CMD="pacman -Sy"
+    INSTALL_CMD="$SUDO pacman -S --noconfirm"
+    UPDATE_CMD="$SUDO pacman -Sy"
     PACKAGE_CHECK_CMD="pacman -Qi"
 elif command -v zypper >/dev/null 2>&1; then
-    INSTALL_CMD="zypper install -y"
-    UPDATE_CMD="zypper refresh"
+    INSTALL_CMD="$SUDO zypper install -y"
+    UPDATE_CMD="$SUDO zypper refresh"
     PACKAGE_CHECK_CMD="rpm -q"
 else
     echo "No supported package manager found on this system."
