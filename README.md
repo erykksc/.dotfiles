@@ -3,6 +3,18 @@ This repo contains my personal configurations and scripts.
 
 # How to install
 
+## One command install:
+
+### Install with github ssh key
+```zsh
+curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | bash
+```
+
+### Install without ssh key
+```zsh
+curl -fsSL https://raw.githubusercontent.com/erykksc/.dotfiles/refs/heads/main/install.sh | bash -s -- --git-https
+```
+
 ### Clone repository
 ```zsh
 git clone git@github.com:erykksc/.dotfiles.git ~/.dotfiles

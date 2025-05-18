@@ -6,52 +6,74 @@ echo "Detecting package manager"
 if command -v brew >/dev/null 2>&1; then
     INSTALL_CMD="brew install"
     UPDATE_CMD="brew update"
+    PACKAGE_CHECK_CMD="brew list"
 elif command -v apt-get >/dev/null 2>&1; then
     INSTALL_CMD="apt-get -y install"
     UPDATE_CMD="apt-get update"
+    PACKAGE_CHECK_CMD="dpkg -s"
 elif command -v dnf >/dev/null 2>&1; then
     INSTALL_CMD="dnf -y install"
     UPDATE_CMD="dnf check-update"
+    PACKAGE_CHECK_CMD="rpm -q"
 elif command -v yum >/dev/null 2>&1; then
     INSTALL_CMD="yum -y install"
     UPDATE_CMD="yum check-update"
+    PACKAGE_CHECK_CMD="rpm -q"
 elif command -v pacman >/dev/null 2>&1; then
     INSTALL_CMD="pacman -S --noconfirm"
     UPDATE_CMD="pacman -Sy"
+    PACKAGE_CHECK_CMD="pacman -Qi"
 elif command -v zypper >/dev/null 2>&1; then
     INSTALL_CMD="zypper install -y"
     UPDATE_CMD="zypper refresh"
+    PACKAGE_CHECK_CMD="rpm -q"
 else
     echo "No supported package manager found on this system."
     exit 1
 fi
 
-echo "Running" $UPDATE_CMD
-$UPDATE_CMD
+echo "Running update: $UPDATE_CMD"
+$UPDATE_CMD || true  # tolerate check-update exit code 100
 
-echo "Detected install command:" $INSTALL_CMD
+# Install package if not already installed
+install_if_missing() {
+    local pkg=$1
+    echo "Checking if $pkg is installed..."
+    if ! $PACKAGE_CHECK_CMD "$pkg" >/dev/null 2>&1; then
+        echo "Installing $pkg..."
+        $INSTALL_CMD "$pkg"
+    else
+        echo "$pkg already installed."
+    fi
+}
 
-# Install git if not available
-if ! command -v git >/dev/null 2>&1; then
-    echo "git not detected, installing it"
-    $INSTALL_CMD git
-fi
+# Ensure git is installed
+install_if_missing git
 
-echo Cloning .dotfiles repository to ~/.dotfiles
-if [[ $1 == "--git-https" ]]; then
-    echo "Detected --git-https flag, cloning using https"
-    git clone https://github.com/erykksc/.dotfiles.git ~/.dotfiles
+# Clone dotfiles repo if not already cloned
+DOTFILES_DIR="$HOME/.dotfiles"
+if [[ ! -d "$DOTFILES_DIR" ]]; then
+    echo "Cloning .dotfiles repository to $DOTFILES_DIR"
+    if [[ ${1:-} == "--git-https" ]]; then
+        echo "Detected --git-https flag, cloning using HTTPS"
+        git clone https://github.com/erykksc/.dotfiles.git "$DOTFILES_DIR"
+    else
+        git clone git@github.com:erykksc/.dotfiles.git "$DOTFILES_DIR"
+    fi
 else
-    git clone git@github.com:erykksc/.dotfiles.git ~/.dotfiles
+    echo ".dotfiles already cloned at $DOTFILES_DIR"
 fi
 
-echo "Installing stow"
-$INSTALL_CMD stow
+# Ensure stow is installed
+install_if_missing stow
 
-echo "Symlinking .dotfiles"
+# Run stow to symlink
+echo "Running stow to symlink dotfiles"
 (
-    cd ~/.dotfiles && stow -vR .
+    cd "$DOTFILES_DIR" && stow -vR .
 )
 
-echo "Installing basic packages"
-$INSTALL_CMD zsh tmux fzf neovim ripgrep
+# Install basic tools if missing
+for pkg in zsh tmux fzf neovim ripgrep; do
+    install_if_missing "$pkg"
+done
