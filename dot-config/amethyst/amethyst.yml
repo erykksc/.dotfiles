@@ -23,14 +23,12 @@ layouts:
 mod1:
   - option
   - control
-  - command
 
 # Second mod (default option + shift + control).
 mod2:
   - option
   - shift
   - control
-  - command
 
 # Commands:
 # special key values
@@ -133,25 +131,43 @@ swap-main:
 #   mod: mod1
 #   key: 1
 # Move the currently focused window to the n-th space; e.g., throw-space-3 will move the window to the 3rd space.
-focus-space-1:
-  mod: mod1
-  key: '1'
-focus-space-2:
-  mod: mod1
-  key: '2'
-focus-space-3:
-  mod: mod1
-  key: '3'
+# focus-space-1:
+#   mod: mod1
+#   key: '1'
+# focus-space-2:
+#   mod: mod1
+#   key: '2'
+# focus-space-3:
+#   mod: mod1
+#   key: '3'
 
 throw-space-1:
-  mod: mod2
+  mod: mod1
   key: '1'
 throw-space-2:
-  mod: mod2
+  mod: mod1
   key: '2'
 throw-space-3:
-  mod: mod2
+  mod: mod1
   key: '3'
+throw-space-4:
+  mod: mod1
+  key: '4'
+throw-space-5:
+  mod: mod1
+  key: '5'
+throw-space-6:
+  mod: mod1
+  key: '6'
+throw-space-7:
+  mod: mod1
+  key: '7'
+throw-space-8:
+  mod: mod1
+  key: '8'
+throw-space-9:
+  mod: mod1
+  key: '9'
 
 # Select tall layout
 select-tall-layout:
@@ -254,11 +270,10 @@ window-minimum-width: 0
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
 floating:
   - com.apple.systempreferences
-  - com.apple.finder
-  - com.apple.Home
   - com.raycast.macos
   - org.openvpn.client.app
   - com.riotgames.LeagueofLegends.LeagueClientUx
+  - com.bitwarden.desktop
   - id: "com.brave.Browser"
     window-titles:
       - "Bitwarden"
@@ -300,7 +315,7 @@ use-canary-build: false
 new-windows-to-main: true
 
 # true to automatically move to a space when throwing a window to it (default true).
-follow-space-thrown-windows: false
+follow-space-thrown-windows: true
 
 # The integer percentage of the screen dimension to increment and decrement main pane ratios by (default 5).
 window-resize-step: 5
