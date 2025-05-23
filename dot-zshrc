@@ -47,6 +47,11 @@ setopt hist_ignore_all_dups
 
 setopt EXTENDED_GLOB
 
+# alias function to strip ansi characters
+strip_ansi() {
+  sed -E "s/\x1B\[[0-9;]*[mK]//g"
+}
+
 # FZF
 # Set up fzf key bindings and fuzzy completion
 if command -v fzf > /dev/null 2>&1; then
