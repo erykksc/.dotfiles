@@ -38,10 +38,22 @@ return {
 			go = { "gofmt", "goimports" },
 			-- You can use a sub-list to tell conform to run *until* a formatter
 			-- is found.
+			css = { "prettierd", "prettier", stop_after_first = true },
+			graphql = { "prettierd", "prettier", stop_after_first = true },
+			handlebars = { "prettierd", "prettier", stop_after_first = true },
+			html = { "prettierd", "prettier", stop_after_first = true },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			json = { "prettierd", "prettier", stop_after_first = true },
-
-			html = { "prettierd", "prettier", stop_after_first = true },
+			json5 = { "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "prettierd", "prettier", stop_after_first = true },
+			less = { "prettierd", "prettier", stop_after_first = true },
+			markdown = { "prettierd", "prettier", stop_after_first = true },
+			mdx = { "prettierd", "prettier", stop_after_first = true },
+			scss = { "prettierd", "prettier", stop_after_first = true },
+			svelte = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
+			vue = { "prettierd", "prettier", stop_after_first = true },
+			yaml = { "prettierd", "prettier", stop_after_first = true },
 		},
 	},
 }
