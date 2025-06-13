@@ -1,6 +1,9 @@
-theme = tokyonight_night
+theme = dark:"GitHub-Dark-Default",light:"GitHub-Light-Default"
 
 font-size = 14
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
 
 # MacOS specific features
 macos-option-as-alt = true
