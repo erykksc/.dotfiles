@@ -31,8 +31,8 @@ vim.opt.colorcolumn = "+1"
 vim.opt.updatetime = 250
 
 -- Configure how new splits should be opened
--- vim.opt.splitright = true
--- vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
