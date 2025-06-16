@@ -32,6 +32,7 @@ alias gaa='git add .'
 alias gd='git diff'
 alias gp='git pull'
 alias gP='git push'
+alias grs='git restore --staged'
 
 alias l='eza --git'
 
