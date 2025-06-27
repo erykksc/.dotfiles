@@ -17,6 +17,11 @@ alias bh='bat --language=help --style=plain'
 alias v='nvim'
 alias vc='nvim .'
 
+alias k='kubectl'
+if command -v '/Users/eryk/.claude/local/claude' > /dev/null 2>&1; then
+	alias claude='/Users/eryk/.claude/local/claude'
+fi
+
 alias y='yazi'
 alias sgpt='python3 -m sgpt'
 alias s='~/.dotfiles/scripts/tmux-client.sh'
@@ -36,6 +41,26 @@ alias gr='git restore'
 alias grs='git restore --staged'
 
 alias l='eza --git'
+alias la='eza --git -a'
+alias lla='eza --git -la'
+
+
+# Goland tools - use go tools if available, fallback to global commands
+golangci-lint() {
+  if go tool golangci-lint version >/dev/null 2>&1; then
+    go tool golangci-lint "$@"
+  else
+    command golangci-lint "$@"
+  fi
+}
+
+goimports() {
+  if go tool goimports --help >/dev/null 2>&1; then
+    go tool goimports "$@"
+  else
+    command goimports "$@"
+  fi
+}
 
 # KEYBINDINGS
 bindkey -e
@@ -45,10 +70,11 @@ HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
 
 setopt EXTENDED_GLOB
 
