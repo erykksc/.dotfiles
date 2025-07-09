@@ -23,21 +23,11 @@ if command -v '/Users/eryk/.claude/local/claude' > /dev/null 2>&1; then
 fi
 
 alias y='yazi'
-alias sgpt='python3 -m sgpt'
 alias s='~/.dotfiles/scripts/tmux-client.sh'
 
 # GIT ALIASES
 alias gs='git status'
 alias gc='git commit'
-alias gdv='git diff | vim'
-alias gl='git log'
-alias gll='git lol'
-alias ga='git add'
-alias gaa='git add .'
-alias gd='git diff'
-alias gp='git pull'
-alias gP='git push'
-alias gr='git restore'
 alias grs='git restore --staged'
 
 alias l='eza --git'
