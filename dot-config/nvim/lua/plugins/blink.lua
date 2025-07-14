@@ -60,14 +60,14 @@ return { -- Autocompletion
 		},
 
 		sources = {
-			default = { "path", "lsp", "snippets", "lazydev", "omni", "copilot" },
+			default = { "path", "lsp", "snippets", "lazydev", "omni" },
 			providers = {
-				copilot = {
-					name = "copilot",
-					module = "blink-cmp-copilot",
-					score_offset = 100,
-					async = true,
-				},
+				-- copilot = {
+				-- 	name = "copilot",
+				-- 	module = "blink-cmp-copilot",
+				-- 	score_offset = 100,
+				-- 	async = true,
+				-- },
 				lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				snippets = { score_offset = -100 },
 			},
