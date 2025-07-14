@@ -10,9 +10,6 @@ vim.g.netrw_preview = 1
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = "unnamedplus"
 
@@ -36,13 +33,13 @@ vim.opt.updatetime = 250
 
 vim.opt.list = false
 vim.opt.listchars = {
-	space = "·",
-	trail = "·",
-	nbsp = "␣",
-	tab = "»·",
-	extends = "»",
-	precedes = "«",
-	eol = "↲",
+  space = "·",
+  trail = "·",
+  nbsp = "␣",
+  tab = "»·",
+  extends = "»",
+  precedes = "«",
+  eol = "↲",
 }
 
 -- Preview substitutions live, as you type!
@@ -71,7 +68,7 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 
 -- Set the floating window border (like lsp hover)
-vim.o.winborder = "rounded"
+vim.o.winborder = "single"
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -95,11 +92,11 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 
 -- Explorer toggle - checks if in netrw
 vim.keymap.set("n", "<leader>et", function()
-	if vim.bo.filetype == "netrw" then
-		vim.cmd("Rex")
-	else
-		vim.cmd("Explore .")
-	end
+  if vim.bo.filetype == "netrw" then
+    vim.cmd("Rex")
+  else
+    vim.cmd("Explore .")
+  end
 end)
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>")
 
@@ -108,21 +105,21 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- Create missing directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function(ctx)
-		local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
-		if vim.fn.isdirectory(dir) == 0 then
-			vim.fn.mkdir(dir, "p")
-		end
-	end,
+  callback = function(ctx)
+    local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
+    end
+  end,
 })
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 -- Disable providers as I only use lua plugins
@@ -135,44 +132,44 @@ vim.g.loaded_ruby_provider = 0
 -- This makes the nvim jump to correct line and file when file chosen in godot editor
 local projectfile = vim.fn.getcwd() .. "/project.godot"
 if vim.fn.filereadable(projectfile) == 1 then
-	vim.fn.serverstart("./godothost")
+  vim.fn.serverstart("./godothost")
 end
 
 -- Install Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
 if not vim.loop.fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end
 ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	rocks = {
-		enabled = false, -- Disable LuaRocks support entirely
-	},
-	spec = {
-		-- import your plugins
-		{ import = "plugins" },
-	},
-	ui = {
-		icons = vim.g.have_nerd_font and {} or {
-			cmd = "⌘",
-			config = "🛠",
-			event = "📅",
-			ft = "📂",
-			init = "⚙",
-			keys = "🗝",
-			plugin = "🔌",
-			runtime = "💻",
-			require = "🌙",
-			source = "📄",
-			start = "🚀",
-			task = "📌",
-			lazy = "💤 ",
-		},
-	},
+  rocks = {
+    enabled = false, -- Disable LuaRocks support entirely
+  },
+  spec = {
+    -- import your plugins
+    { import = "plugins" },
+  },
+  ui = {
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = "⌘",
+      config = "🛠",
+      event = "📅",
+      ft = "📂",
+      init = "⚙",
+      keys = "🗝",
+      plugin = "🔌",
+      runtime = "💻",
+      require = "🌙",
+      source = "📄",
+      start = "🚀",
+      task = "📌",
+      lazy = "💤 ",
+    },
+  },
 })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
