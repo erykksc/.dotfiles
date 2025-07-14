@@ -44,3 +44,11 @@ goroutine
 backend
 localhost
 frontend
+golang
+Redis
+DynamoDB
+Cognito
+ElastiCache
+aws
+aws
+Immunizer

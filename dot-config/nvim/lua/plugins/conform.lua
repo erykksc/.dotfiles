@@ -31,16 +31,15 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Conform can also run multiple formatters sequentially
-			python = { "isort", "autopep8" },
-			--
-			go = { "gofmt", "goimports" },
-			-- You can use a sub-list to tell conform to run *until* a formatter
-			-- is found.
+			python = { "isort", "black", "autopep8" }, -- assumption that only black or autopep8 will be installed
+			go = { "goimports", "gofmt", stop_after_first = true },
+			nix = { "nixfmt" },
 			css = { "prettierd", "prettier", stop_after_first = true },
 			graphql = { "prettierd", "prettier", stop_after_first = true },
 			handlebars = { "prettierd", "prettier", stop_after_first = true },
 			html = { "prettierd", "prettier", stop_after_first = true },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
 			json = { "prettierd", "prettier", stop_after_first = true },
 			json5 = { "prettierd", "prettier", stop_after_first = true },
 			jsonc = { "prettierd", "prettier", stop_after_first = true },
@@ -49,7 +48,9 @@ return {
 			mdx = { "prettierd", "prettier", stop_after_first = true },
 			scss = { "prettierd", "prettier", stop_after_first = true },
 			svelte = { "prettierd", "prettier", stop_after_first = true },
+			terraform = { "tofu_fmt" },
 			typescript = { "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 			vue = { "prettierd", "prettier", stop_after_first = true },
 			yaml = { "prettierd", "prettier", stop_after_first = true },
 		},

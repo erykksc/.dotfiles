@@ -6,7 +6,7 @@
 
   # Flake outputs
   outputs =
-    { self, nixpkgs }:
+    inputs:
     let
       # The systems supported for this flake
       supportedSystems = [
@@ -18,26 +18,37 @@
 
       # Helper to provide system-specific attributes
       forEachSupportedSystem =
-        f: nixpkgs.lib.genAttrs supportedSystems (system: f { pkgs = import nixpkgs { inherit system; }; });
+        f:
+        inputs.nixpkgs.lib.genAttrs supportedSystems (
+          system:
+          f {
+            pkgs = import inputs.nixpkgs { inherit system; };
+            system = system;
+          }
+        );
     in
     {
+      packages = forEachSupportedSystem (
+        { pkgs, system }:
+        {
+          devEnv = pkgs.buildEnv {
+            name = "dotfiles-env";
+            paths = [
+              pkgs.stow
+              pkgs.stylua
+              pkgs.nixfmt-rfc-style
+            ];
+          };
+        }
+      );
+
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShell {
-            # The Nix packages provided in the environment
-            # Add any you need here
             packages = with pkgs; [
-              stow
-              stylua
-              nixfmt-rfc-style
+              inputs.self.packages.${system}.devEnv
             ];
-
-            # Set any environment variables for your dev shell
-            env = { };
-
-            # Add any shell logic you want executed any time the environment is activated
-            shellHook = "";
           };
         }
       );

@@ -27,7 +27,7 @@ alias s='~/.dotfiles/scripts/tmux-client.sh'
 
 # GIT ALIASES
 alias gs='git status'
-alias gc='git commit'
+alias gd='git diff'
 alias grs='git restore --staged'
 
 alias l='eza --git'

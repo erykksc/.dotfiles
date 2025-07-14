@@ -65,7 +65,7 @@ return { -- Autocompletion
 				copilot = {
 					name = "copilot",
 					module = "blink-cmp-copilot",
-					score_offset = 100,
+					score_offset = 10,
 					async = true,
 				},
 				lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },

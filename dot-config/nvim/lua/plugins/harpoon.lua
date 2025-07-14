@@ -19,7 +19,7 @@ return {
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end, { desc = "Toggle Harpoon quick menu" })
 
-		local keys = { "s", "d", "f", "g" }
+		local keys = { "a", "s", "d", "f", "g" }
 		for i, key in ipairs(keys) do
 			vim.keymap.set("n", "<M-" .. key .. ">", function()
 				harpoon:list():select(i)

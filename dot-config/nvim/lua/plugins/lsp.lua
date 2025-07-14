@@ -152,10 +152,12 @@ return { -- LSP Configuration & Plugins
 		--    https://github.com/pmizio/typescript-tools.nvim
 		--
 		local servers = {
+			arduino_language_server = {},
 			bashls = {},
+			cmake = {},
 			gopls = {},
 			html = {},
-			htmx = {},
+			-- htmx = {},
 			jsonls = {},
 			lua_ls = {
 				settings = {
@@ -164,8 +166,21 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
+			-- ltex_plus = {},
 			pyright = {},
+			tofu_ls = {},
 			ts_ls = {},
+			texlab = {
+				settings = {
+					texlab = {
+						build = {
+							executable = "tectonic",
+							args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+							onSave = true,
+						},
+					},
+				},
+			},
 			yamlls = {},
 		}
 
@@ -174,14 +189,7 @@ return { -- LSP Configuration & Plugins
 
 		-- Make mason-tool-installer install tools
 		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-			"autopep8",
-			"isort",
-			"prettierd",
-			"goimports",
-			"golangci-lint",
-		})
+		vim.list_extend(ensure_installed, {}) -- add additional tools
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		-- Define LSPs that don't need automatic installation

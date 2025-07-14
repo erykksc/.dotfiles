@@ -1,5 +1,9 @@
 [aws]
 symbol = "  "
+disabled = true
+
+[azure]
+disabled = true
 
 [buf]
 symbol = " "

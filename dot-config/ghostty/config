@@ -1,4 +1,7 @@
-theme = dark:"GitHub-Dark-Default",light:"GitHub-Light-Default"
+# theme = dark:"nord",light:"nord-light"
+# theme = dark:"GitHub-Dark-Default",light:"GitHub-Light-Default"
+# theme = dark:"tokyonight_moon",light:"tokyonight-day"
+theme = dark:"Ayu Mirage",light:"ayu_light"
 
 font-size = 14
 font-feature = -calt
