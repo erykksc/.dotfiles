@@ -5,19 +5,12 @@ if command -v starship > /dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-
 # Load secrets
 [ -f ~/.secrets ] && source ~/.secrets
-
-alias bh='bat --language=help --style=plain'
 
 alias v='nvim'
 alias vc='nvim .'
 
-alias k='kubectl'
 if command -v '/Users/eryk/.claude/local/claude' > /dev/null 2>&1; then
 	alias claude='/Users/eryk/.claude/local/claude'
 fi
@@ -27,13 +20,8 @@ alias s='~/.dotfiles/scripts/tmux-client.sh'
 
 # GIT ALIASES
 alias gs='git status'
-alias gd='git diff'
-alias grs='git restore --staged'
 
 alias l='eza --git'
-alias la='eza --git -a'
-alias lla='eza --git -la'
-
 
 # Goland tools - use go tools if available, fallback to global commands
 golangci-lint() {
