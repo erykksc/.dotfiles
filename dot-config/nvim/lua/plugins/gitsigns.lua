@@ -1,18 +1,36 @@
-return { -- Adds git related signs to the gutter, as well as utilities for managing changes
+return {             -- Adds git related signs to the gutter, as well as utilities for managing changes
 	"lewis6991/gitsigns.nvim",
 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
-	opts = {
-		signs = {
-			add = { text = "+" },
-			change = { text = "~" },
-			delete = { text = "_" },
-			topdelete = { text = "‾" },
-			changedelete = { text = "~" },
+	dependencies = {
+		{
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			branch = "master",
 		},
 	},
-	keys = {
-		{ "[h", "<cmd>Gitsigns prev_hunk<cr>", desc = "Jump to Previous [H]unk" },
-		{ "]h", "<cmd>Gitsigns next_hunk<cr>", desc = "Jump to Next [H]unk" },
-		{ "<leader>hp", "<cmd>Gitsigns preview_hunk<cr>", "n", desc = "[H]unk [P]review", silent = true },
-	},
+	config = function()
+		local gitsigns = require("gitsigns")
+		gitsigns.setup({
+			signs = {
+				add = { text = "+" },
+				change = { text = "~" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+			},
+		})
+
+		-- treesitter repeatable moves
+		local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+
+		-- Wrap the two motions so the plugin can remember them
+		local next_hunk, prev_hunk = ts_repeat_move.make_repeatable_move_pair(
+			function() gitsigns.nav_hunk('next', { wrap = false, target = 'all' }) end,
+			function() gitsigns.nav_hunk('prev', { wrap = false, target = 'all' }) end
+		)
+
+		-- Your normal hunk mappings, now repeatable with ; and ,
+		vim.keymap.set({ "n", "x", "o" }, "]h", next_hunk, { desc = "Next [H]unk" })
+		vim.keymap.set({ "n", "x", "o" }, "[h", prev_hunk, { desc = "Prev [H]unk" })
+		vim.keymap.set({ "n", "x", "o" }, "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
+	end
 }

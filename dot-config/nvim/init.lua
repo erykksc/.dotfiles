@@ -57,7 +57,7 @@ vim.opt.wrap = false
 -- Use spaces instead of tabs
 vim.opt.expandtab = false
 -- Number of spaces a tab counts for
-vim.opt.tabstop = 8
+vim.opt.tabstop = 4
 -- Number of spaces for each level of indentation
 vim.opt.shiftwidth = 4
 -- Number of spaces a <Tab> or <BS> uses while editing

@@ -1,5 +1,5 @@
 return {
-	{ -- Highlight, edit, and navigate code
+	{                                  -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter", -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
 		branch = "master",
 		-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
@@ -53,18 +53,18 @@ return {
 					enable = true,
 					set_jumps = true, -- whether to set jumps in the jumplist
 					goto_next_start = {
-						["]m"] = "@function.outer",
+						["]f"] = "@function.outer",
 						["]a"] = "@parameter.inner",
 					},
 					goto_next_end = {
-						["]M"] = "@function.outer",
+						["]F"] = "@function.outer",
 					},
 					goto_previous_start = {
-						["[m"] = "@function.outer",
+						["[f"] = "@function.outer",
 						["[a"] = "@parameter.inner",
 					},
 					goto_previous_end = {
-						["[M"] = "@function.outer",
+						["[F"] = "@function.outer",
 					},
 				},
 			},
@@ -81,22 +81,41 @@ return {
 			vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
 			vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
 			vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+
+			-- create repeatable diagnostic motions
+			local next_diag, prev_diag = ts_repeat_move.make_repeatable_move_pair(
+				function() vim.diagnostic.jump({ count = 1, float = true }) end,
+				function() vim.diagnostic.jump({ count = -1, float = true }) end
+			)
+
+			-- override the default mappings so they become repeatable with ; and ,
+			vim.keymap.set({ "n", "x", "o" }, "]d", next_diag, { desc = "Next diagnostic" })
+			vim.keymap.set({ "n", "x", "o" }, "[d", prev_diag, { desc = "Prev diagnostic" })
+
+			-- create repeatable quicklist motions
+			local cnext, cprev = ts_repeat_move.make_repeatable_move_pair(
+				function() vim.cmd.cnext() end,
+				function() vim.cmd.cprev() end
+			)
+
+			vim.keymap.set({ "n", "x", "o" }, "]q", cnext, { desc = "Next item on quicklist" })
+			vim.keymap.set({ "n", "x", "o" }, "[q", cprev, { desc = "Prev item on quicklist" })
 		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		opts = {
-			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-			max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+			enable = true,         -- Enable this plugin (Can be enabled/disabled later via commands)
+			max_lines = 0,         -- How many lines the window should span. Values <= 0 mean no limit.
 			min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
 			line_numbers = true,
 			multiline_threshold = 20, -- Maximum number of lines to show for a single context
-			trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-			mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+			trim_scope = "outer",  -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+			mode = "cursor",       -- Line used to calculate context. Choices: 'cursor', 'topline'
 			-- Separator between context and content. Should be a single character string, like '-'.
 			-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
 			separator = nil,
-			zindex = 20, -- The Z-index of the context window
+			zindex = 20,  -- The Z-index of the context window
 			on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 		},
 	},
