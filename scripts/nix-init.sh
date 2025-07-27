@@ -43,5 +43,5 @@ if [[ -f '.envrc' ]]; then
   exit 1
 fi
 
-echo 'use nix' > '.envrc'
+echo 'use flake' > '.envrc'
 echo "wrote .envrc"
