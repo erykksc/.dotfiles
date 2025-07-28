@@ -44,7 +44,7 @@ goimports() {
 bindkey -e
 
 # HISTORY
-HISTSIZE=5000
+HISTSIZE=10000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase

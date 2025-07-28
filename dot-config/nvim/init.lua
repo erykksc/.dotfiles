@@ -27,6 +27,9 @@ vim.opt.colorcolumn = "+1"
 -- Decrease update time
 vim.opt.updatetime = 250
 
+-- remove the sql dynamic completion attempt in .sql files
+vim.g.omni_sql_default_compl_type = 'syntax'
+
 -- Configure how new splits should be opened
 -- vim.opt.splitright = true
 -- vim.opt.splitbelow = true
