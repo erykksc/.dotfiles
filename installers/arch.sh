@@ -49,17 +49,18 @@ sudo pacman -S --noconfirm \
 	git-delta \
 	git-lfs \
 	github-cli \
+	man-db \
+	man-pages \
 	minikube \
 	mosh \
 	neovim \
 	openssh \
+	rsync \
 	starship \
 	tmux \
 	uv \
 	watchexec \
 	wget \
-	man-db \
-	man-pages \
 	yazi \
 	zsh
 
