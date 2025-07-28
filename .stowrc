@@ -1,7 +1,7 @@
 --dotfiles
---ignore=.direnv
+--ignore=^\.direnv$
 --ignore=.envrc
---ignore=.git
+--ignore=^\.git$
 --ignore=.gitignore
 --ignore=.gitmodules
 --ignore=.stowrc
