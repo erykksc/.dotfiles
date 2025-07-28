@@ -1,12 +1,20 @@
 return {
+	{ "projekt0n/github-nvim-theme" },
+	{ "RRethy/base16-nvim" },
 	{
-		"projekt0n/github-nvim-theme",
-	},
-	{
-		"RRethy/base16-nvim",
+		"Shatur/neovim-ayu",
+		lazy = false,
+		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("base16-ayu-mirage")
-		end
+			local colors = require("ayu.colors")
+			colors.generate(true) -- Pass `true` to enable mirage
+			require("ayu").setup({
+				overrides = {
+					LineNr = { fg = colors.comment },
+				},
+			})
+			vim.cmd.colorscheme("ayu-mirage")
+		end,
 	},
 	-- {
 	-- 	"f-person/auto-dark-mode.nvim",
