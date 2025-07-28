@@ -67,6 +67,7 @@ yay -S --noconfirm \
 	zen-browser-bin \
 	tlrc-bin \
 	prettierd \
+	nodejs-localtunnel \
 	ripgreg
 
 # create default ssh key
