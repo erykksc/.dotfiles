@@ -11,16 +11,10 @@ fi
 alias v='nvim'
 alias vc='nvim .'
 
-if command -v '/Users/eryk/.claude/local/claude' > /dev/null 2>&1; then
-fi
-
-alias y='yazi'
-alias s='~/.dotfiles/scripts/tmux-client.sh'
-
-# GIT ALIASES
+# ALIASES
 alias gs='git status'
-
 alias ls='ls --color=auto'
+alias s='~/.dotfiles/scripts/tmux-client.sh'
 
 # Goland tools - use go tools if available, fallback to global commands
 golangci-lint() {
