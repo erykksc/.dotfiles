@@ -42,7 +42,6 @@ sudo pacman -S --noconfirm \
 	bat \
 	btop \
 	direnv \
-	eza \
 	fd \
 	fzf \
 	git \

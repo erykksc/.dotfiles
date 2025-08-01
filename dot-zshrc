@@ -12,7 +12,6 @@ alias v='nvim'
 alias vc='nvim .'
 
 if command -v '/Users/eryk/.claude/local/claude' > /dev/null 2>&1; then
-	alias claude='/Users/eryk/.claude/local/claude'
 fi
 
 alias y='yazi'
@@ -21,7 +20,7 @@ alias s='~/.dotfiles/scripts/tmux-client.sh'
 # GIT ALIASES
 alias gs='git status'
 
-alias l='eza --git'
+alias ls='ls --color=auto'
 
 # Goland tools - use go tools if available, fallback to global commands
 golangci-lint() {
@@ -42,6 +41,9 @@ goimports() {
 
 # KEYBINDINGS
 bindkey -e
+# Move through history with the same prefix
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
 
 # HISTORY
 HISTSIZE=10000
