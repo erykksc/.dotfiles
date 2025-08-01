@@ -37,20 +37,11 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # npm
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
-# yarn
-export YARN_RC_FILENAME="$XDG_CONFIG_HOME/yarn/config"
-
-# nvm
-export NVM_DIR="$XDG_DATA_HOME/nvm"
-
 # pip
 export PIP_CONFIG_FILE="$XDG_CONFIG_HOME/pip/pip.conf"
 
 # Go
 export GOPATH="$XDG_DATA_HOME/go"
-
-# Ansible
-export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 
 # Docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
@@ -64,18 +55,9 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 # fzf
 export FZF_CONFIG_DIR="$XDG_CONFIG_HOME/fzf"
 
-# z (jump utility)
-export _Z_DATA="$XDG_DATA_HOME/z/data"
-
-# NuGet
-export NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages"
-
 # -----------------------------
 # Extras & Tools
 # -----------------------------
-
-# bun
-export BUN_INSTALL="$XDG_DATA_HOME/bun"
 
 # pnpm (optional)
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
