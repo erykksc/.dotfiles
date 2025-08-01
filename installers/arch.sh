@@ -60,7 +60,6 @@ sudo pacman -S --noconfirm \
 	uv \
 	watchexec \
 	wget \
-	yazi \
 	zsh
 
 yay -S --noconfirm \
