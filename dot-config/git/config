@@ -33,3 +33,7 @@
 
 [merge]
     conflictstyle = zdiff3
+[push]
+	recurseSubmodules = on-demand
+[submodule]
+	recurse = true
