@@ -49,10 +49,16 @@ return {
 			scss = { "prettierd", "prettier", stop_after_first = true },
 			svelte = { "prettierd", "prettier", stop_after_first = true },
 			terraform = { "tofu_fmt" },
+			tex = { "tex-fmt" },
 			typescript = { "prettierd", "prettier", stop_after_first = true },
 			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 			vue = { "prettierd", "prettier", stop_after_first = true },
 			yaml = { "prettierd", "prettier", stop_after_first = true },
+		},
+		formatters = {
+			["tex-fmt"] = {
+				args = { "--nowrap", "--stdin" },
+			},
 		},
 	},
 }
