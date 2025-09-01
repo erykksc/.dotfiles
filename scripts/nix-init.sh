@@ -10,20 +10,30 @@ fi
 
 cat > 'flake.nix' <<'EOF'
 {
-  description = "A basic flake with definition of development shell";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.systems.url = "github:nix-systems/default";
-  inputs.flake-utils = {
-    url = "github:numtide/flake-utils";
-    inputs.systems.follows = "systems";
+  description = "Flake with the development environment for the project";
+
+  inputs = {
+    nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    systems.url = "github:nix-systems/default";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { nixpkgs, flake-utils, ... }:
+    {
+      nixpkgs-linux,
+      nixpkgs-darwin,
+      flake-utils,
+      ...
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs =
+          import (if builtins.match ".*-darwin" system != null then nixpkgs-darwin else nixpkgs-linux)
+            {
+              inherit system;
+            };
       in
       {
         devShells.default = pkgs.mkShell {
