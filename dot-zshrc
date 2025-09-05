@@ -1,17 +1,11 @@
 #!/usr/bin/env zsh
 
-# Initialize starship if exists
-if command -v starship > /dev/null 2>&1; then
-  eval "$(starship init zsh)"
-fi
-
 # Load secrets
 [ -f ~/.secrets ] && source ~/.secrets
 
+# ALIASES
 alias v='nvim'
 alias vc='nvim .'
-
-# ALIASES
 alias gs='git status'
 alias ls='ls --color=auto'
 alias s='~/.dotfiles/scripts/tmux-client.sh'
@@ -52,6 +46,22 @@ setopt HIST_IGNORE_SPACE
 
 setopt EXTENDED_GLOB
 
+# PROMPT
+REPORTTIME=5 # show how much time did a function take when it run for more than 5s
+PROMPT_HOST=""
+if [[ -n $SSH_CONNECTION ]]; then # Detect SSH: show hostname only if remote
+  PROMPT_HOST="%F{yellow}%n@%m%f "
+fi
+autoload -Uz vcs_info
+precmd() {
+  print "" # add empty line between prompts
+  vcs_info
+} 
+setopt prompt_subst
+zstyle ':vcs_info:git*' formats "%b"
+PROMPT='${PROMPT_HOST}%F{green}%~%F{magenta}${vcs_info_msg_0_:+ $vcs_info_msg_0_}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
+%# '
+
 # FZF
 # Set up fzf key bindings and fuzzy completion
 if command -v fzf > /dev/null 2>&1; then
@@ -67,11 +77,6 @@ fpath=(
 )
 autoload -Uz compinit
 compinit
-
-# Add keybind to edit prompt in the editor
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
 
 if command -v direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"

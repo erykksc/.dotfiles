@@ -1,0 +1,16 @@
+{
+  "diagnostics": {
+    "globals": ["vim"]
+  },
+  "runtime": {
+    "version": "LuaJIT",
+    "path": ["lua/?.lua", "lua/?/init.lua"]
+  },
+  "workspace": {
+    "library": ["$VIMRUNTIME"]
+  },
+  "workspace.checkThirdParty": false,
+    "diagnostics.disable": [
+        "undefined-doc-name"
+    ]
+}

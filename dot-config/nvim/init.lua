@@ -1,91 +1,53 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- visual
 vim.g.have_nerd_font = true
-
 vim.g.netrw_banner = 0
 vim.g.netrw_preview = 1
-
+vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
+vim.opt.cursorline = true -- Show which line your cursor is on
+vim.opt.scrolloff = 8 -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.wrap = false -- Disable line wrapping
 vim.opt.number = true -- show absolute number on cursor line
 vim.opt.relativenumber = true
-
--- Sync clipboard between OS and Neovim.
-vim.opt.clipboard = "unnamedplus"
-
-vim.opt.undofile = true -- Save undo history
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
 vim.opt.signcolumn = "yes"
-
 vim.opt.colorcolumn = "+1"
-
--- Decrease update time
-vim.opt.updatetime = 250
-
--- remove the sql dynamic completion attempt in .sql files
-vim.g.omni_sql_default_compl_type = "syntax"
-
-vim.opt.list = false
+vim.o.winborder = "single" -- Set the floating window border (like lsp hover)
 vim.opt.listchars = {
 	space = "·",
 	trail = "·",
 	nbsp = "␣",
-	tab = "»",
+	tab = "»>",
 	extends = "»",
 	precedes = "«",
 	eol = "↲",
 }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 8
-
-vim.opt.wrap = false -- Disable line wrapping
-
-vim.opt.expandtab = false -- Use spaces instead of tabs
+-- indentation
 vim.opt.tabstop = 4 -- Number of spaces a tab counts for
 vim.opt.shiftwidth = 4 -- Number of spaces for each level of indentation
 vim.opt.softtabstop = 4 -- Number of spaces a <Tab> or <BS> uses while editing
-vim.opt.smarttab = true -- Use shiftwidth when pressing <Tab> at the start of a line
-vim.opt.autoindent = true -- Automatically copy indent from current line
+-- misc
+vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim.
+vim.opt.undofile = true -- Save undo history
+vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.opt.smartcase = true
+vim.opt.updatetime = 250 -- Decrease update time
 
--- Set the floating window border (like lsp hover)
-vim.o.winborder = "single"
+-- remove the sql dynamic completion attempt in .sql files
+vim.g.omni_sql_default_compl_type = "syntax"
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open all diagnostic [Q]uickfix list" })
 vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, { desc = "Open buffer diagnostic [Q]uickfix list" })
 
--- Execute lua keymaps
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute current lua file" })
-vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
-vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
-vim.keymap.set("n", "<leader>er", "<CMD>Rex<CR>")
-vim.keymap.set("n", "<leader>ep", "<CMD>Explore<CR>")
-vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>")
-
--- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- File Explorer
+vim.keymap.set("n", "<leader>er", "<CMD>Rex<CR>", { desc = "[E]xplore [R]ex" })
+vim.keymap.set("n", "<leader>ep", "<CMD>Explore .<CR>", { desc = "[E]xplore [P]roject" })
+vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile" })
 
 -- Create missing directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -105,12 +67,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank()
 	end,
 })
-
--- Disable providers as I only use lua plugins
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
 
 -- Listen to a godot host file
 -- This makes the nvim jump to correct line and file when file chosen in godot editor
@@ -155,5 +111,3 @@ require("lazy").setup({
 		},
 	},
 })
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
