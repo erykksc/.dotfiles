@@ -7,12 +7,11 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-	'workspace 9',
+	'workspace e',
 	'layout h_accordion',
 	'workspace-back-and-forth'
 ]
 
-# Start AeroSpace at login
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
@@ -34,19 +33,8 @@ default-root-container-orientation = 'auto'
 
 key-mapping.preset = 'qwerty'
 
-# Mouse follows focus when focused monitor changes
-# Drop it from your config, if you don't like this behavior
-# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
-# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
 
-# Gaps between windows (inner-*) and between monitor edges (outer-*).
-# Possible values:
-# - Constant:     gaps.outer.top = 8
-# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
-#                 In this example, 24 is a default value when there is no match.
-#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
-#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
 inner.horizontal = 0
 inner.vertical =   0
@@ -55,52 +43,16 @@ outer.bottom =     0
 outer.top =        0
 outer.right =      0
 
-# 'main' binding mode declaration
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-# 'main' binding mode must be always presented
 [mode.main.binding]
-
-# All possible keys:
-# - Letters.        a, b, c, ..., z
-# - Numbers.        0, 1, 2, ..., 9
-# - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
-# - F-keys.         f1, f2, ..., f20
-# - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
-#                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
-# - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
-#                   keypadMinus, keypadMultiply, keypadPlus
-# - Arrows.         left, down, up, right
-
-# All possible modifiers: cmd, alt, ctrl, shift
-
-# All possible commands: https://nikitabobko.github.io/AeroSpace/commands
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-# You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
-# alt-enter = '''exec-and-forget osascript -e '
-# tell application "Terminal"
-#     do script
-#     activate
-# end tell'
-# '''
 
 cmd-m = [] # Disable "hide application"
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
-alt-1 = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
-alt-2 = 'exec-and-forget open /Applications/Brave\ Browser.app'
-alt-3 = 'exec-and-forget open /Applications/kitty.app'
-alt-4 = 'exec-and-forget open "/Users/erykksc/Applications/Brave Browser Apps.localized/ChatGPT.app"'
-alt-5 = 'exec-and-forget open /System/Applications/Preview.app'
-alt-6 = 'exec-and-forget open /System/Applications/Mail.app'
-alt-7 = 'exec-and-forget open /System/Applications/Reminders.app'
-alt-8 = 'exec-and-forget open /Applications/Messenger.app'
-alt-9 = 'exec-and-forget open /Applications/WhatsApp.app'
-alt-0 = 'exec-and-forget open /Applications/Spotify.app'
+alt-2 = 'exec-and-forget osascript -e "tell application \"Finder\" to make new Finder window to Home"'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-ctrl-alt-cmd-slash = 'layout tiles horizontal vertical'
+ctrl-alt-cmd-v = 'layout tiles horizontal vertical'
 ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
@@ -109,52 +61,46 @@ ctrl-alt-cmd-j = 'focus down'
 ctrl-alt-cmd-k = 'focus up'
 ctrl-alt-cmd-l = 'focus right'
 
-ctrl-alt-cmd-f = 'fullscreen'
+ctrl-alt-cmd-enter = 'macos-native-fullscreen'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move
 ctrl-alt-cmd-shift-h = 'move left'
 ctrl-alt-cmd-shift-j = 'move down'
 ctrl-alt-cmd-shift-k = 'move up'
 ctrl-alt-cmd-shift-l = 'move right'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
 ctrl-alt-cmd-shift-minus = 'resize smart -50'
 ctrl-alt-cmd-shift-equal = 'resize smart +50'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-ctrl-alt-cmd-1 = 'workspace 1'
-ctrl-alt-cmd-2 = 'workspace 2'
-ctrl-alt-cmd-3 = 'workspace 3'
-ctrl-alt-cmd-4 = 'workspace 4'
-ctrl-alt-cmd-5 = 'workspace 5'
-ctrl-alt-cmd-6 = 'workspace 6'
-ctrl-alt-cmd-7 = 'workspace 7'
-ctrl-alt-cmd-8 = 'workspace 8'
-ctrl-alt-cmd-9 = 'workspace 9'
-ctrl-alt-cmd-0 = 'workspace 10'
+ctrl-alt-cmd-a = 'workspace a'
+ctrl-alt-cmd-s = 'workspace s'
+ctrl-alt-cmd-d = 'workspace d'
+ctrl-alt-cmd-f = 'workspace f'
+ctrl-alt-cmd-g = 'workspace g'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-ctrl-alt-cmd-shift-1 = 'move-node-to-workspace 1'
-ctrl-alt-cmd-shift-2 = 'move-node-to-workspace 2'
-ctrl-alt-cmd-shift-3 = 'move-node-to-workspace 3'
-ctrl-alt-cmd-shift-4 = 'move-node-to-workspace 4'
-ctrl-alt-cmd-shift-5 = 'move-node-to-workspace 5'
-ctrl-alt-cmd-shift-6 = 'move-node-to-workspace 6'
-ctrl-alt-cmd-shift-7 = 'move-node-to-workspace 7'
-ctrl-alt-cmd-shift-8 = 'move-node-to-workspace 8'
-ctrl-alt-cmd-shift-9 = 'move-node-to-workspace 9'
-ctrl-alt-cmd-shift-0 = 'move-node-to-workspace 10'
+ctrl-alt-cmd-q = 'workspace q'
+ctrl-alt-cmd-w = 'workspace w'
+ctrl-alt-cmd-e = 'workspace e'
+ctrl-alt-cmd-r = 'workspace r'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+ctrl-alt-cmd-shift-a = 'move-node-to-workspace a'
+ctrl-alt-cmd-shift-s = 'move-node-to-workspace s'
+ctrl-alt-cmd-shift-d = 'move-node-to-workspace d'
+ctrl-alt-cmd-shift-f = 'move-node-to-workspace f'
+ctrl-alt-cmd-shift-g = 'move-node-to-workspace g'
+
+ctrl-alt-cmd-shift-q = 'move-node-to-workspace q'
+ctrl-alt-cmd-shift-w = 'move-node-to-workspace w'
+ctrl-alt-cmd-shift-e = 'move-node-to-workspace e'
+ctrl-alt-cmd-shift-r = 'move-node-to-workspace r'
+
 alt-tab = 'workspace-back-and-forth'
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 ctrl-alt-cmd-n = 'focus-monitor --wrap-around next'
 ctrl-alt-cmd-p = 'focus-monitor --wrap-around prev'
 ctrl-alt-cmd-shift-n = 'move-workspace-to-monitor --wrap-around next'
 ctrl-alt-cmd-shift-p = 'move-workspace-to-monitor --wrap-around prev'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-ctrl-alt-cmd-shift-semicolon = 'mode service'
+ctrl-alt-cmd-space = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -162,7 +108,7 @@ ctrl-alt-cmd-shift-semicolon = 'mode service'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main']
+o = ['close-all-windows-but-current', 'mode main']
 
 ctrl-alt-cmd-shift-h = ['join-with left', 'mode main']
 ctrl-alt-cmd-shift-j = ['join-with down', 'mode main']
@@ -170,45 +116,29 @@ ctrl-alt-cmd-shift-k = ['join-with up', 'mode main']
 ctrl-alt-cmd-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Monkeytype'
-run = "move-node-to-workspace 1"
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace d"
 
 [[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = "move-node-to-workspace 3"
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser.app.cadlkienfkclaiaibeoongdcgmdikeeg'
-run = "move-node-to-workspace 4"
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Preview'
-run = "move-node-to-workspace 5"
+if.app-id = 'app.zen-browser.zen'
+run = "move-node-to-workspace f"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace 6"
-
-[[on-window-detected]]
-if.app-id = 'com.apple.reminders'
-run = "move-node-to-workspace 7"
+run = "move-node-to-workspace e"
 
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
-run = "move-node-to-workspace 9"
+run = "move-node-to-workspace e"
 
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
-run = "move-node-to-workspace 9"
+run = "move-node-to-workspace e"
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace 9"
+run = "move-node-to-workspace e"
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace 10"
+run = "move-node-to-workspace a"
