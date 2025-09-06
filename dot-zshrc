@@ -59,7 +59,7 @@ precmd() {
 } 
 setopt prompt_subst
 zstyle ':vcs_info:git*' formats "%b"
-PROMPT='${PROMPT_HOST}%F{green}%~%F{magenta}${vcs_info_msg_0_:+ $vcs_info_msg_0_}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
+PROMPT='${PROMPT_HOST}%F{green}%~%F{magenta}${vcs_info_msg_0_:+ ($vcs_info_msg_0_)}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
 %# '
 
 # FZF
