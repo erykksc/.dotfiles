@@ -1,109 +1,70 @@
 return {
 	{
-		-- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		branch = "master",
-		dependencies = {
-			{
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				branch = "master",
-			},
-		},
 		build = ":TSUpdate",
-		opts = {
-			ensure_installed = { "bash", "html", "lua", "luadoc", "markdown", "vimdoc" },
-			auto_install = true,
-			highlight = {
-				enable = true,
-				disable = { "latex", "bibtex" },
-				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-				--  If you are experiencing weird indenting issues, add the language to
-				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby", "markdown" },
-			},
-			indent = { enable = true },
-			textobjects = {
-				lsp_interop = {
+		config = function(_)
+			require("nvim-treesitter.configs").setup({
+				auto_install = true,
+				highlight = {
 					enable = true,
-					border = "none",
-					floating_preview_opts = {},
-					-- peek_definition_code = {
-					-- 	["<leader>pf"] = "@function.outer",
-					-- 	["<leader>pc"] = "@class.outer",
-					-- },
+					disable = { "latex", "bibtex" },
 				},
-				select = {
-					enable = true,
-					keymaps = {
-						["if"] = "@function.inner",
-						["af"] = "@function.outer",
-						["ia"] = "@parameter.inner",
-						["aa"] = "@parameter.outer",
-						["ic"] = "@class.inner",
-						["ac"] = "@class.outer",
-					},
-					selection_modes = {
-						-- ["@parameter.outer"] = "v", -- charwise
-						["@function.outer"] = "V", -- linewise
-						-- ["@class.outer"] = "<c-v>", -- blockwise
-					},
-					include_surrounding_whitespace = false,
-				},
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]f"] = "@function.outer",
-						["]a"] = "@parameter.inner",
-					},
-					goto_next_end = {
-						["]F"] = "@function.outer",
-					},
-					goto_previous_start = {
-						["[f"] = "@function.outer",
-						["[a"] = "@parameter.inner",
-					},
-					goto_previous_end = {
-						["[F"] = "@function.outer",
-					},
-				},
-			},
-		},
-		config = function(_, opts)
-			---@diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.configs").setup(opts)
-
-			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-			vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-			vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-
-			vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-
-			-- create repeatable diagnostic motions
-			local next_diag, prev_diag = ts_repeat_move.make_repeatable_move_pair(function()
-				vim.diagnostic.jump({ count = 1, float = true })
-			end, function()
-				vim.diagnostic.jump({ count = -1, float = true })
-			end)
-
-			-- override the default mappings so they become repeatable with ; and ,
-			vim.keymap.set({ "n", "x", "o" }, "]d", next_diag, { desc = "Next diagnostic" })
-			vim.keymap.set({ "n", "x", "o" }, "[d", prev_diag, { desc = "Prev diagnostic" })
-
-			-- create repeatable quicklist motions
-			local cnext, cprev = ts_repeat_move.make_repeatable_move_pair(function()
-				vim.cmd.cnext()
-			end, function()
-				vim.cmd.cprev()
-			end)
-
-			vim.keymap.set({ "n", "x", "o" }, "]q", cnext, { desc = "Next item on quicklist" })
-			vim.keymap.set({ "n", "x", "o" }, "[q", cprev, { desc = "Prev item on quicklist" })
+				indent = { enable = true },
+			})
 		end,
 	},
+	-- {
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	lazy = false,
+	-- 	branch = "main",
+	-- 	build = ":TSUpdate",
+	-- 	config = function()
+	-- 		local nvimTreesitter = require("nvim-treesitter")
+	-- 		local availableLangs = nvimTreesitter.get_available()
+	-- 		local installedLangs = nvimTreesitter.get_installed()
+	--
+	-- 		vim.api.nvim_create_autocmd("FileType", {
+	-- 			pattern = "*",
+	-- 			callback = function(args)
+	-- 				local bufnr = args.buf
+	-- 				local ft = args.match
+	-- 				-- lang not recognized (probably pluginn buffer)
+	-- 				local lang = vim.treesitter.language.get_lang(ft)
+	-- 				if not lang then
+	-- 					return
+	-- 				end
+	-- 				-- no grammar for lang
+	-- 				if not vim.tbl_contains(availableLangs, lang) then
+	-- 					return false
+	-- 				end
+	-- 				-- grammar not installed
+	-- 				if not vim.tbl_contains(installedLangs, lang) then
+	-- 					nvimTreesitter.install(lang):wait(300000) -- max. 5 minutes
+	-- 				end
+	--
+	-- 				-- Check so tree-sitter can see the newly installed parser
+	-- 				local parser_installed = pcall(vim.treesitter.get_parser, bufnr, lang)
+	-- 				if not parser_installed then
+	-- 					vim.notify(
+	-- 						"Failed to get parser for " .. lang .. " after installation",
+	-- 						vim.log.levels.WARN,
+	-- 						{ title = "core/treesitter" }
+	-- 					)
+	-- 					return
+	-- 				end
+	--
+	-- 				-- syntax highlighting, provided by Neovim
+	-- 				vim.treesitter.stop(bufnr)
+	-- 				vim.treesitter.start()
+	-- 				-- folds, provided by Neovim
+	-- 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	-- 				-- indentation, provided by nvim-treesitter
+	-- 				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	-- 			end,
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 	},

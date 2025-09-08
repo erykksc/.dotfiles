@@ -49,6 +49,21 @@ vim.keymap.set("n", "<leader>er", "<CMD>Rex<CR>", { desc = "[E]xplore [R]ex" })
 vim.keymap.set("n", "<leader>ep", "<CMD>Explore .<CR>", { desc = "[E]xplore [P]roject" })
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile" })
 
+-- Execute lua keymaps
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute current lua file" })
+vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
+vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
+
+-- Navigate diagnostics
+local next_diag = function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end
+local prev_diag = function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end
+vim.keymap.set({ "n", "x", "o" }, "[d", prev_diag, { desc = "Prev diagnostic" })
+vim.keymap.set({ "n", "x", "o" }, "]d", next_diag, { desc = "Next diagnostic" })
+
 -- Create missing directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
 	callback = function(ctx)
