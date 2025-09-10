@@ -36,6 +36,10 @@ sudo pacman --needed --noconfirm -S \
 
 sudo systemctl enable --now bluetooth.service
 
+sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
+sudo systemctl enable --now keyd
+sudo keyd reload
+
 # CLI tools
 sudo pacman --needed --noconfirm -S \
 	zsh \
@@ -57,6 +61,8 @@ sudo pacman --needed --noconfirm -S \
 	docker \
 	direnv \
 	pnpm \
+	keyd \
+	btop \
 	base-devel
 
 yay --needed --noconfirm -S \
@@ -116,3 +122,5 @@ fi
 	cd "$HOME/.dotfiles"
 	nix run "nixpkgs#stow" -- -R .
 )
+
+
