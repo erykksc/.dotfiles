@@ -12,7 +12,6 @@ dot-config/raycast/extensions/
 dot-config/swiftpm/
 .direnv/
 .nix-profile
-.envrc
 dot-config/claude/statsig/
 dot-config/docker/
 dot-config/claude/
