@@ -123,4 +123,4 @@ fi
 	nix run "nixpkgs#stow" -- -R .
 )
 
-
+sudo usermod -aG input $USER
