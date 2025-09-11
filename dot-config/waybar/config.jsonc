@@ -1,0 +1,90 @@
+{
+    "layer": "top",
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/mode",
+    ],
+    "modules-center": [
+        "hyprland/window",
+        "mpd",
+        "calendar"
+    ],
+    "modules-right": [
+        "bluetooth",
+        "notifications",
+        "volume",
+        "audio",
+        "backlight",
+        "battery",
+        "clock"
+    ],
+    "hyprland/window": {
+        "max-length": 50
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "cpu": {
+        "format": "CPU: {usage}%"
+    },
+    "memory": {
+        "format": "RAM: {used}/{total}MB"
+    },
+    "network": {
+        "interface": "wlan0",
+        "format": "{download} ↓ {upload} ↑"
+    },
+    "mpd": {
+        "format": "{title} - {artist}",
+        "show_album": true
+    },
+    "weather": {
+        "format": "{temperature}°C {condition}",
+        "location": "London",
+        "apikey": "your-api-key-here"
+    },
+    "bluetooth": {
+        "show_devices": true,
+        "show_battery": true
+    },
+    "notifications": {
+        "format": "Notifications: {count}",
+        "dunst": true
+    },
+    "volume": {
+        "format": " {volume}%",
+        "format-muted": " Muted"
+    },
+    "uptime": {
+        "format": "Uptime: {hours}h {minutes}m"
+    },
+    "custom": {
+        "command": "your-script.sh",
+        "interval": 10
+    },
+    "forecast": {
+        "format": "{day}: {temp}°C, {condition}",
+        "location": "London",
+        "apikey": "your-api-key-here"
+    },
+    "git": {
+        "format": "{branch} ({status})",
+        "path": "/path/to/your/repository"
+    },
+    "disk": {
+        "format": "Disk: {used}/{total}GB"
+    },
+    "power": {
+        "show_charging": true,
+        "format": "{battery}% {charging_status}",
+        "charging_status": "Charging"
+    },
+    "calendar": {
+        "format": "{date}",
+        "date_format": "%Y-%m-%d"
+    }
+}
