@@ -2,6 +2,7 @@ return {
 	"nvim-mini/mini.nvim",
 	version = false,
 	config = function()
+		require("mini.icons").setup()
 		local pick = require("mini.pick")
 		pick.setup({})
 		local extra = require("mini.extra")

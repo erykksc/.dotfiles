@@ -33,11 +33,10 @@ vim.opt.undofile = true -- Save undo history
 vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.smartcase = true
 vim.opt.updatetime = 250 -- Decrease update time
+vim.o.swapfile = false
 
 -- remove the sql dynamic completion attempt in .sql files
 vim.g.omni_sql_default_compl_type = "syntax"
-
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
 
 -- Diagnostic keymaps
@@ -53,16 +52,6 @@ vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute current lua file" })
 vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
 vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
-
--- Navigate diagnostics
-local next_diag = function()
-	vim.diagnostic.jump({ count = 1, float = true })
-end
-local prev_diag = function()
-	vim.diagnostic.jump({ count = -1, float = true })
-end
-vim.keymap.set({ "n", "x", "o" }, "[d", prev_diag, { desc = "Prev diagnostic" })
-vim.keymap.set({ "n", "x", "o" }, "]d", next_diag, { desc = "Next diagnostic" })
 
 -- Create missing directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -83,13 +72,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Listen to a godot host file
--- This makes the nvim jump to correct line and file when file chosen in godot editor
-local projectfile = vim.fn.getcwd() .. "/project.godot"
-if vim.fn.filereadable(projectfile) == 1 then
-	vim.fn.serverstart("./godothost")
-end
-
 -- Install Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
@@ -105,24 +87,6 @@ require("lazy").setup({
 		enabled = false, -- Disable LuaRocks support entirely
 	},
 	spec = {
-		-- import your plugins
 		{ import = "plugins" },
-	},
-	ui = {
-		icons = vim.g.have_nerd_font and {} or {
-			cmd = "⌘",
-			config = "🛠",
-			event = "📅",
-			ft = "📂",
-			init = "⚙",
-			keys = "🗝",
-			plugin = "🔌",
-			runtime = "💻",
-			require = "🌙",
-			source = "📄",
-			start = "🚀",
-			task = "📌",
-			lazy = "💤 ",
-		},
 	},
 })

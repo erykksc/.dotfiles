@@ -26,25 +26,6 @@ return { -- LSP Configuration & Plugins
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				-- Rename the variable under your cursor.
-				--  Most Language Servers support renaming across files, etc.
-				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-				-- Execute a code action, usually your cursor needs to be on top of an error
-				-- or a suggestion from your LSP for this to activate.
-				map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
-
-				-- Find references for the word under your cursor.
-				map("grr", function()
-					extra.pickers.lsp({ scope = "references" })
-				end, "[G]oto [R]eferences")
-
-				-- Jump to the implementation of the word under your cursor.
-				--  Useful when your language has ways of declaring types without an actual implementation.
-				map("gri", function()
-					extra.pickers.lsp({ scope = "implementation" })
-				end, "[G]oto [I]mplementation")
-
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-t>.
@@ -69,13 +50,6 @@ return { -- LSP Configuration & Plugins
 				map("gW", function()
 					extra.pickers.lsp({ scope = "workspace_symbol" })
 				end, "Open Workspace Symbols")
-
-				-- Jump to the type of the word under your cursor.
-				--  Useful when you're not sure what type a variable is and you want to see
-				--  the definition of its *type*, not where it was *defined*.
-				map("grt", function()
-					extra.pickers.lsp({ scope = "type_definition" })
-				end, "[G]oto [T]ype Definition")
 
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
@@ -149,6 +123,13 @@ return { -- LSP Configuration & Plugins
 				end,
 			},
 		})
+
+		-- Listen to a godot host file
+		-- This makes the nvim jump to correct line and file when file chosen in godot editor
+		local projectfile = vim.fn.getcwd() .. "/project.godot"
+		if vim.fn.filereadable(projectfile) == 1 then
+			vim.fn.serverstart("./godothost")
+		end
 
 		-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 		--
