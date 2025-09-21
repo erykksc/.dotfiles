@@ -12,3 +12,4 @@
 --ignore=configure-macos.sh
 --ignore=flake.lock
 --ignore=flake.nix
+--ignore=.nix-profile
