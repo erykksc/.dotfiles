@@ -9,30 +9,16 @@ after-login-command = []
 after-startup-command = [
 	'workspace e',
 	'layout h_accordion',
-	'workspace-back-and-forth'
+	'workspace f'
 ]
 
 start-at-login = true
-
-# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
-
-# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
-# The 'accordion-padding' specifies the size of accordion padding
-# You can set 0 to disable the padding feature
 accordion-padding = 30
-
-# Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
-
-# Possible values: horizontal|vertical|auto
-# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
-#               tall monitor (anything higher than wide) gets vertical orientation
 default-root-container-orientation = 'auto'
-
 key-mapping.preset = 'qwerty'
-
 on-focus-changed = ['move-mouse window-lazy-center']
 
 [gaps]
@@ -44,54 +30,45 @@ outer.top =        0
 outer.right =      0
 
 [mode.main.binding]
-
 cmd-m = [] # Disable "hide application"
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
-
 alt-2 = 'exec-and-forget osascript -e "tell application \"Finder\" to make new Finder window to Home"'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#layout
+ctrl-alt-cmd-g = 'layout floating tiling'
 ctrl-alt-cmd-v = 'layout tiles horizontal vertical'
-ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'
+ctrl-alt-cmd-c = 'layout accordion horizontal'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#focus
 ctrl-alt-cmd-h = 'focus left'
 ctrl-alt-cmd-j = 'focus down'
 ctrl-alt-cmd-k = 'focus up'
 ctrl-alt-cmd-l = 'focus right'
-
-ctrl-alt-cmd-enter = 'macos-native-fullscreen'
 
 ctrl-alt-cmd-shift-h = 'move left'
 ctrl-alt-cmd-shift-j = 'move down'
 ctrl-alt-cmd-shift-k = 'move up'
 ctrl-alt-cmd-shift-l = 'move right'
 
-ctrl-alt-cmd-shift-minus = 'resize smart -50'
-ctrl-alt-cmd-shift-equal = 'resize smart +50'
+ctrl-alt-cmd-enter = 'fullscreen'
 
-ctrl-alt-cmd-a = 'workspace a'
-ctrl-alt-cmd-s = 'workspace s'
-ctrl-alt-cmd-d = 'workspace d'
-ctrl-alt-cmd-f = 'workspace f'
-ctrl-alt-cmd-g = 'workspace g'
 
-ctrl-alt-cmd-q = 'workspace q'
-ctrl-alt-cmd-w = 'workspace w'
-ctrl-alt-cmd-e = 'workspace e'
-ctrl-alt-cmd-r = 'workspace r'
+ctrl-alt-cmd-minus = 'resize smart -50'
+ctrl-alt-cmd-equal = 'resize smart +50'
 
-ctrl-alt-cmd-shift-a = 'move-node-to-workspace a'
-ctrl-alt-cmd-shift-s = 'move-node-to-workspace s'
-ctrl-alt-cmd-shift-d = 'move-node-to-workspace d'
-ctrl-alt-cmd-shift-f = 'move-node-to-workspace f'
-ctrl-alt-cmd-shift-g = 'move-node-to-workspace g'
+ctrl-alt-cmd-q = 'workspace q' # spotify
+ctrl-alt-cmd-w = 'workspace w' # workspace
+ctrl-alt-cmd-e = 'workspace e' # chats
+ctrl-alt-cmd-r = 'workspace r' # workspace
+ctrl-alt-cmd-s = 'workspace s' # email
+ctrl-alt-cmd-d = 'workspace d' # terminal
+ctrl-alt-cmd-f = 'workspace f' # browser
 
 ctrl-alt-cmd-shift-q = 'move-node-to-workspace q'
 ctrl-alt-cmd-shift-w = 'move-node-to-workspace w'
 ctrl-alt-cmd-shift-e = 'move-node-to-workspace e'
 ctrl-alt-cmd-shift-r = 'move-node-to-workspace r'
+ctrl-alt-cmd-shift-s = 'move-node-to-workspace s'
+ctrl-alt-cmd-shift-d = 'move-node-to-workspace d'
+ctrl-alt-cmd-shift-f = 'move-node-to-workspace f'
 
 alt-tab = 'workspace-back-and-forth'
 ctrl-alt-cmd-n = 'focus-monitor --wrap-around next'
@@ -99,21 +76,17 @@ ctrl-alt-cmd-p = 'focus-monitor --wrap-around prev'
 ctrl-alt-cmd-shift-n = 'move-workspace-to-monitor --wrap-around next'
 ctrl-alt-cmd-shift-p = 'move-workspace-to-monitor --wrap-around prev'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
 ctrl-alt-cmd-space = 'mode service'
 
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 o = ['close-all-windows-but-current', 'mode main']
 
-ctrl-alt-cmd-shift-h = ['join-with left', 'mode main']
-ctrl-alt-cmd-shift-j = ['join-with down', 'mode main']
-ctrl-alt-cmd-shift-k = ['join-with up', 'mode main']
-ctrl-alt-cmd-shift-l = ['join-with right', 'mode main']
+ctrl-alt-cmd-h = ['join-with left', 'mode main']
+ctrl-alt-cmd-j = ['join-with down', 'mode main']
+ctrl-alt-cmd-k = ['join-with up', 'mode main']
+ctrl-alt-cmd-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
@@ -125,7 +98,7 @@ run = "move-node-to-workspace f"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace e"
+run = "move-node-to-workspace s"
 
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
@@ -141,4 +114,4 @@ run = "move-node-to-workspace e"
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace a"
+run = "move-node-to-workspace q"
