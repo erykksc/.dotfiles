@@ -1,4 +1,5 @@
 --dotfiles
+--ignore=^\.DS_Store$
 --ignore=^\.direnv$
 --ignore=.envrc
 --ignore=^\.git$
@@ -13,3 +14,5 @@
 --ignore=flake.lock
 --ignore=flake.nix
 --ignore=.nix-profile
+--ignore=etc
+--ignore=setup
