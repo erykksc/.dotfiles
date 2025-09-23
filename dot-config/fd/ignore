@@ -1,0 +1,8 @@
+/nix/
+/System/
+/Library/
+/private/
+/usr/
+/Users/eryk/Library/*
+/Users/eryk/!/Library/CloudStorage/
+/Users/eryk/**/*.photoslibrary/
