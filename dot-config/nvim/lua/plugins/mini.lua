@@ -10,7 +10,6 @@ return {
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help, { desc = "[S]earch [H]elp" })
 		vim.keymap.set("n", "<leader>sk", extra.pickers.keymaps, { desc = "[S]earch [K]eymaps" })
 		vim.keymap.set("n", "<leader>sf", pick.builtin.files, { desc = "[S]earch [F]iles" })
-		vim.keymap.set("n", "<leader>ss", extra.pickers.list, { desc = "[S]earch [S]elect Telescope" })
 		vim.keymap.set("n", "<leader>sg", pick.builtin.grep_live, { desc = "[S]earch by [G]rep" })
 		vim.keymap.set("n", "<leader>sd", extra.pickers.diagnostic, { desc = "[S]earch [D]iagnostics" })
 		vim.keymap.set("n", "<leader>sr", pick.builtin.resume, { desc = "[S]earch [R]esume" })
