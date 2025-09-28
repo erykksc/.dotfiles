@@ -65,8 +65,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Diagnostic Config
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config({
+	severity_sort = true,
+	float = { border = "rounded", source = true },
+	virtual_text = {
+		spacing = 2,
+		format = function(diagnostic)
+			return diagnostic.message
+		end,
+	},
+})
+
 -------------------------------- PLUGINS --------------------------------
-------------------- COLORSCHEME
+-- plugin: colorscheme
 vim.pack.add({
 	"https://github.com/Shatur/neovim-ayu",
 })
@@ -79,14 +92,14 @@ require("ayu").setup({
 })
 vim.cmd.colorscheme("ayu-mirage")
 
-------------------- blink
+-- plugin: blink
 vim.pack.add({ {
 	src = "https://github.com/saghen/blink.cmp",
 	version = vim.version.range("1.*"),
 } })
 require("blink.cmp").setup()
 
-------------------- conform
+-- plugin: conform
 vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 })
@@ -94,6 +107,7 @@ vim.pack.add({
 vim.keymap.set("n", "<leader>f", function()
 	require("conform").format({ async = true, lsp_fallback = true })
 end, { desc = "[F]ormat buffer" })
+
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = function(bufnr)
@@ -144,7 +158,7 @@ require("conform").setup({
 	},
 })
 
-------------------- gitsigns
+-- plugin: gitsigns
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 
 local gitsigns = require("gitsigns")
@@ -162,7 +176,7 @@ vim.keymap.set({ "n" }, "[h", "<CMD>Gitsigns prev_hunk<CR>", { desc = "Next [H]u
 vim.keymap.set({ "n" }, "]h", "<CMD>Gitsigns next_hunk<CR>", { desc = "Prev [H]unk" })
 vim.keymap.set({ "n" }, "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
 
-------------------- harpoon
+-- plugin: harpoon
 vim.pack.add({
 	{
 		src = "https://github.com/ThePrimeagen/harpoon",
@@ -187,7 +201,7 @@ for i, key in ipairs(harpoon_keys) do
 	end, { desc = "Select Harpoon file " .. i })
 end
 
-------------------- nvim-lint
+-- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
@@ -203,25 +217,25 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	end,
 })
 
-------------------- oil.nvim
+--- plugin: oil.nvim
 vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 require("oil").setup({
 	default_file_explorer = false,
 })
 
-------------------- undotree
+-- plugin: undotree
 vim.pack.add({ "https://github.com/mbbill/undotree" })
 vim.keymap.set("n", "<leader>u", "<CMD>UndotreeToggle<CR>", { desc = "Toggle [U]ndo Tree" })
 
-------------------- vim-sleuth
+-- plugin: vim-sleuth
 vim.pack.add({ "https://github.com/tpope/vim-sleuth" })
 
-------------------- vim-sleuth
+-- plugin: vim-slime
 vim.pack.add({ "https://github.com/jpalardy/vim-slime" })
 vim.g.slime_target = "tmux"
 vim.g.slime_bracketed_paste = 1
 
-------------------- nvim-treesitter
+-- plugin: nvim-treesitter
 vim.api.nvim_create_autocmd("PackChanged", {
 	desc = "Handle nvim-treesitter updates",
 	group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
@@ -238,7 +252,12 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		end
 	end,
 })
-vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" } })
+
+vim.pack.add({
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+	"https://github.com/nvim-treesitter/nvim-treesitter-context",
+})
+
 require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = {
@@ -248,10 +267,10 @@ require("nvim-treesitter.configs").setup({
 	indent = { enable = true },
 })
 
-------------------- live-preview.nvim
+-- plugin: live-preview.nvim
 vim.pack.add({ "https://github.com/brianhuster/live-preview.nvim" })
 
-------------------- mini
+-- plugin: mini
 vim.pack.add({
 	"https://github.com/nvim-mini/mini.nvim",
 })
@@ -272,7 +291,7 @@ vim.keymap.set("n", "<leader>/", function()
 end, { desc = "[S]earch in current buffer" })
 vim.keymap.set("n", "<leader>s/", miniExtra.pickers.buf_lines, { desc = "[S]earch in all buffers" })
 
-------------------- LSP
+-- plugin: LSP
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	-- Automatically install LSPs and related tools to stdpath for Neovim
@@ -362,35 +381,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end, "[T]oggle Inlay [H]ints")
 		end
 	end,
-})
-
--- Diagnostic Config
--- See :help vim.diagnostic.Opts
-vim.diagnostic.config({
-	severity_sort = true,
-	float = { border = "rounded", source = "if_many" },
-	underline = { severity = vim.diagnostic.severity.ERROR },
-	signs = vim.g.have_nerd_font and {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰀪 ",
-			[vim.diagnostic.severity.INFO] = "󰋽 ",
-			[vim.diagnostic.severity.HINT] = "󰌶 ",
-		},
-	} or {},
-	virtual_text = {
-		source = "if_many",
-		spacing = 2,
-		format = function(diagnostic)
-			local diagnostic_message = {
-				[vim.diagnostic.severity.ERROR] = diagnostic.message,
-				[vim.diagnostic.severity.WARN] = diagnostic.message,
-				[vim.diagnostic.severity.INFO] = diagnostic.message,
-				[vim.diagnostic.severity.HINT] = diagnostic.message,
-			}
-			return diagnostic_message[diagnostic.severity]
-		end,
-	},
 })
 
 -- Listen to a godot host file
