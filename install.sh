@@ -1,3 +1,4 @@
+nix run 'nixpkgs#stow' -- -R .
 nix profile add \
     'nixpkgs#btop' \
     'nixpkgs#cmake' \
