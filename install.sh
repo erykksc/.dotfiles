@@ -1,4 +1,5 @@
-nix run 'nixpkgs#stow' -- -R .
+nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+    run 'nixpkgs#stow' -- -R .
 nix profile add \
     'nixpkgs#btop' \
     'nixpkgs#cmake' \
