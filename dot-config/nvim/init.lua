@@ -126,9 +126,16 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
-		-- Conform can also run multiple formatters sequentially
-		python = { "isort", "black", "autopep8" }, -- assumption that only black or autopep8 will be installed
+		-- python = function(bufnr)
+		-- 	if require("conform").get_formatter_info("ruff_format", bufnr).available then
+		-- 		return { "ruff_fix", "ruff_format" }
+		-- 	else
+		-- 		return { "isort", "black" }
+		-- 	end
+		-- end,
+
 		go = { "goimports", "gofmt", stop_after_first = true },
+		gotmpl = { "prettier_gotmpl" },
 		nix = { "nixfmt" },
 		css = { "prettierd", "prettier", stop_after_first = true },
 		graphql = { "prettierd", "prettier", stop_after_first = true },
@@ -154,6 +161,18 @@ require("conform").setup({
 	formatters = {
 		["tex-fmt"] = {
 			args = { "--nowrap", "--stdin" },
+		},
+		prettier_gotmpl = {
+			command = "prettier",
+			args = {
+				"--stdin-filepath",
+				"$FILENAME",
+				"--plugin",
+				"prettier-plugin-go-template",
+				"--parser",
+				"go-template",
+			},
+			stdin = true,
 		},
 	},
 })
@@ -342,6 +361,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			extra.pickers.lsp({ scope = "workspace_symbol" })
 		end, "Open Workspace Symbols")
 
+		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
 		--    See `:help CursorHold` for information about when this is executed
@@ -411,7 +432,8 @@ local servers = {
 		},
 	},
 	-- ltex_plus = {},
-	pyright = {},
+	basedpyright = {},
+	ruff = {},
 	tofu_ls = {},
 	ts_ls = {},
 	texlab = {
