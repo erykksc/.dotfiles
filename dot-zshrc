@@ -48,10 +48,7 @@ setopt EXTENDED_GLOB
 
 # PROMPT
 REPORTTIME=5 # show how much time did a function take when it run for more than 5s
-PROMPT_HOST=""
-if [[ -n $SSH_CONNECTION ]]; then # Detect SSH: show hostname only if remote
-  PROMPT_HOST="%F{yellow}%n@%m%f "
-fi
+PROMPT_HOST="%F{yellow}%n@%m%f"
 autoload -Uz vcs_info
 precmd() {
   print "" # add empty line between prompts
@@ -59,7 +56,7 @@ precmd() {
 } 
 setopt prompt_subst
 zstyle ':vcs_info:git*' formats "%b"
-PROMPT='${VIRTUAL_ENV_PROMPT:+($VIRTUAL_ENV_PROMPT) }${PROMPT_HOST}%F{green}%~%F{magenta}${vcs_info_msg_0_:+ ($vcs_info_msg_0_)}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
+PROMPT='${VIRTUAL_ENV_PROMPT:+($VIRTUAL_ENV_PROMPT) }${PROMPT_HOST} %F{green}%~%F{magenta}${vcs_info_msg_0_:+ ($vcs_info_msg_0_)}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
 %# '
 
 # FZF
