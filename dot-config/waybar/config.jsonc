@@ -1,90 +1,107 @@
 {
-    "layer": "top",
-    "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/mode",
-    ],
-    "modules-center": [
-        "hyprland/window",
-        "mpd",
-        "calendar"
-    ],
-    "modules-right": [
-        "bluetooth",
-        "notifications",
-        "volume",
-        "audio",
-        "backlight",
-        "battery",
-        "clock"
-    ],
-    "hyprland/window": {
-        "max-length": 50
+  "layer": "bottom",
+  "position": "top",
+  "height": 40,
+  "spacing": 2,
+  "exclusive": true,
+  "gtk-layer-shell": true,
+  "passthrough": false,
+  "fixed-center": true,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["mpris"],
+  "modules-right": [
+    "tray",
+    "pulseaudio",
+    "clock",
+    "clock#simpleclock",
+    "custom/notification",
+    "custom/power",
+  ],
+  // "custom/spotify": { "format": "  {}",
+  //   "return-type": "json",
+  //   "on-click": "playerctl -p spotify play-pause",
+  //   "on-click-right": "spotifatius toggle-liked",
+  //   "on-click-middle": "playerctl -p spotify next",
+  //   "exec": "spotifatius monitor",
+  // },
+  "mpris": {
+    "player": "spotify",
+    "dynamic-order": ["artist", "title"],
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "status-icons": {
+      "paused": "",
     },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+    "player-icons": {
+      "default": "",
     },
-    "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
-    },
-    "cpu": {
-        "format": "CPU: {usage}%"
-    },
-    "memory": {
-        "format": "RAM: {used}/{total}MB"
-    },
-    "network": {
-        "interface": "wlan0",
-        "format": "{download} ↓ {upload} ↑"
-    },
-    "mpd": {
-        "format": "{title} - {artist}",
-        "show_album": true
-    },
-    "weather": {
-        "format": "{temperature}°C {condition}",
-        "location": "London",
-        "apikey": "your-api-key-here"
-    },
-    "bluetooth": {
-        "show_devices": true,
-        "show_battery": true
-    },
-    "notifications": {
-        "format": "Notifications: {count}",
-        "dunst": true
-    },
-    "volume": {
-        "format": " {volume}%",
-        "format-muted": " Muted"
-    },
-    "uptime": {
-        "format": "Uptime: {hours}h {minutes}m"
-    },
-    "custom": {
-        "command": "your-script.sh",
-        "interval": 10
-    },
-    "forecast": {
-        "format": "{day}: {temp}°C, {condition}",
-        "location": "London",
-        "apikey": "your-api-key-here"
-    },
-    "git": {
-        "format": "{branch} ({status})",
-        "path": "/path/to/your/repository"
-    },
-    "disk": {
-        "format": "Disk: {used}/{total}GB"
-    },
-    "power": {
-        "show_charging": true,
-        "format": "{battery}% {charging_status}",
-        "charging_status": "Charging"
-    },
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{id}",
+    "all-outputs": true,
+    "disable-scroll": false,
+    "active-only": false,
+  },
+  "hyprland/window": {
+    "format": "{title}",
+  },
+  "tray": {
+    "show-passive-items": true,
+    "spacing": 10,
+  },
+  "clock#simpleclock": {
+    "tooltip": false,
+    "format": " {:%H:%M}",
+  },
+  "clock": {
+    "format": " {:L%a %d %b}",
     "calendar": {
-        "format": "{date}",
-        "date_format": "%Y-%m-%d"
-    }
+      "format": {
+        "days": "<span weight='normal'>{}</span>",
+        "months": "<span color='#cdd6f4'><b>{}</b></span>",
+        "today": "<span color='#f38ba8' weight='700'><u>{}</u></span>",
+        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "weeks": "<span color='#a6e3a1'><b>W{}</b></span>",
+      },
+      "mode": "month",
+      "mode-mon-col": 1,
+      "on-scroll": 1,
+    },
+    "tooltip-format": "<span color='#cdd6f4' font='Lexend 16'><tt><small>{calendar}</small></tt></span>",
+    "on-click": "thunderbird", // add launch or focus
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "  muted",
+    "format-icons": {
+      "headphone": "",
+      "default": [" ", " ", " "],
+    },
+    "on-click": "pavucontrol",
+  },
+  "custom/sep": {
+    "format": "|",
+    "tooltip": false,
+  },
+  "custom/power": {
+    "tooltip": false,
+    "on-click": "wlogout -p layer-shell &",
+    "format": "⏻",
+  },
+  "custom/notification": {
+    "escape": true,
+    "exec": "swaync-client -swb",
+    "exec-if": "which swaync-client",
+    "format": "{icon}",
+    "format-icons": {
+      "none": "󰅺",
+      "notification": "󰡟",
+      "dnd-none": "󰂛",
+      "dnd": "󰂛",
+    },
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "return-type": "json",
+    "tooltip": false,
+  },
 }

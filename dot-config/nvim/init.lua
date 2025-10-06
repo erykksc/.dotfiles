@@ -125,6 +125,7 @@ require("conform").setup({
 		end
 	end,
 	formatters_by_ft = {
+		bash = { "shfmt" },
 		lua = { "stylua" },
 		-- python = function(bufnr)
 		-- 	if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -213,7 +214,7 @@ vim.keymap.set("n", "<M-e>", function()
 	harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Toggle Harpoon quick menu" })
 
-local harpoon_keys = { "a", "s", "d", "f", "g", "z", "x", "c", "v" }
+local harpoon_keys = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }
 for i, key in ipairs(harpoon_keys) do
 	vim.keymap.set("n", "<M-" .. key .. ">", function()
 		harpoon:list():select(i)
@@ -457,7 +458,9 @@ require("mason").setup()
 
 -- Make mason-tool-installer install tools
 local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {}) -- add additional tools
+vim.list_extend(ensure_installed, {
+	"shfmt",
+}) -- add additional tools like formatters
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 -- Define LSPs that don't need automatic installation

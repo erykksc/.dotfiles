@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 
+if [[ ! -f /etc/arch-release ]]; then
+	echo "THIS SCRIPT ONLY WORKS ON ARCH!!!"
+	exit 1
+fi
+
 set -euo pipefail
 set -x
 
+# copy defaults
+sudo cp ~/.dotfiles/etc/pacman.conf /etc/pacman.conf
+
 # upgrade system
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
 # install yay
 if yay --version >/dev/null 2>&1; then
@@ -25,20 +33,20 @@ fi
 # Distro
 sudo pacman --needed --noconfirm -S \
 	waybar \
-	wofi \
+	rofi \
 	bluez \
 	bluez-utils \
 	ttf-jetbrains-mono-nerd \
-	mako \
+	swaync \
 	polkit-kde-agent \
 	wl-clipboard \
-	xdg-desktop-portal-hyprland
+	xdg-desktop-portal-hyprland \
+	hyprpaper \
+	hyprsunset \
+	papirus-icon-theme \
+	wireguard-tools
 
 sudo systemctl enable --now bluetooth.service
-
-sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
-sudo systemctl enable --now keyd
-sudo keyd reload
 
 # CLI tools
 sudo pacman --needed --noconfirm -S \
@@ -46,7 +54,9 @@ sudo pacman --needed --noconfirm -S \
 	tmux \
 	rsync \
 	man-db \
+	go \
 	man-pages \
+	traceroute \
 	curl \
 	openssh \
 	git \
@@ -56,7 +66,6 @@ sudo pacman --needed --noconfirm -S \
 	fd \
 	ripgrep \
 	watchexec \
-	neovim \
 	fzf \
 	docker \
 	direnv \
@@ -64,14 +73,50 @@ sudo pacman --needed --noconfirm -S \
 	keyd \
 	btop \
 	base-devel
-
-yay --needed --noconfirm -S \
-	tlrc-bin
+# neovim \
 
 # GUI tools
 sudo pacman --needed --noconfirm -S \
-	ghostty  \
-	bitwarden
+	ghostty \
+	bitwarden \
+	flatpak \
+	flameshot \
+	okular \
+	dolphin \
+	discord \
+	kio-extras \
+	libreoffice-fresh \
+	nautilus \
+	sushi \
+	thunar \
+	rofimoji \
+	chromium \
+	wtype \
+	telegram-desktop \
+	thunderbird
+
+yay --needed --noconfirm -S \
+	tlrc-bin \
+	vial-appimage \
+	wlogout \
+	synology-drive
+
+flatpak install --assumeyes \
+	flathub \
+	org.kde.CrowTranslate
+
+# xdg-settings set default-web-browser zen-browser.desktop
+# xdg-mime default org.pwmt.zathura.desktop application/pdf
+
+# TODO:
+# messenger
+# login in browser to perplexity, chatgpt, google accounts, github, tu berlin
+# login in thunderbird to email accounts
+# wireguard client
+# preview in file manager on space press
+# ausweis app (create a windows VM setup)
+# go through every utility
+# rice just a tiny (one day project)
 
 yay --needed --noconfirm -S \
 	zen-browser-bin \
@@ -79,16 +124,21 @@ yay --needed --noconfirm -S \
 
 # Setup ZSH as shell
 CURRENT_SHELL=$(getent passwd "$USER" | cut -d: -f7)
-if [[ $CURRENT_SHELL != "/bin/zsh" ]] then
+if [[ $CURRENT_SHELL != "/bin/zsh" ]]; then
 	chsh -s /bin/zsh
 fi
+
+sudo mkdir -p /etc/keyd
+sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
+sudo systemctl enable --now keyd
+sudo keyd reload
 
 # Setup docker
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
 
 # Install Nix
-if command -v nix > /dev/null 2>&1; then
+if command -v nix >/dev/null 2>&1; then
 	echo "nix already installed"
 else
 	curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
@@ -100,7 +150,6 @@ fi
 # needs new shell to make sure that `nix` is accessible there
 (zsh -c 'nix profile add "nixpkgs#nix-direnv"')
 
-
 # Setup github
 # if gh auth status &>/dev/null; then
 # 	echo "✅ Already logged in to GitHub CLI"
@@ -110,11 +159,11 @@ fi
 # fi
 
 # create default ssh key
-if [[ ! -f "$HOME/.ssh/id_ed25519" ]] then
+if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
 	ssh-keygen -t ed25519 -C "$(whoami)@$(uname -n)"
 fi
 
-if [[ ! -d "$HOME/.dotfiles" ]] then
+if [[ ! -d "$HOME/.dotfiles" ]]; then
 	git clone git@github.com:erykksc/.dotfiles.git
 fi
 
