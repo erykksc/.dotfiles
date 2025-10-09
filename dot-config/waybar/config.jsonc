@@ -7,14 +7,21 @@
   "gtk-layer-shell": true,
   "passthrough": false,
   "fixed-center": true,
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window",
+    "sway/workspaces",
+    "sway/window",
+  ],
   "modules-center": ["mpris"],
   "modules-right": [
     "tray",
     "pulseaudio",
+    "backlight",
     "clock",
     "clock#simpleclock",
     "hyprland/language",
+    "sway/language",
     "custom/notification",
     "custom/power",
   ],
@@ -25,6 +32,11 @@
   //   "on-click-middle": "playerctl -p spotify next",
   //   "exec": "spotifatius monitor",
   // },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", ""],
+  },
   "mpris": {
     "player": "spotify",
     "dynamic-order": ["artist", "title"],
@@ -51,6 +63,10 @@
     "format": "{short}",
     "on-click": "hyprctl switchxkblayout all next",
     "on-click-right": "hyprctl switchxkblayout all prev",
+  },
+  "sway/language": {
+    "format": "{short}",
+    "on-click": "swaymsg input 'type:keyboard' xkb_switch_layout next",
   },
   "tray": {
     "show-passive-items": true,

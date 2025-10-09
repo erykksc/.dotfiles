@@ -33,6 +33,7 @@ fi
 # Distro
 sudo pacman --needed --noconfirm -S \
 	waybar \
+	brightnessctl \
 	rofi \
 	bluez \
 	bluez-utils \
