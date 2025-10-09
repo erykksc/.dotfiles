@@ -44,6 +44,9 @@ sudo pacman --needed --noconfirm -S \
 	hyprpaper \
 	hyprsunset \
 	papirus-icon-theme \
+	flatpak \
+	flameshot \
+	wtype \
 	wireguard-tools
 
 sudo systemctl enable --now bluetooth.service
@@ -72,6 +75,7 @@ sudo pacman --needed --noconfirm -S \
 	pnpm \
 	keyd \
 	btop \
+	tldr \
 	base-devel
 # neovim \
 
@@ -79,27 +83,24 @@ sudo pacman --needed --noconfirm -S \
 sudo pacman --needed --noconfirm -S \
 	ghostty \
 	bitwarden \
-	flatpak \
-	flameshot \
 	okular \
-	dolphin \
 	discord \
 	kio-extras \
 	libreoffice-fresh \
 	nautilus \
 	sushi \
-	thunar \
 	rofimoji \
 	chromium \
-	wtype \
 	telegram-desktop \
+	kdeconnect \
 	thunderbird
 
 yay --needed --noconfirm -S \
-	tlrc-bin \
 	vial-appimage \
-	wlogout \
-	synology-drive
+	synology-drive \
+	zen-browser-bin \
+	spotify
+# wlogout \
 
 flatpak install --assumeyes \
 	flathub \
@@ -113,14 +114,8 @@ flatpak install --assumeyes \
 # login in browser to perplexity, chatgpt, google accounts, github, tu berlin
 # login in thunderbird to email accounts
 # wireguard client
-# preview in file manager on space press
 # ausweis app (create a windows VM setup)
-# go through every utility
-# rice just a tiny (one day project)
-
-yay --needed --noconfirm -S \
-	zen-browser-bin \
-	spotify
+# rice just a tiny (one day project) go through every utility
 
 # Setup ZSH as shell
 CURRENT_SHELL=$(getent passwd "$USER" | cut -d: -f7)
@@ -141,11 +136,13 @@ sudo usermod -aG docker $USER
 if command -v nix >/dev/null 2>&1; then
 	echo "nix already installed"
 else
-	curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
+	curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm \
+		--extra-conf "tarball-ttl = 1w" # update nixpkgs automatically on nix run only once a week
 	# enable nix
 	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
+nix profile upgrade --all
 # install the nix-direnv (caching for direnv)
 # needs new shell to make sure that `nix` is accessible there
 (zsh -c 'nix profile add "nixpkgs#nix-direnv"')

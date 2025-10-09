@@ -14,6 +14,7 @@
     "pulseaudio",
     "clock",
     "clock#simpleclock",
+    "hyprland/language",
     "custom/notification",
     "custom/power",
   ],
@@ -45,6 +46,11 @@
   },
   "hyprland/window": {
     "format": "{title}",
+  },
+  "hyprland/language": {
+    "format": "{short}",
+    "on-click": "hyprctl switchxkblayout all next",
+    "on-click-right": "hyprctl switchxkblayout all prev",
   },
   "tray": {
     "show-passive-items": true,
