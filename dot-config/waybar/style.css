@@ -1,7 +1,7 @@
 * {
   min-height: 0;
   min-width: 0;
-  font-family: Lexend, "JetBrainsMono NFP";
+  font-family: "JetBrainsMono Nerd Font", monospace;
   font-size: 14px;
   font-weight: 600;
 }
@@ -21,7 +21,6 @@ window#waybar {
   border-radius: 6px;
   /* background-color: #181825; */
   background-color: #1e1e2e;
-  color: #cdd6f4;
 }
 
 #workspaces button:hover {
@@ -51,15 +50,22 @@ window#waybar {
 #memory,
 #window,
 #language,
+#network,
+#mode,
+#backlight,
+#bluetooth,
+#battery,
 #mpris {
   padding: 0.3rem 0.6rem;
   margin: 0.4rem 0.25rem;
   border-radius: 6px;
   /* background-color: #181825; */
   background-color: #1e1e2e;
+  color: #cdd6f4
 }
 
-#language {
+
+#mode, #language {
   color: #ffffff;
 }
 
@@ -94,10 +100,6 @@ window#waybar.empty #window {
 
 #clock.simpleclock {
   color: #89b4fa;
-}
-
-#window {
-  color: #cdd6f4;
 }
 
 #pulseaudio {
