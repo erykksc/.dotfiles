@@ -1,0 +1,48 @@
+{
+  "plugins": {
+    "blink.cmp": [],
+    "conform.nvim": {
+      "rev": "fbcb4fa"
+    },
+    "fidget.nvim": [],
+    "gitsigns.nvim": {
+      "rev": "1ee5c1f"
+    },
+    "harpoon": {
+      "version": "'harpoon2'"
+    },
+    "live-preview.nvim": {
+      "rev": "bd099b7"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "6bdb14f"
+    },
+    "mason-tool-installer.nvim": [],
+    "mason.nvim": {
+      "rev": "ad7146a"
+    },
+    "mini.nvim": {
+      "rev": "89eecd8"
+    },
+    "neovim-ayu": [],
+    "nvim-lint": {
+      "rev": "9da1fb9"
+    },
+    "nvim-lspconfig": {
+      "rev": "ac98db2"
+    },
+    "nvim-treesitter": {
+      "version": "'master'"
+    },
+    "nvim-treesitter-context": [],
+    "oil.nvim": {
+      "rev": "7194872"
+    },
+    "plenary.nvim": [],
+    "undotree": {
+      "rev": "0f1c981"
+    },
+    "vim-sleuth": [],
+    "vim-slime": []
+  }
+}

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# brew (MacOS)
+if command -v brew >/dev/null 2>&1; then
+	brew update
+	brew upgrade
+	brew autoremove
+	brew cleanup
+fi
+
+# nix profile
+if command -v nix >/dev/null 2>&1; then
+	nix profile upgrade --all
+	sudo nix-collect-garbage -d
+fi
+
+# apt (Debian, Ubuntu)
+if command -v apt >/dev/null 2>&1; then
+	sudo apt-get update
+	sudo apt-get upgrade -y
+	sudo apt-get autoremove --purge -y
+	sudo apt-get clean
+fi
+
+# dnf (Fedora)
+if command -v dnf >/dev/null 2>&1; then
+	sudo dnf clean all
+	sudo dnf upgrade --refresh -y
+	sudo dnf autoremove -y
+fi

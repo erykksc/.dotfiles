@@ -8,7 +8,7 @@ alias v='nvim'
 alias vc='nvim .'
 alias gs='git status'
 alias ls='ls --color=auto -p -h'
-alias s='~/.dotfiles/scripts/tmux-client.sh'
+alias s='~/.dotfiles/bin/tmux-client.sh'
 
 # Goland tools - use go tools if available, fallback to global commands
 golangci-lint() {

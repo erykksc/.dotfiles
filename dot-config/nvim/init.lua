@@ -33,6 +33,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.updatetime = 250 -- Decrease update time
 vim.o.swapfile = false
+vim.opt.diffopt = vim.opt.diffopt + { "vertical" }
 
 vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
 
@@ -45,16 +46,6 @@ vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute current lua file" })
 vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
 vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
-
--- Create missing directories on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function(ctx)
-		local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
-		if vim.fn.isdirectory(dir) == 0 then
-			vim.fn.mkdir(dir, "p")
-		end
-	end,
-})
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -77,6 +68,10 @@ vim.diagnostic.config({
 		end,
 	},
 })
+
+if vim.pack == nil then
+	return
+end
 
 -------------------------------- PLUGINS --------------------------------
 -- plugin: colorscheme

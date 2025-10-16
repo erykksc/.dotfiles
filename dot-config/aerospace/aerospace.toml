@@ -33,7 +33,9 @@ outer.right =      0
 cmd-m = [] # Disable "hide application"
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
-alt-2 = 'exec-and-forget osascript -e "tell application \"Finder\" to make new Finder window to Home"'
+ctrl-alt-cmd-e = 'exec-and-forget osascript -e "tell application \"Finder\" to make new Finder window to Home"'
+ctrl-alt-cmd-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
+ctrl-alt-cmd-b = 'exec-and-forget open -n /Applications/Zen.app'
 ctrl-alt-cmd-g = 'layout floating tiling'
 ctrl-alt-cmd-v = 'layout tiles horizontal vertical'
 ctrl-alt-cmd-c = 'layout accordion horizontal'
@@ -48,27 +50,33 @@ ctrl-alt-cmd-shift-j = 'move down'
 ctrl-alt-cmd-shift-k = 'move up'
 ctrl-alt-cmd-shift-l = 'move right'
 
-ctrl-alt-cmd-enter = 'fullscreen'
+ctrl-alt-cmd-f = 'fullscreen'
 
 
 ctrl-alt-cmd-minus = 'resize smart -50'
 ctrl-alt-cmd-equal = 'resize smart +50'
 
-ctrl-alt-cmd-q = 'workspace q' # spotify
-ctrl-alt-cmd-w = 'workspace w' # workspace
-ctrl-alt-cmd-e = 'workspace e' # chats
-ctrl-alt-cmd-r = 'workspace r' # workspace
-ctrl-alt-cmd-s = 'workspace s' # email
-ctrl-alt-cmd-d = 'workspace d' # terminal
-ctrl-alt-cmd-f = 'workspace f' # browser
+ctrl-alt-cmd-1 = 'workspace 1' 
+ctrl-alt-cmd-2 = 'workspace 2' # messaging
+ctrl-alt-cmd-3 = 'workspace 3' # terminal
+ctrl-alt-cmd-4 = 'workspace 4' # browser
+ctrl-alt-cmd-5 = 'workspace 5' 
+ctrl-alt-cmd-6 = 'workspace 6'
+ctrl-alt-cmd-7 = 'workspace 7'
+ctrl-alt-cmd-8 = 'workspace 8' # todo
+ctrl-alt-cmd-9 = 'workspace 9' # email
+ctrl-alt-cmd-0 = 'workspace 10' # spotify
 
-ctrl-alt-cmd-shift-q = 'move-node-to-workspace q'
-ctrl-alt-cmd-shift-w = 'move-node-to-workspace w'
-ctrl-alt-cmd-shift-e = 'move-node-to-workspace e'
-ctrl-alt-cmd-shift-r = 'move-node-to-workspace r'
-ctrl-alt-cmd-shift-s = 'move-node-to-workspace s'
-ctrl-alt-cmd-shift-d = 'move-node-to-workspace d'
-ctrl-alt-cmd-shift-f = 'move-node-to-workspace f'
+ctrl-alt-cmd-shift-1 = 'move-node-to-workspace 1'
+ctrl-alt-cmd-shift-2 = 'move-node-to-workspace 2'
+ctrl-alt-cmd-shift-3 = 'move-node-to-workspace 3'
+ctrl-alt-cmd-shift-4 = 'move-node-to-workspace 4'
+ctrl-alt-cmd-shift-5 = 'move-node-to-workspace 5'
+ctrl-alt-cmd-shift-6 = 'move-node-to-workspace 6'
+ctrl-alt-cmd-shift-7 = 'move-node-to-workspace 7'
+ctrl-alt-cmd-shift-8 = 'move-node-to-workspace 8'
+ctrl-alt-cmd-shift-9 = 'move-node-to-workspace 9'
+ctrl-alt-cmd-shift-0 = 'move-node-to-workspace 10'
 
 alt-tab = 'workspace-back-and-forth'
 ctrl-alt-cmd-n = 'focus-monitor --wrap-around next'
@@ -88,30 +96,27 @@ ctrl-alt-cmd-j = ['join-with down', 'mode main']
 ctrl-alt-cmd-k = ['join-with up', 'mode main']
 ctrl-alt-cmd-l = ['join-with right', 'mode main']
 
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace d"
-
-[[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
-run = "move-node-to-workspace f"
-
-[[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace s"
 
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
-run = "move-node-to-workspace e"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
-run = "move-node-to-workspace e"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace e"
+run = "move-node-to-workspace 2"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = "move-node-to-workspace 8"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace 9"
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace q"
+run = "move-node-to-workspace 10"
