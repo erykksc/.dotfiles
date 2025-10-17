@@ -50,6 +50,7 @@ sudo pacman --needed --noconfirm -S \
 	flatpak \
 	flameshot \
 	wtype \
+	noto-fonts-emoji \
 	wireguard-tools
 
 sudo systemctl enable --now bluetooth.service

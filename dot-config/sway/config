@@ -80,6 +80,7 @@ gaps outer 0
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym ctrl+alt+space exec rofimoji
     
     bindsym $mod+e exec $explorer
     bindsym $mod+b exec $browser
