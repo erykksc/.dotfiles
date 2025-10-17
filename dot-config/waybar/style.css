@@ -9,18 +9,15 @@
 window#waybar {
   transition-property: background-color;
   transition-duration: 0.5s;
-  /* background-color: #1e1e2e; */
-  /* background-color: #181825; */
-  /* background-color: #11111b; */
-  background-color: rgba(17, 17, 27, 0);
+  background-color: transparent;
 }
 
 #workspaces button {
-  padding: 0.3rem 0.6rem;
-  margin: 0.4rem 0.25rem;
+  padding: 0.3rem 0.4rem;
+  margin: 0.4rem 0.2rem;
   border-radius: 6px;
-  /* background-color: #181825; */
   background-color: #1e1e2e;
+  color: #ffffff;
 }
 
 #workspaces button:hover {
@@ -31,7 +28,6 @@ window#waybar {
 #workspaces button.active,
 #workspaces button.focused {
   background-color: #2a2a4e;
-  color: #ffffff;
 }
 
 #workspaces button.urgent {
@@ -84,14 +80,6 @@ window#waybar {
 
 window#waybar.empty #window {
   background-color: transparent;
-}
-
-#cpu {
-  color: #94e2d5;
-}
-
-#memory {
-  color: #cba6f7;
 }
 
 #clock {

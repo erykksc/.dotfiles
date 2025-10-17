@@ -23,13 +23,12 @@ set $menu rofi -show drun
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * {
-    bg "$HOME/wallpapers/Abstract - Nature.jpg" fill
-    scale 2
+    bg "$HOME/wallpapers/Bonsai-Plant.png" fill
 }
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+output DP-1 mode 3840x2160@120Hz scale 2
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -89,7 +88,7 @@ mouse_warping container
     bindsym $mod+w kill
 
     # Start your launcher
-    bindsym $mod+Space exec kill rofi || rofi -show drun 
+    bindsym $mod+Space exec killall rofi || rofi -show drun 
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod. Despite the name, also works for non-floating windows.
@@ -129,7 +128,17 @@ mouse_warping container
     bindsym $mod+Shift+Right move right
 #
 # Workspaces:
-#
+# 1 - primary workspace
+# 2 - messaging
+# 3 - terminal
+# 4 - web browser
+# 5 - PDF viewers/documentation
+# 6 - secondary workspace
+# 7 - utilities such as wifi, audio, bluetooth, vpn configs, video recording...
+# 8 - todo list
+# 9 - mail
+# 10 - spotify
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2

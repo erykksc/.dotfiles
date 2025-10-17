@@ -9,7 +9,8 @@ set -euo pipefail
 set -x
 
 # copy defaults
-sudo cp ~/.dotfiles/etc/pacman.conf /etc/pacman.conf
+sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf
+sudo cp $HOME/.dotfiles/setup/static/sway-nvidia.desktop /usr/share/wayland-sessions/sway-nvidia.desktop
 
 # upgrade system
 sudo pacman -Syu --noconfirm
@@ -39,6 +40,7 @@ sudo pacman --needed --noconfirm -S \
 	bluez-utils \
 	ttf-jetbrains-mono-nerd \
 	swaync \
+	swaylock \
 	polkit-kde-agent \
 	wl-clipboard \
 	xdg-desktop-portal-hyprland \
@@ -93,8 +95,13 @@ flatpak install --assumeyes \
 	org.mozilla.Thunderbird \
 	org.telegram.desktop
 
+# TODO: set defaults
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
+
+# TODO: create webapps
+# facebook messenger
+# whatsapp web
 
 # TODO:
 # messenger
@@ -122,17 +129,17 @@ sudo keyd reload
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
 
-# Setup github
-# if gh auth status &>/dev/null; then
-# 	echo "✅ Already logged in to GitHub CLI"
-# else
-# 	echo "🔑 Logging into GitHub CLI..."
-# 	gh auth login --hostname github.com --git-protocol ssh --web
-# fi
-
 # create default ssh key
 if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
 	ssh-keygen -t ed25519 -C "$(whoami)@$(uname -n)"
+fi
+
+# Setup github
+if gh auth status &>/dev/null; then
+	echo "✅ Already logged in to GitHub CLI"
+else
+	echo "🔑 Logging into GitHub CLI..."
+	gh auth login --hostname github.com --git-protocol ssh
 fi
 
 if [[ ! -d "$HOME/.dotfiles" ]]; then
