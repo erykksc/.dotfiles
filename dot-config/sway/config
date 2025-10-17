@@ -71,8 +71,8 @@ input type:touchpad {
 default_border pixel 4
 smart_gaps on
 smart_borders on
-focus_follows_mouse yes
-mouse_warping container
+gaps inner 5
+gaps outer 0
 
 ### Key bindings
 #

@@ -104,12 +104,9 @@ flatpak install --assumeyes \
 # whatsapp web
 
 # TODO:
-# messenger
-# login in browser to perplexity, chatgpt, google accounts, github, tu berlin
 # login in thunderbird to email accounts
 # wireguard client
 # ausweis app (create a windows VM setup)
-# rice just a tiny (one day project) go through every utility
 
 # Setup ZSH as shell
 CURRENT_SHELL=$(getent passwd "$USER" | cut -d: -f7)
@@ -117,7 +114,7 @@ if [[ $CURRENT_SHELL != "/bin/zsh" ]]; then
 	chsh -s /bin/zsh
 fi
 
-sudo mkdir -p $HOME/dev
+mkdir -p $HOME/dev
 
 sudo mkdir -p /etc/keyd
 sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
