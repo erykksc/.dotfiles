@@ -14,9 +14,7 @@
     "sway/window",
     "sway/mode",
   ],
-  "modules-center": [
-    "mpris"
-  ],
+  "modules-center": ["mpris"],
   "modules-right": [
     "tray",
     "network",
@@ -41,27 +39,15 @@
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": [
-      "󰃞",
-      "󰃟",
-      "󰃠"
-    ],
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
   },
   "battery": {
     "format": "{icon} {capacity}%",
-    "format-icons": [
-      "󰂎",
-      "󱊡",
-      "󱊢",
-      "󱊣"
-    ]
+    "format-icons": ["󰂎", "󱊡", "󱊢", "󱊣"],
   },
   "mpris": {
     "player": "spotify",
-    "dynamic-order": [
-      "artist",
-      "title"
-    ],
+    "dynamic-order": ["artist", "title"],
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} <i>{dynamic}</i>",
     "status-icons": {
@@ -85,9 +71,6 @@
     "format": "{short}",
     "on-click": "hyprctl switchxkblayout all next",
     "on-click-right": "hyprctl switchxkblayout all prev",
-  },
-  "sway/workspaces": {
-    "current-only": true
   },
   "sway/language": {
     "format": "{short}",
@@ -119,30 +102,27 @@
     "on-click": "thunderbird", // add launch or focus
   },
   "network": {
-    "format": "hello",
+    "format-disconnected": "󰲛",
     "format-ethernet": "󰈀",
     "format-wifi": "󰖩",
     "tooltip-format": "{ifname} via {gwaddr}",
-    "on-click": "nm-connection-editor"
+    "on-click": "nm-connection-editor",
   },
   "bluetooth": {
     "format-connected": "󰂱",
+    "format-no-controller": "", // no bluetooth
     "format-on": "",
     "format-off": "󰂲 off",
     "format-disabled": "󰂲",
     "on-click": "blueman-manager",
-    "tooltip-format": " {status}"
+    "tooltip-format": " {status}",
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "  muted",
     "format-icons": {
       "headphone": "",
-      "default": [
-        " ",
-        " ",
-        " "
-      ],
+      "default": [" ", " ", " "],
     },
     "on-click": "pavucontrol",
   },

@@ -38,6 +38,7 @@ nix profile add \
 	'nixpkgs#ripgrep' \
 	'nixpkgs#tlrc' \
 	'nixpkgs#tmux' \
+	'nixpkgs#zsh' \
 	'nixpkgs#tree' \
 	'nixpkgs#uv' \
 	'nixpkgs#watch' \
