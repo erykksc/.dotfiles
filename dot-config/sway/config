@@ -23,7 +23,7 @@ set $menu rofi -show drun
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * {
-    bg "$HOME/wallpapers/Bonsai-Plant.png" fill
+    bg "$HOME/wallpapers/Bonsai-Plant.png" fill #000000
 }
 #
 # Example configuration:

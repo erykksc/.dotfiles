@@ -8,7 +8,7 @@ if command -v nix >/dev/null 2>&1; then
 	echo "nix already installed"
 else
 	curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm \
-		--extra-conf "tarball-ttl = 1w" # update nixpkgs automatically on nix run only once a week
+		--extra-conf "tarball-ttl = 604800" # update nixpkgs automatically on nix run only once a week
 	# enable nix
 	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi

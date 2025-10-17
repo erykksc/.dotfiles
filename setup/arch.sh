@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 if [[ ! -f /etc/arch-release ]]; then
 	echo "THIS SCRIPT ONLY WORKS ON ARCH!!!"
 	exit 1
@@ -7,6 +8,9 @@ fi
 
 set -euo pipefail
 set -x
+
+# install nix
+./dev-nix.sh
 
 # copy defaults
 sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf
@@ -143,9 +147,6 @@ fi
 if [[ ! -d "$HOME/.dotfiles" ]]; then
 	git clone git@github.com:erykksc/.dotfiles.git
 fi
-
-# install nix
-./dev-nix.sh
 
 # install dotfiles
 (
