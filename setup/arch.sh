@@ -10,7 +10,7 @@ set -euo pipefail
 set -x
 
 # install nix
-./dev-nix.sh
+$HOME/.dotfiles/setup/dev-nix.sh
 
 # copy defaults
 sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf

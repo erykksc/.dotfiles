@@ -1,48 +1,86 @@
 {
   "plugins": {
-    "blink.cmp": [],
-    "conform.nvim": {
-      "rev": "fbcb4fa"
+    "blink.cmp": {
+      "rev": "327fff9",
+      "src": "https://github.com/saghen/blink.cmp"
     },
-    "fidget.nvim": [],
+    "conform.nvim": {
+      "rev": "fbcb4fa",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fidget.nvim": {
+      "rev": "3f54759",
+      "src": "https://github.com/j-hui/fidget.nvim"
+    },
     "gitsigns.nvim": {
-      "rev": "1ee5c1f"
+      "rev": "1ee5c1f",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
+      "rev": "ed1f853",
+      "src": "https://github.com/ThePrimeagen/harpoon",
       "version": "'harpoon2'"
     },
     "live-preview.nvim": {
-      "rev": "bd099b7"
+      "rev": "bd099b7",
+      "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "6bdb14f"
+      "rev": "6bdb14f",
+      "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
-    "mason-tool-installer.nvim": [],
+    "mason-tool-installer.nvim": {
+      "rev": "517ef59",
+      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
+    },
     "mason.nvim": {
-      "rev": "ad7146a"
+      "rev": "ad7146a",
+      "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "8a7cf7e"
+      "rev": "8a7cf7e",
+      "src": "https://github.com/nvim-mini/mini.nvim"
     },
-    "neovim-ayu": [],
+    "neovim-ayu": {
+      "rev": "cc78e88",
+      "src": "https://github.com/Shatur/neovim-ayu"
+    },
     "nvim-lint": {
-      "rev": "9da1fb9"
+      "rev": "9da1fb9",
+      "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "ac98db2"
+      "rev": "ac98db2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'master'"
     },
-    "nvim-treesitter-context": [],
+    "nvim-treesitter-context": {
+      "rev": "41847d3",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
+    },
     "oil.nvim": {
-      "rev": "7194872"
+      "rev": "7194872",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
-    "plenary.nvim": [],
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
     "undotree": {
-      "rev": "0f1c981"
+      "rev": "0f1c981",
+      "src": "https://github.com/mbbill/undotree"
     },
-    "vim-sleuth": [],
-    "vim-slime": []
+    "vim-sleuth": {
+      "rev": "be69bff",
+      "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "vim-slime": {
+      "rev": "67b24bf",
+      "src": "https://github.com/jpalardy/vim-slime"
+    }
   }
 }
