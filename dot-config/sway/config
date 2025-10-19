@@ -15,16 +15,12 @@ set $right l
 # Your preferred terminal emulator
 set $term ghostty
 set $explorer nautilus
-set $browser flatpak run app.zen_browser.zen
-# Your preferred application launcher
-set $menu rofi -show drun
+set $browser zen-browser
+set $launcher killall rofi || rofi -show combi -modes combi -combi-modes "window,drun,run"
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * {
-    bg "$HOME/wallpapers/Bonsai-Plant.png" fill #000000
-}
+
+exec_always ~/.dotfiles/bin/sway-random-wallpaper.sh
+
 #
 # Example configuration:
 #
@@ -48,9 +44,6 @@ exec swaync
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
-#
-# Example configuration:
-#
 input type:touchpad {
   dwt disabled
   tap disabled
@@ -59,9 +52,9 @@ input type:touchpad {
   scroll_factor 0.1
 }
 #
-#   input type:keyboard {
-#       xkb_layout "eu"
-#   }
+input * {
+    xkb_layout "us,pl"
+}
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
@@ -77,19 +70,20 @@ gaps outer 0
 ### Key bindings
 #
 # Basics:
-#
-    # Start a terminal
+
+    # launcher
+    bindsym $mod+Space exec $launcher
+    # terminal
     bindsym $mod+Return exec $term
-    bindsym ctrl+alt+space exec rofimoji
-    
+    bindsym $mod+shift+space exec rofimoji
+    bindsym $mod+n exec swaymsg input type:keyboard xkb_switch_layout next
     bindsym $mod+e exec $explorer
     bindsym $mod+b exec $browser
 
-    # Kill focused window
     bindsym $mod+w kill
+    bindsym $mod+Shift+r reload
+    bindsym $mod+Shift+e exec ~/.dotfiles/bin/rofi-logout.sh
 
-    # Start your launcher
-    bindsym $mod+Space exec killall rofi || rofi -show drun 
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod. Despite the name, also works for non-floating windows.
@@ -97,12 +91,6 @@ gaps outer 0
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-    bindsym $mod+Shift+e exec wlogout
 #
 # Moving around:
 #
@@ -133,7 +121,7 @@ gaps outer 0
 # 2 - messaging
 # 3 - terminal
 # 4 - web browser
-# 5 - PDF viewers/documentation
+# 5 - reference material (PDFs, documentation)
 # 6 - secondary workspace
 # 7 - utilities such as wifi, audio, bluetooth, vpn configs, video recording...
 # 8 - todo list
@@ -181,13 +169,15 @@ gaps outer 0
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
+    bindsym $mod+s sticky toggle
+
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+g floating toggle
+    bindsym $mod+shift+f floating toggle
     # Swap focus between the tiling area and the floating area
     bindsym $mod+grave focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    # bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -200,31 +190,7 @@ gaps outer 0
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 25px
-    bindsym $down resize grow height 25px
-    bindsym $up resize shrink height 25px
-    bindsym $right resize grow width 25px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 25px
-    bindsym Down resize grow height 25px
-    bindsym Up resize shrink height 25px
-    bindsym Right resize grow width 25px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-#
 # Utilities:
 #
     # Special keys to adjust volume via PulseAudio
@@ -236,15 +202,12 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
-
+    bindsym Print exec flameshot gui
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
     swaybar_command waybar
 }
 include /etc/sway/config.d/*

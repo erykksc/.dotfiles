@@ -7,16 +7,8 @@
   "gtk-layer-shell": true,
   "passthrough": false,
   "fixed-center": true,
-  "modules-left": [
-    "hyprland/workspaces",
-    "sway/workspaces",
-    "mpris"
-  ],
-  "modules-center": [
-    "hyprland/window",
-    "sway/window",
-    "sway/mode",
-  ],
+  "modules-left": ["hyprland/workspaces", "sway/workspaces", "mpris"],
+  "modules-center": ["hyprland/window", "sway/window", "sway/mode"],
   "modules-right": [
     "tray",
     "network",
@@ -41,27 +33,15 @@
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": [
-      "󰃞",
-      "󰃟",
-      "󰃠"
-    ],
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
   },
   "battery": {
     "format": "{icon} {capacity}%",
-    "format-icons": [
-      "󰂎",
-      "󱊡",
-      "󱊢",
-      "󱊣"
-    ],
+    "format-icons": ["󰂎", "󱊡", "󱊢", "󱊣"],
   },
   "mpris": {
     "player": "spotify",
-    "dynamic-order": [
-      "artist",
-      "title"
-    ],
+    "dynamic-order": ["artist", "title"],
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} <i>{dynamic}</i>",
     "status-icons": {
@@ -136,11 +116,7 @@
     "format-muted": "  muted",
     "format-icons": {
       "headphone": "",
-      "default": [
-        " ",
-        " ",
-        " "
-      ],
+      "default": [" ", " ", " "],
     },
     "on-click": "pavucontrol",
   },
@@ -150,7 +126,7 @@
   },
   "custom/power": {
     "tooltip": false,
-    "on-click": "wlogout -p layer-shell &",
+    "on-click": "rofi-logout.sh",
     "format": "⏻",
   },
   "custom/notification": {

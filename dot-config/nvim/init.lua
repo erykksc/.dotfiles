@@ -122,13 +122,13 @@ require("conform").setup({
 	formatters_by_ft = {
 		bash = { "shfmt" },
 		lua = { "stylua" },
-		-- python = function(bufnr)
-		-- 	if require("conform").get_formatter_info("ruff_format", bufnr).available then
-		-- 		return { "ruff_fix", "ruff_format" }
-		-- 	else
-		-- 		return { "isort", "black" }
-		-- 	end
-		-- end,
+		python = function(bufnr)
+			if require("conform").get_formatter_info("ruff_format", bufnr).available then
+				return { "ruff_fix", "ruff_format" }
+			else
+				return { "isort", "black" }
+			end
+		end,
 
 		go = { "goimports", "gofmt", stop_after_first = true },
 		gotmpl = { "prettier_gotmpl" },
@@ -285,26 +285,29 @@ require("nvim-treesitter.configs").setup({
 -- plugin: live-preview.nvim
 vim.pack.add({ "https://github.com/brianhuster/live-preview.nvim" })
 
+-- plugin: telescope
+vim.pack.add({ {
+	src = "https://github.com/nvim-telescope/telescope.nvim",
+	version = vim.version.range("0.1.*"),
+} })
+require("telescope").setup({})
+
+local builtin = require("telescope.builtin")
+
+vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "Telescope all builtin" })
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers" })
+vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "[S]earch in current buffer" })
+
 -- plugin: mini
 vim.pack.add({
 	"https://github.com/nvim-mini/mini.nvim",
 })
 require("mini.icons").setup()
-local pick = require("mini.pick")
-pick.setup({})
-local miniExtra = require("mini.extra")
-
-vim.keymap.set("n", "<leader>sh", pick.builtin.help, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sk", miniExtra.pickers.keymaps, { desc = "[S]earch [K]eymaps" })
-vim.keymap.set("n", "<leader>sf", pick.builtin.files, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sg", pick.builtin.grep_live, { desc = "[S]earch by [G]rep" })
-vim.keymap.set("n", "<leader>sd", miniExtra.pickers.diagnostic, { desc = "[S]earch [D]iagnostics" })
-vim.keymap.set("n", "<leader>sr", pick.builtin.resume, { desc = "[S]earch [R]esume" })
-vim.keymap.set("n", "<leader>sb", pick.builtin.buffers, { desc = "[S]earch [B]uffers" })
-vim.keymap.set("n", "<leader>/", function()
-	miniExtra.pickers.buf_lines({ scope = "current" })
-end, { desc = "[S]earch in current buffer" })
-vim.keymap.set("n", "<leader>s/", miniExtra.pickers.buf_lines, { desc = "[S]earch in all buffers" })
 
 -- plugin: LSP
 vim.pack.add({
@@ -421,30 +424,24 @@ local servers = {
 	html = {},
 	-- htmx = {},
 	jsonls = {},
-	lua_ls = {
-		settings = {
-			Lua = {
-				hint = { enable = true, setType = true },
-			},
-		},
-	},
+	lua_ls = {},
 	-- ltex_plus = {},
 	basedpyright = {},
 	ruff = {},
 	tofu_ls = {},
 	ts_ls = {},
 	texlab = {
-		-- settings to use with tectonic (modern latexpdf alternative)
-		settings = {
-			texlab = {
-				build = {
-					executable = "tectonic",
-					args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-					-- args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-					onSave = true,
-				},
-			},
-		},
+		-- -- settings to use with tectonic (modern latexpdf alternative)
+		-- settings = {
+		-- 	texlab = {
+		-- 		build = {
+		-- 			executable = "tectonic",
+		-- 			args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+		-- 			-- args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+		-- 			onSave = true,
+		-- 		},
+		-- 	},
+		-- },
 	},
 	yamlls = {},
 }
@@ -457,7 +454,8 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"shfmt",
 }) -- add additional tools like formatters
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+-- TODO: install the LSPs and formatters through nix
+-- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 -- Define LSPs that don't need automatic installation
 servers.clangd = {

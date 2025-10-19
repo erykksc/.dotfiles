@@ -44,10 +44,8 @@ sudo pacman --needed --noconfirm -S \
 	bluez-utils \
 	ttf-jetbrains-mono-nerd \
 	swaync \
-	swaylock \
 	polkit-kde-agent \
 	wl-clipboard \
-	xdg-desktop-portal-hyprland \
 	hyprpaper \
 	hyprsunset \
 	papirus-icon-theme \
@@ -55,6 +53,9 @@ sudo pacman --needed --noconfirm -S \
 	flameshot \
 	wtype \
 	noto-fonts-emoji \
+	xdg-desktop-portal-gtk \
+	xdg-desktop-portal \
+	xdg-desktop-portal-wlr \
 	wireguard-tools
 
 sudo systemctl enable --now bluetooth.service
@@ -67,6 +68,7 @@ sudo pacman --needed --noconfirm -S \
 	curl \
 	openssh \
 	docker \
+	docker-compose \
 	pnpm \
 	keyd \
 	base-devel
@@ -86,13 +88,15 @@ sudo pacman --needed --noconfirm -S \
 	kdeconnect
 
 yay --needed --noconfirm -S \
-	vial-appimage
+	vial-appimage \
+	zen-browser-bin \
+	swaylock-effects-bin \
+	sioyek-appimage
 # wlogout \
 
 flatpak install --assumeyes \
 	flathub \
 	org.kde.CrowTranslate \
-	app.zen_browser.zen \
 	com.spotify.Client \
 	com.synology.SynologyDrive \
 	com.discordapp.Discord \
@@ -103,6 +107,7 @@ flatpak install --assumeyes \
 # TODO: set defaults
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
+xdg-settings set default-web-browser zen.desktop
 
 # TODO: create webapps
 # facebook messenger
