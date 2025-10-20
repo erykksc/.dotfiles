@@ -153,6 +153,8 @@ require("conform").setup({
 		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 		vue = { "prettierd", "prettier", stop_after_first = true },
 		yaml = { "prettierd", "prettier", stop_after_first = true },
+		-- Use a function as a catch-all for all other filetypes
+		["*"] = { "remove_trailing_whitespace" },
 	},
 	formatters = {
 		["tex-fmt"] = {
@@ -167,6 +169,13 @@ require("conform").setup({
 				"prettier-plugin-go-template",
 				"--parser",
 				"go-template",
+			},
+			stdin = true,
+		},
+		remove_trailing_whitespace = {
+			command = "sed",
+			args = {
+				"s/[ \\t]*$//",
 			},
 			stdin = true,
 		},
