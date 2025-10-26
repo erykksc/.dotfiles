@@ -175,7 +175,7 @@ require("conform").setup({
 		remove_trailing_whitespace = {
 			command = "sed",
 			args = {
-				"s/[ \\t]*$//",
+				"s/[ \t]*$//",
 			},
 			stdin = true,
 		},

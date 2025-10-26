@@ -53,7 +53,7 @@ autoload -Uz vcs_info
 precmd() {
   print "" # add empty line between prompts
   vcs_info
-} 
+}
 setopt prompt_subst
 zstyle ':vcs_info:git*' formats "%b"
 PROMPT='${VIRTUAL_ENV_PROMPT:+($VIRTUAL_ENV_PROMPT) }${PROMPT_HOST} %F{green}%~%F{magenta}${vcs_info_msg_0_:+ ($vcs_info_msg_0_)}%F{blue}${IN_NIX_SHELL:+ nix-shell} %F{red}%(?..[exit:%?])%f
@@ -96,3 +96,9 @@ if [[ ! -d $ZPLUGINDIR/zsh-syntax-highlighting ]]; then
     $ZPLUGINDIR/zsh-syntax-highlighting
 fi
 source $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+
+
+# Set Bitwarden as SSH agent
+if [[ "$(uname)" == "Darwin" ]]; then
+    export SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+fi
