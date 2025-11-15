@@ -30,3 +30,9 @@ if command -v dnf >/dev/null 2>&1; then
 	sudo dnf upgrade --refresh -y
 	sudo dnf autoremove -y
 fi
+
+# pacman (arch)
+if command -v pacman >/dev/null 2>&1; then
+	sudo pacman -Syu
+	pacman -Qtdq | sudo pacman -Rns -
+fi

@@ -77,6 +77,8 @@ end
 -- plugin: colorscheme
 vim.pack.add({
 	"https://github.com/Shatur/neovim-ayu",
+	"https://github.com/shaunsingh/nord.nvim",
+	"https://github.com/projekt0n/github-nvim-theme",
 })
 local colors = require("ayu.colors")
 colors.generate(true) -- Pass `true` to enable mirage

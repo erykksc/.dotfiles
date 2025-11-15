@@ -15,20 +15,25 @@ set $right l
 # Your preferred terminal emulator
 set $term ghostty
 set $explorer nautilus
-set $browser zen-browser
+set $browser firefox
 set $launcher killall rofi || rofi -show combi -modes combi -combi-modes "window,drun,run"
 
 
-exec_always ~/.dotfiles/bin/sway-random-wallpaper.sh
+# exec_always ~/.dotfiles/bin/sway-random-wallpaper.sh
 
 #
 # Example configuration:
 #
 output DP-1 mode 3840x2160@120Hz scale 2
+output * bg #000000 solid_color
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 exec swaync
+exec wlsunset -l 52.520008 -L 13.404954
+exec /usr/lib/polkit-kde-authentication-agent-1 &
+exec bitwarden-desktop
+exec flatpak run com.synology.SynologyDrive
 
 ### Idle configuration
 #
@@ -52,13 +57,17 @@ input type:touchpad {
   scroll_factor 0.1
 }
 #
-input * {
+input type:keyboard {
     xkb_layout "us,pl"
 }
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
 
+client.focused    #FFFFFF #000000 #FFFFFF #FFFFFF #FFFFFF
+
+# Unfocused Window Colors (Minimal)
+# client.unfocused  #333333 #111111 #BBBBBB #FFFFFF #FFFFFF
 
 ### Misc config
 default_border pixel 4
@@ -66,21 +75,23 @@ smart_gaps on
 smart_borders on
 gaps inner 5
 gaps outer 0
+focus_on_window_activation focus
 
 ### Key bindings
 #
 # Basics:
 
     # launcher
-    bindsym $mod+Space exec $launcher
+    bindsym alt+space exec $launcher
     # terminal
     bindsym $mod+Return exec $term
-    bindsym $mod+shift+space exec rofimoji
-    bindsym $mod+n exec swaymsg input type:keyboard xkb_switch_layout next
+    bindsym ctrl+alt+space exec rofimoji
+    bindsym $mod+apostrophe exec swaymsg input type:keyboard xkb_switch_layout next
     bindsym $mod+e exec $explorer
     bindsym $mod+b exec $browser
+    bindsym $mod+t exec firefox -new-window "https://translate.google.com/"
 
-    bindsym $mod+w kill
+    bindsym $mod+shift+q kill
     bindsym $mod+Shift+r reload
     bindsym $mod+Shift+e exec ~/.dotfiles/bin/rofi-logout.sh
 
@@ -198,11 +209,17 @@ gaps outer 0
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Playerctl shortcuts
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPause exec playerctl play-pause
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioPrev exec playerctl previous
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
     bindsym Print exec flameshot gui
+
 #
 # Status Bar:
 #

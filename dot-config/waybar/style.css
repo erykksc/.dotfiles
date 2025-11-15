@@ -14,7 +14,7 @@ window#waybar {
 
 #workspaces button {
   padding: 0.3rem 0.4rem;
-  margin: 0.4rem 0.2rem;
+  margin: 0.2rem 0.2rem;
   border-radius: 6px;
   background-color: #1e1e2e;
   color: #ffffff;
@@ -53,15 +53,15 @@ window#waybar {
 #battery,
 #mpris {
   padding: 0.3rem 0.6rem;
-  margin: 0.4rem 0.25rem;
+  margin: 0.2rem 0.25rem;
   border-radius: 6px;
   /* background-color: #181825; */
   background-color: #1e1e2e;
-  color: #cdd6f4
+  color: #cdd6f4;
 }
 
-
-#mode, #language {
+#mode,
+#language {
   color: #ffffff;
 }
 

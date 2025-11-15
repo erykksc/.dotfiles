@@ -44,10 +44,13 @@ sudo pacman --needed --noconfirm -S \
 	bluez-utils \
 	ttf-jetbrains-mono-nerd \
 	swaync \
-	polkit-kde-agent \
 	wl-clipboard \
 	hyprpaper \
+	hyprlock \
 	hyprsunset \
+	wlsunset \
+	ufw \
+	fail2ban \
 	papirus-icon-theme \
 	flatpak \
 	flameshot \
@@ -55,10 +58,12 @@ sudo pacman --needed --noconfirm -S \
 	noto-fonts-emoji \
 	xdg-desktop-portal-gtk \
 	xdg-desktop-portal \
+	qt5-wayland \
+        qt6-wayland \
+        kwayland-integration \
+	polkit-kde-agent \
 	xdg-desktop-portal-wlr \
 	wireguard-tools
-
-sudo systemctl enable --now bluetooth.service
 
 # CLI tools
 sudo pacman --needed --noconfirm -S \
@@ -69,7 +74,9 @@ sudo pacman --needed --noconfirm -S \
 	openssh \
 	docker \
 	docker-compose \
+	docker-buildx \
 	pnpm \
+	swaylock \
 	keyd \
 	base-devel
 # neovim \
@@ -89,8 +96,6 @@ sudo pacman --needed --noconfirm -S \
 
 yay --needed --noconfirm -S \
 	vial-appimage \
-	zen-browser-bin \
-	swaylock-effects-bin \
 	sioyek-appimage
 # wlogout \
 
@@ -102,13 +107,19 @@ flatpak install --assumeyes \
 	com.discordapp.Discord \
 	org.localsend.localsend_app \
 	org.mozilla.Thunderbird \
-	org.telegram.desktop
-
+	org.telegram.desktop \
+	com.slack.Slack
 # TODO: set defaults
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
-xdg-settings set default-web-browser zen.desktop
+xdg-settings set default-web-browser firefox.desktop
+xdg-mime default sioyek.desktop application/pdf
 
+sudo systemctl enable --now bluetooth.service
+sudo ufw allow 22/tcp
+sudo ufw enable
+sudo systemctl enable --now fail2ban
+sudo systemctl enable --now sshd
 # TODO: create webapps
 # facebook messenger
 # whatsapp web
@@ -158,3 +169,8 @@ fi
 	cd "$HOME/.dotfiles"
 	nix run "nixpkgs#stow" -- -R .
 )
+
+# set dark theme
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+echo "options hid_apple fnmode=2 swap_opt_cmd=1" | sudo tee /etc/modprobe.d/lofree-fn-fix.conf

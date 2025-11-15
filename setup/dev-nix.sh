@@ -28,6 +28,7 @@ nix profile add \
 	'nixpkgs#git' \
 	'nixpkgs#git-lfs' \
 	'nixpkgs#go' \
+	'nixpkgs#golangci-lint' \
 	'nixpkgs#mosh' \
 	'nixpkgs#nix-direnv' \
 	'nixpkgs#nixfmt-rfc-style' \
