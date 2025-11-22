@@ -96,7 +96,9 @@ sudo pacman --needed --noconfirm -S \
 
 yay --needed --noconfirm -S \
 	vial-appimage \
-	sioyek-appimage
+	sioyek-appimage \
+	spotify
+
 # wlogout \
 
 flatpak install --assumeyes \
@@ -127,6 +129,7 @@ sudo systemctl enable --now sshd
 # TODO:
 # login in thunderbird to email accounts
 # wireguard client
+# windows VM setup
 # ausweis app (create a windows VM setup)
 
 # Setup ZSH as shell

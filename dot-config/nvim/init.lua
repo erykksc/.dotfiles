@@ -198,9 +198,32 @@ gitsigns.setup({
 	},
 })
 
-vim.keymap.set({ "n" }, "[h", "<CMD>Gitsigns prev_hunk<CR>", { desc = "Next [H]unk" })
-vim.keymap.set({ "n" }, "]h", "<CMD>Gitsigns next_hunk<CR>", { desc = "Prev [H]unk" })
-vim.keymap.set({ "n" }, "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
+-- vim.keymap.set({ "n" }, "[c", "<CMD>Gitsigns prev_hunk<CR>", { desc = "Next [H]unk" })
+-- vim.keymap.set({ "n" }, "]c", "<CMD>Gitsigns next_hunk<CR>", { desc = "Prev [H]unk" })
+
+-- Navigation
+vim.keymap.set("n", "]c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "]c", bang = true })
+	else
+		gitsigns.nav_hunk("next")
+	end
+end)
+
+vim.keymap.set("n", "[c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "[c", bang = true })
+	else
+		gitsigns.nav_hunk("prev")
+	end
+end)
+vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk)
+vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)
+vim.keymap.set("n", "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
+vim.keymap.set("n", "<leader>hd", gitsigns.diffthis, { desc = "[H]unk [D]iffthis", silent = true })
+vim.keymap.set("n", "<leader>hQ", function()
+	gitsigns.setqflist("all", {})
+end, { desc = "All [H]unk to [Q]uicklist", silent = true })
 
 -- plugin: harpoon
 vim.pack.add({
@@ -312,6 +335,7 @@ vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]re
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers" })
+vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "[S]earch in current buffer" })
 
 -- plugin: mini
@@ -331,45 +355,40 @@ vim.pack.add({
 	"https://github.com/j-hui/fidget.nvim",
 	-- Allows extra capabilities provided by blink.cmp
 	"https://github.com/saghen/blink.cmp",
-	"https://github.com/nvim-mini/mini.nvim", -- for picker
 })
 require("fidget").setup()
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 	callback = function(event)
+		local teleBuiltin = require("telescope.builtin")
 		-- In this case, we create a function that lets us more easily define mappings specific
 		-- for LSP related items. It sets the mode, buffer and description for us each time.
 		local map = function(keys, func, desc, mode)
 			mode = mode or "n"
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
-		local extra = require("mini.extra")
+
+		-- Jump to the implementation of the word under your cursor.
+		--  Useful when your language has ways of declaring types without an actual implementation.
+		map("gri", teleBuiltin.lsp_implementations, "[G]oto [I]mplementation")
 
 		-- Jump to the definition of the word under your cursor.
 		--  This is where a variable was first declared, or where a function is defined, etc.
 		--  To jump back, press <C-t>.
-		map("grd", function()
-			extra.pickers.lsp({ scope = "definition" })
-		end, "[G]oto [D]efinition")
+		map("grd", teleBuiltin.lsp_definitions, "[G]oto [D]efinition")
 
 		-- WARN: This is not Goto Definition, this is Goto Declaration.
 		--  For example, in C this would take you to the header.
-		map("grD", function()
-			extra.pickers.lsp({ scope = "declaration" })
-		end, "[G]oto [D]eclaration")
+		map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 		-- Fuzzy find all the symbols in your current document.
 		--  Symbols are things like variables, functions, types, etc.
-		map("gO", function()
-			extra.pickers.lsp({ scope = "document_symbol" })
-		end, "Open Document Symbols")
+		map("gO", teleBuiltin.lsp_document_symbols, "Open Document Symbols")
 
 		-- Fuzzy find all the symbols in your current workspace.
 		--  Similar to document symbols, except searches over your entire project.
-		map("gW", function()
-			extra.pickers.lsp({ scope = "workspace_symbol" })
-		end, "Open Workspace Symbols")
+		map("gW", teleBuiltin.lsp_workspace_symbols, "Open Workspace Symbols")
 
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 

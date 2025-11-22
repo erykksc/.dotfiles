@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Sway-Nvidia
+Name=Sway-Nvidia-Env
 Comment=An i3-compatible Wayland compositor
-Exec=sway --unsupported-gpu
+Exec=/home/erykksc/.dotfiles/bin/start-sway.sh --unsupported-gpu
 Type=Application
 DesktopNames=sway;wlroots
