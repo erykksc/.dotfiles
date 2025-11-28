@@ -330,7 +330,12 @@ local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "Telescope all builtin" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sf", function ()
+	builtin.find_files({
+		hidden=true,
+		no_ignore=true,
+	})
+end, { desc = "[S]earch [F]iles" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
@@ -388,7 +393,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Fuzzy find all the symbols in your current workspace.
 		--  Similar to document symbols, except searches over your entire project.
-		map("gW", teleBuiltin.lsp_workspace_symbols, "Open Workspace Symbols")
+		map("gW", teleBuiltin.lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
