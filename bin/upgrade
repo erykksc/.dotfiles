@@ -12,8 +12,7 @@ fi
 
 # nix profile
 if command -v nix >/dev/null 2>&1; then
-	nix profile upgrade --all
-	nix-collect-garbage -d
+	nix profile upgrade --all && nix-collect-garbage -d
 fi
 
 # apt (Debian, Ubuntu)

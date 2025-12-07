@@ -7,9 +7,9 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-	'workspace e',
+	'workspace 2',
 	'layout h_accordion',
-	'workspace f'
+	'workspace 4'
 ]
 
 start-at-login = true
@@ -23,11 +23,11 @@ key-mapping.preset = 'qwerty'
 
 [gaps]
 inner.horizontal = 0
-inner.vertical =   0
-outer.left =       0
-outer.bottom =     0
-outer.top =        0
-outer.right =      0
+inner.vertical   = 0
+outer.left       = 0
+outer.bottom     = 0
+outer.top        = 0
+outer.right      = 0
 
 [mode.main.binding]
 cmd-m = [] # Disable "hide application"
@@ -39,7 +39,8 @@ ctrl-alt-cmd-b = 'exec-and-forget open -n /Applications/Firefox.app/'
 ctrl-alt-cmd-t = 'exec-and-forget /Applications/Firefox.app/Contents/MacOS/firefox --new-window "https://translate.google.com"'
 ctrl-alt-cmd-shift-f = 'layout floating tiling'
 ctrl-alt-cmd-v = 'layout tiles horizontal vertical'
-ctrl-alt-cmd-c = 'layout accordion horizontal'
+ctrl-alt-cmd-w = 'layout accordion horizontal'
+ctrl-alt-cmd-s = 'layout accordion vertical'
 
 ctrl-alt-cmd-h = 'focus left'
 ctrl-alt-cmd-j = 'focus down'
@@ -79,17 +80,21 @@ ctrl-alt-cmd-shift-8 = 'move-node-to-workspace 8'
 ctrl-alt-cmd-shift-9 = 'move-node-to-workspace 9'
 ctrl-alt-cmd-shift-0 = 'move-node-to-workspace 10'
 
+ctrl-alt-cmd-shift-c = 'reload-config'
+
 alt-tab = 'workspace-back-and-forth'
 ctrl-alt-cmd-n = 'focus-monitor --wrap-around next'
 ctrl-alt-cmd-p = 'focus-monitor --wrap-around prev'
 ctrl-alt-cmd-shift-n = 'move-workspace-to-monitor --wrap-around next'
 ctrl-alt-cmd-shift-p = 'move-workspace-to-monitor --wrap-around prev'
 
-ctrl-alt-cmd-esc = 'mode service'
+ctrl-alt-cmd-shift-s = 'mode service'
+ctrl-alt-cmd-space = 'mode open'
 ctrl-alt-cmd-shift-r = ['reload-config', 'mode main']
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
+enter = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 o = ['close-all-windows-but-current', 'mode main']
 
@@ -98,6 +103,9 @@ ctrl-alt-cmd-j = ['join-with down', 'mode main']
 ctrl-alt-cmd-k = ['join-with up', 'mode main']
 ctrl-alt-cmd-l = ['join-with right', 'mode main']
 
+[mode.open.binding]
+esc = 'mode main'
+r = ['reload-config', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
@@ -112,12 +120,24 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
+if.app-id = 'info.sioyek.sioyek'
+run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.app-id = 'com.super-productivity.app'
+run = "move-node-to-workspace 8"
+
+[[on-window-detected]]
 if.app-id = 'com.apple.reminders'
 run = "move-node-to-workspace 8"
 
 [[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = "move-node-to-workspace 8"
+
+[[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace 9"
+run = "move-node-to-workspace 8"
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'

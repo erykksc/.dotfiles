@@ -254,6 +254,7 @@ end
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
+	yaml = { "vacuum" },
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
@@ -324,18 +325,19 @@ vim.pack.add({ {
 	src = "https://github.com/nvim-telescope/telescope.nvim",
 	version = vim.version.range("0.1.*"),
 } })
-require("telescope").setup({})
 
+require("telescope").setup({})
 local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "Telescope all builtin" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sf", function ()
+vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sF", function()
 	builtin.find_files({
-		hidden=true,
-		no_ignore=true,
+		hidden = true,
+		no_ignore = true,
 	})
-end, { desc = "[S]earch [F]iles" })
+end, { desc = "[S]earch All [F]iles" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
@@ -343,17 +345,11 @@ vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers"
 vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "[S]earch in current buffer" })
 
--- plugin: mini
-vim.pack.add({
-	"https://github.com/nvim-mini/mini.nvim",
-})
-require("mini.icons").setup()
-
 -- plugin: LSP
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	-- Automatically install LSPs and related tools to stdpath for Neovim
-	"https://github.com/williamboman/mason.nvim",
+	"htps://github.com/williamboman/mason.nvim",
 	"https://github.com/williamboman/mason-lspconfig.nvim", --translate between mason and lspconfig
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	-- Useful status updates for LSP.
@@ -374,18 +370,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
 
-		-- Jump to the implementation of the word under your cursor.
-		--  Useful when your language has ways of declaring types without an actual implementation.
-		map("gri", teleBuiltin.lsp_implementations, "[G]oto [I]mplementation")
-
 		-- Jump to the definition of the word under your cursor.
 		--  This is where a variable was first declared, or where a function is defined, etc.
 		--  To jump back, press <C-t>.
-		map("grd", teleBuiltin.lsp_definitions, "[G]oto [D]efinition")
+		--  NOTE: it seems that it is the same as ctrl+]
+		map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
 		-- WARN: This is not Goto Definition, this is Goto Declaration.
 		--  For example, in C this would take you to the header.
-		map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 		-- Fuzzy find all the symbols in your current document.
 		--  Symbols are things like variables, functions, types, etc.
@@ -394,8 +387,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Fuzzy find all the symbols in your current workspace.
 		--  Similar to document symbols, except searches over your entire project.
 		map("gW", teleBuiltin.lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
-
-		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -455,6 +446,7 @@ local servers = {
 	arduino_language_server = {},
 	bashls = {},
 	cmake = {},
+	docker_language_server = {},
 	gopls = {},
 	html = {},
 	-- htmx = {},
@@ -479,6 +471,7 @@ local servers = {
 		-- },
 	},
 	yamlls = {},
+	matlab_ls = {},
 }
 
 -- Ensure the servers and tools above are installed
@@ -490,7 +483,7 @@ vim.list_extend(ensure_installed, {
 	"shfmt",
 }) -- add additional tools like formatters
 -- TODO: install the LSPs and formatters through nix
--- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 -- Define LSPs that don't need automatic installation
 servers.clangd = {
