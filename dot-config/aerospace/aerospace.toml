@@ -108,6 +108,10 @@ esc = 'mode main'
 r = ['reload-config', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'info.sioyek.sioyek'
+run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
 if.app-id = 'com.facebook.archon.developerID'
 run = "move-node-to-workspace 2"
 
@@ -118,10 +122,6 @@ run = "move-node-to-workspace 2"
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'info.sioyek.sioyek'
-run = "move-node-to-workspace 5"
 
 [[on-window-detected]]
 if.app-id = 'com.super-productivity.app'

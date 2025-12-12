@@ -5,7 +5,7 @@
       "src": "https://github.com/saghen/blink.cmp"
     },
     "bluloco.nvim": {
-      "rev": "afc95b6",
+      "rev": "afc95b6696a0a568a5a186a7e563f6c9947d0d79",
       "src": "https://github.com/uloco/bluloco.nvim"
     },
     "conform.nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "lush.nvim": {
-      "rev": "9c60ec2",
+      "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
       "src": "https://github.com/rktjmp/lush.nvim"
     },
     "mason-lspconfig.nvim": {
@@ -62,7 +62,7 @@
       "src": "https://github.com/shaunsingh/nord.nvim"
     },
     "nvim-lint": {
-      "rev": "897f777",
+      "rev": "ebe5359",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {

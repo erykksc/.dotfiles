@@ -128,7 +128,7 @@ require("conform").setup({
 			end
 		end,
 
-		go = { "goimports", "gofmt", stop_after_first = true },
+		go = { "golangci-lint", "goimports", "gofmt", stop_after_first = true },
 		gotmpl = { "prettier_gotmpl" },
 		nix = { "nixfmt" },
 		css = { "prettierd", "prettier", stop_after_first = true },
@@ -245,10 +245,13 @@ end
 
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
+
+-- customize linters
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	yaml = { "redocly" },
 }
+
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
 		require("lint").try_lint()
@@ -441,6 +444,7 @@ local servers = {
 	cmake = {},
 	docker_language_server = {},
 	gopls = {},
+	golangci_lint_ls = {},
 	html = {},
 	-- htmx = {},
 	jsonls = {},
