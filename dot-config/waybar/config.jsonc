@@ -138,7 +138,7 @@
       "none": "󰅺",
       "notification": "󰡟",
       "dnd-none": "󰂛",
-      "dnd": "󰂛",
+      "dnd-notification": "󰂛",
     },
     "on-click": "sleep 0.1 && swaync-client -t -sw",
     "return-type": "json",

@@ -75,10 +75,27 @@ sudo pacman --needed --noconfirm -S \
 	docker \
 	docker-compose \
 	docker-buildx \
-	pnpm \
 	swaylock \
 	keyd \
-	base-devel
+	base-devel \
+	mise \
+	usage \
+	fzf \
+	fd \
+	git \
+	github-cli \
+	ncdu \
+	nodejs \
+	npm \
+	go \
+	golangci-lint \
+	cmake \
+	make \
+	btop \
+	htop \
+	entr \
+	tmux
+
 # neovim \
 
 # GUI tools
