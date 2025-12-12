@@ -69,6 +69,7 @@ vim.diagnostic.config({
 	},
 })
 
+-- if nvim version doesn't support pack manager (versions < 0.12)
 if vim.pack == nil then
 	return
 end
@@ -76,18 +77,13 @@ end
 -------------------------------- PLUGINS --------------------------------
 -- plugin: colorscheme
 vim.pack.add({
-	"https://github.com/Shatur/neovim-ayu",
-	"https://github.com/shaunsingh/nord.nvim",
-	"https://github.com/projekt0n/github-nvim-theme",
+	"https://github.com/uloco/bluloco.nvim",
+	"https://github.com/rktjmp/lush.nvim", -- required by bluloco
 })
-local colors = require("ayu.colors")
-colors.generate(true) -- Pass `true` to enable mirage
-require("ayu").setup({
-	overrides = {
-		LineNr = { fg = colors.comment },
-	},
-})
-vim.cmd.colorscheme("ayu-mirage")
+require("bluloco").setup({})
+
+vim.opt.termguicolors = true
+vim.cmd("colorscheme bluloco")
 
 -- plugin: blink
 vim.pack.add({ {
@@ -198,9 +194,6 @@ gitsigns.setup({
 	},
 })
 
--- vim.keymap.set({ "n" }, "[c", "<CMD>Gitsigns prev_hunk<CR>", { desc = "Next [H]unk" })
--- vim.keymap.set({ "n" }, "]c", "<CMD>Gitsigns next_hunk<CR>", { desc = "Prev [H]unk" })
-
 -- Navigation
 vim.keymap.set("n", "]c", function()
 	if vim.wo.diff then
@@ -254,7 +247,7 @@ end
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
 require("lint").linters_by_ft = {
 	go = { "golangcilint" },
-	yaml = { "vacuum" },
+	yaml = { "redocly" },
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
@@ -349,7 +342,7 @@ vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "[S
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	-- Automatically install LSPs and related tools to stdpath for Neovim
-	"htps://github.com/williamboman/mason.nvim",
+	"https://github.com/williamboman/mason.nvim",
 	"https://github.com/williamboman/mason-lspconfig.nvim", --translate between mason and lspconfig
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	-- Useful status updates for LSP.

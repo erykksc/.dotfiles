@@ -2,7 +2,7 @@
 # theme = dark:"GitHub-Dark-Default",light:"GitHub-Light-Default"
 # theme = dark:"tokyonight_moon",light:"tokyonight-day"
 # theme = dark:"Ayu Mirage",light:"ayu_light"
-theme = "Ayu Mirage"
+theme = "Bluloco Dark"
 
 font-size = 14
 font-feature = -calt
