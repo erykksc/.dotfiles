@@ -35,3 +35,8 @@ if command -v pacman >/dev/null 2>&1; then
 	sudo pacman -Syu
 	pacman -Qtdq | sudo pacman -Rns -
 fi
+
+# flatpak
+if command -v pacman >/dev/null 2>&1; then
+	flatpak update --assumeyes
+fi
