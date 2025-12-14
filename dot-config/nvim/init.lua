@@ -47,6 +47,8 @@ vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute 
 vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
 vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
 
+vim.keymap.set("n", "<leader>m", ":make<CR>", { desc = "Run :make" })
+
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -119,6 +121,7 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		bash = { "shfmt" },
+		dockerfile = { "remove_trailing_whitespace" },
 		lua = { "stylua" },
 		python = function(bufnr)
 			if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -143,6 +146,7 @@ require("conform").setup({
 		less = { "prettierd", "prettier", stop_after_first = true },
 		markdown = { "prettierd", "prettier", stop_after_first = true },
 		mdx = { "prettierd", "prettier", stop_after_first = true },
+		rust = { "rustfmt" },
 		scss = { "prettierd", "prettier", stop_after_first = true },
 		svelte = { "prettierd", "prettier", stop_after_first = true },
 		terraform = { "tofu_fmt" },
@@ -152,7 +156,7 @@ require("conform").setup({
 		vue = { "prettierd", "prettier", stop_after_first = true },
 		yaml = { "prettierd", "prettier", stop_after_first = true },
 		-- Use a function as a catch-all for all other filetypes
-		["*"] = { "remove_trailing_whitespace" },
+		-- ["*"] = { "remove_trailing_whitespace" },
 	},
 	formatters = {
 		["tex-fmt"] = {
@@ -252,16 +256,13 @@ require("lint").linters_by_ft = {
 	yaml = { "redocly" },
 }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	callback = function()
-		require("lint").try_lint()
-	end,
-})
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-	callback = function()
-		require("lint").try_lint()
-	end,
-})
+local try_lint = function()
+	require("lint").try_lint({}, {
+		ignore_errors = true,
+	})
+end
+vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = try_lint })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, { callback = try_lint })
 
 --- plugin: oil.nvim
 vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
@@ -452,6 +453,7 @@ local servers = {
 	-- ltex_plus = {},
 	basedpyright = {},
 	ruff = {},
+	rust_analyzer = {},
 	tofu_ls = {},
 	ts_ls = {},
 	texlab = {
