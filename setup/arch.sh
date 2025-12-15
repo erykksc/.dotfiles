@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 if [[ ! -f /etc/arch-release ]]; then
 	echo "THIS SCRIPT ONLY WORKS ON ARCH!!!"
 	exit 1
@@ -8,16 +7,6 @@ fi
 
 set -euo pipefail
 set -x
-
-# install nix
-$HOME/.dotfiles/setup/dev-nix.sh
-
-# copy defaults
-sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf
-sudo cp $HOME/.dotfiles/setup/static/sway-nvidia.desktop /usr/share/wayland-sessions/sway-nvidia.desktop
-
-# upgrade system
-sudo pacman -Syu --noconfirm
 
 # install yay
 if yay --version >/dev/null 2>&1; then
@@ -30,7 +19,6 @@ else
 	git clone https://aur.archlinux.org/yay.git
 	cd yay
 	makepkg -si
-	yay -Syu --noconfirm
 	rm -rf /tmp/yay
 	cd $HOME
 fi
@@ -45,9 +33,6 @@ sudo pacman --needed --noconfirm -S \
 	ttf-jetbrains-mono-nerd \
 	swaync \
 	wl-clipboard \
-	hyprpaper \
-	hyprlock \
-	hyprsunset \
 	wlsunset \
 	ufw \
 	fail2ban \
@@ -56,14 +41,21 @@ sudo pacman --needed --noconfirm -S \
 	flameshot \
 	wtype \
 	noto-fonts-emoji \
+	xdg-desktop-portal-wlr \
 	xdg-desktop-portal-gtk \
 	xdg-desktop-portal \
 	qt5-wayland \
-        qt6-wayland \
-        kwayland-integration \
+	qt6-wayland \
+	kwayland-integration \
 	polkit-kde-agent \
-	xdg-desktop-portal-wlr \
 	wireguard-tools
+
+# Hyprland
+sudo pacman --needed --noconfirm -S \
+	hyprland \
+	hyprpaper \
+	hyprlock \
+	hyprsunset
 
 # CLI tools
 sudo pacman --needed --noconfirm -S \
@@ -82,6 +74,7 @@ sudo pacman --needed --noconfirm -S \
 	usage \
 	fzf \
 	fd \
+	stow \
 	git \
 	github-cli \
 	ncdu \
@@ -92,7 +85,6 @@ sudo pacman --needed --noconfirm -S \
 	cmake \
 	make \
 	btop \
-	htop \
 	entr \
 	tmux
 
@@ -105,29 +97,30 @@ sudo pacman --needed --noconfirm -S \
 	okular \
 	kio-extras \
 	libreoffice-fresh \
-	nautilus \
-	sushi \
+	thunar \
 	rofimoji \
 	chromium \
-	kdeconnect
+	kdeconnect \
+	thunderbird \
+	telegram-desktop
+# "fat" file manager
+# nautilus \
+# sushi \
 
 yay --needed --noconfirm -S \
 	vial-appimage \
-	sioyek-appimage \
-	spotify
+	sioyek-appimage
 
 # wlogout \
 
 flatpak install --assumeyes \
 	flathub \
-	org.kde.CrowTranslate \
 	com.spotify.Client \
 	com.synology.SynologyDrive \
 	com.discordapp.Discord \
 	org.localsend.localsend_app \
-	org.mozilla.Thunderbird \
-	org.telegram.desktop \
 	com.slack.Slack
+
 # TODO: set defaults
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
@@ -157,12 +150,6 @@ fi
 
 mkdir -p $HOME/dev
 
-sudo mkdir -p /etc/keyd
-sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
-sudo usermod -aG input $USER
-sudo systemctl enable --now keyd
-sudo keyd reload
-
 # Setup docker
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
@@ -187,8 +174,18 @@ fi
 # install dotfiles
 (
 	cd "$HOME/.dotfiles"
-	nix run "nixpkgs#stow" -- -R .
+	stow -R .
 )
+
+# copy defaults
+sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf
+sudo cp $HOME/.dotfiles/setup/static/sway-nvidia.desktop /usr/share/wayland-sessions/sway-nvidia.desktop
+
+sudo mkdir -p /etc/keyd
+sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
+sudo usermod -aG input $USER
+sudo systemctl enable --now keyd
+sudo keyd reload
 
 # set dark theme
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
