@@ -48,6 +48,7 @@ sudo pacman --needed --noconfirm -S \
 	qt6-wayland \
 	kwayland-integration \
 	polkit-kde-agent \
+	ly \
 	wireguard-tools
 
 # Hyprland
@@ -84,8 +85,7 @@ sudo pacman --needed --noconfirm -S \
 	golangci-lint \
 	cmake \
 	make \
-	btop \
-	entr \
+	zsh \
 	tmux
 
 # neovim \
@@ -100,6 +100,7 @@ sudo pacman --needed --noconfirm -S \
 	thunar \
 	rofimoji \
 	chromium \
+	firefox \
 	kdeconnect \
 	thunderbird \
 	telegram-desktop
@@ -179,6 +180,7 @@ fi
 
 # copy defaults
 sudo cp $HOME/.dotfiles/etc/pacman.conf /etc/pacman.conf
+sudo cp $HOME/.dotfiles/etc/locale.gen /etc/locale.gen
 sudo cp $HOME/.dotfiles/setup/static/sway-nvidia.desktop /usr/share/wayland-sessions/sway-nvidia.desktop
 
 sudo mkdir -p /etc/keyd
@@ -189,5 +191,7 @@ sudo keyd reload
 
 # set dark theme
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+sudo locale-gen
 
 echo "options hid_apple fnmode=2 swap_opt_cmd=1" | sudo tee /etc/modprobe.d/lofree-fn-fix.conf
