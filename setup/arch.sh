@@ -30,6 +30,7 @@ sudo pacman --needed --noconfirm -S \
 	rofi \
 	bluez \
 	bluez-utils \
+	blueman \
 	ttf-jetbrains-mono-nerd \
 	swaync \
 	wl-clipboard \
@@ -48,8 +49,16 @@ sudo pacman --needed --noconfirm -S \
 	qt6-wayland \
 	kwayland-integration \
 	polkit-kde-agent \
-	ly \
+	fprintd \
+	tlp \
+	tlp-rdw \
+	tp_smapi \
+	acpi_call \
 	wireguard-tools
+
+sudo systemctl enable tlp.service
+sudo systemctl mask systemd-rfkill.service
+sudo systemctl mask systemd-rfkill.socket
 
 # Hyprland
 sudo pacman --needed --noconfirm -S \
@@ -110,9 +119,8 @@ sudo pacman --needed --noconfirm -S \
 
 yay --needed --noconfirm -S \
 	vial-appimage \
-	sioyek-appimage
-
-# wlogout \
+	sioyek-appimage \
+	superproductivity-bin
 
 flatpak install --assumeyes \
 	flathub \
@@ -126,7 +134,7 @@ flatpak install --assumeyes \
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
 xdg-settings set default-web-browser firefox.desktop
-xdg-mime default sioyek.desktop application/pdf
+# xdg-mime default sioyek.desktop application/pdf
 
 sudo systemctl enable --now bluetooth.service
 sudo ufw allow 22/tcp
@@ -161,12 +169,11 @@ if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
 fi
 
 # Setup github
-if gh auth status &>/dev/null; then
-	echo "✅ Already logged in to GitHub CLI"
-else
-	echo "🔑 Logging into GitHub CLI..."
-	gh auth login --hostname github.com --git-protocol ssh
-fi
+# if gh auth status &>/dev/null; then # 	echo "✅ Already logged in to GitHub CLI"
+# else
+# 	echo "🔑 Logging into GitHub CLI..."
+# 	gh auth login --hostname github.com --git-protocol ssh
+# fi
 
 if [[ ! -d "$HOME/.dotfiles" ]]; then
 	git clone git@github.com:erykksc/.dotfiles.git
