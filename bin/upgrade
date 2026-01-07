@@ -2,6 +2,17 @@
 
 set -euo pipefail
 
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M")
+NAME="upgrade script"
+DESCRIPTION="$NAME ($TIMESTAMP)"
+
+# Create PRE snapshot
+if command -v snapper >/dev/null 2>&1; then
+	PRE_NUM=$(sudo snapper -c root create -t pre -p -d "$DESCRIPTION")
+	echo "--- Starting: $DESCRIPTION ---"
+	echo "--- Pre-snapshot #$PRE_NUM created ---"
+fi
+
 # brew (MacOS)
 if command -v brew >/dev/null 2>&1; then
 	brew update
@@ -33,10 +44,17 @@ fi
 # pacman (arch)
 if command -v pacman >/dev/null 2>&1; then
 	sudo pacman -Syu
-	pacman -Qtdq | sudo pacman -Rns -
+	# pacman -Qtdq | sudo pacman -Rns -
 fi
 
 # flatpak
 if command -v pacman >/dev/null 2>&1; then
 	flatpak update --assumeyes
+fi
+
+# Create POST snapshot
+if command -v snapper >/dev/null 2>&1; then
+	POST_NUM=$(sudo snapper -c root create -t post --pre-number "$PRE_NUM" -d "$DESCRIPTION")
+	echo "--- Finished: $DESCRIPTION ---"
+	echo "--- Post-snapshot #$POST_NUM created ---"
 fi

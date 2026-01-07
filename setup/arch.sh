@@ -26,6 +26,7 @@ fi
 # Distro
 sudo pacman --needed --noconfirm -S \
 	waybar \
+	pavucontrol \
 	brightnessctl \
 	rofi \
 	bluez \
@@ -54,7 +55,16 @@ sudo pacman --needed --noconfirm -S \
 	tlp-rdw \
 	tp_smapi \
 	acpi_call \
-	wireguard-tools
+	wireguard-tools \
+	tpm2-tools
+# GNOME apps
+sudo pacman --needed --noconfirm -S \
+	gnome-contacts \
+	gnome-calendar \
+	evolution \
+	geary \
+	gnome-online-accounts \
+	gnome-control-center
 
 sudo systemctl enable tlp.service
 sudo systemctl mask systemd-rfkill.service
@@ -65,6 +75,8 @@ sudo pacman --needed --noconfirm -S \
 	hyprland \
 	hyprpaper \
 	hyprlock \
+	hyprshot \
+	hypridle \
 	hyprsunset
 
 # CLI tools
@@ -94,6 +106,7 @@ sudo pacman --needed --noconfirm -S \
 	golangci-lint \
 	cmake \
 	make \
+	texlive \
 	zsh \
 	tmux
 
@@ -113,9 +126,8 @@ sudo pacman --needed --noconfirm -S \
 	kdeconnect \
 	thunderbird \
 	telegram-desktop
-# "fat" file manager
-# nautilus \
-# sushi \
+nautilus \
+	sushi
 
 yay --needed --noconfirm -S \
 	vial-appimage \
@@ -134,7 +146,7 @@ flatpak install --assumeyes \
 # xdg-settings set default-web-browser zen-browser.desktop
 # xdg-mime default org.pwmt.zathura.desktop application/pdf
 xdg-settings set default-web-browser firefox.desktop
-# xdg-mime default sioyek.desktop application/pdf
+xdg-mime default ioyek.desktop application/pdf
 
 sudo systemctl enable --now bluetooth.service
 sudo ufw allow 22/tcp

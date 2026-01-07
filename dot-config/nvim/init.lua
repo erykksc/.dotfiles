@@ -5,10 +5,10 @@ vim.g.have_nerd_font = true
 vim.g.netrw_banner = 0
 vim.g.netrw_preview = 1
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
-vim.opt.cursorline = true -- Show which line your cursor is on
-vim.opt.scrolloff = 8 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.wrap = false -- Disable line wrapping
-vim.opt.number = true -- show absolute number on cursor line
+vim.opt.cursorline = true    -- Show which line your cursor is on
+vim.opt.scrolloff = 8        -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.wrap = false         -- Disable line wrapping
+vim.opt.number = true        -- show absolute number on cursor line
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "+1"
@@ -23,17 +23,19 @@ vim.opt.listchars = {
 	eol = "↲",
 }
 -- indentation
-vim.opt.tabstop = 4 -- Number of spaces a tab counts for
-vim.opt.shiftwidth = 4 -- Number of spaces for each level of indentation
-vim.opt.softtabstop = 4 -- Number of spaces a <Tab> or <BS> uses while editing
+vim.opt.tabstop = 4               -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 4            -- Number of spaces for each level of indentation
+vim.opt.softtabstop = 4           -- Number of spaces a <Tab> or <BS> uses while editing
 -- misc
 vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim.
-vim.opt.undofile = true -- Save undo history
+vim.opt.undofile = true           -- Save undo history
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.updatetime = 250 -- Decrease update time
 vim.o.swapfile = false
 vim.opt.diffopt = vim.opt.diffopt + { "vertical" }
+
+vim.opt.spelllang = { 'en_us', 'de', 'pl', 'es' }
 
 vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
 
@@ -336,6 +338,7 @@ vim.keymap.set("n", "<leader>sa", function()
 	})
 end, { desc = "[S]earch All [F]iles" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch by [w]ord(string)" })
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers" })
@@ -454,7 +457,8 @@ local servers = {
 	basedpyright = {},
 	ruff = {},
 	rust_analyzer = {},
-	tofu_ls = {},
+	-- tofu_ls = {},
+	terraformls = {},
 	ts_ls = {},
 	texlab = {
 		-- -- settings to use with tectonic (modern latexpdf alternative)
