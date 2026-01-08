@@ -1,0 +1,5 @@
+# Hide the emoji descriptions
+hidden-descriptions = true
+
+# Rofi-specific styling and keybindings
+selector-args = "-theme ~/.dotfiles/rofimoji-themes/grid.rasi -kb-row-left Left -kb-row-right Right -kb-move-char-back Control+b -kb-move-char-forward Control+f"
