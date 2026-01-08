@@ -17,4 +17,4 @@ quit-after-last-window-closed = true
 
 macos-titlebar-style = hidden
 
-# window-decoration = none
+window-decoration = none

@@ -10,11 +10,16 @@ alias gs='git status'
 alias ls='ls --color=auto -p -h'
 alias s='~/.dotfiles/bin/tmux-client.sh'
 
+
 # KEYBINDINGS
 bindkey -e
 # Move through history with the same prefix
 bindkey '^P' history-search-backward
 bindkey '^N' history-search-forward
+# Edit command
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 # HISTORY
 HISTSIZE=100000
