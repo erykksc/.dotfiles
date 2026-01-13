@@ -16,3 +16,4 @@
 --ignore=.nix-profile
 --ignore=etc
 --ignore=setup
+--ignore=rofimoji-themes
