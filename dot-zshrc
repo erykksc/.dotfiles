@@ -34,6 +34,10 @@ setopt HIST_IGNORE_SPACE
 
 setopt EXTENDED_GLOB
 
+if command -v mise > /dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # FZF
 # Set up fzf key bindings and fuzzy completion
 if command -v fzf > /dev/null 2>&1; then
@@ -52,10 +56,6 @@ compinit
 
 if command -v direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
-fi
-
-if command -v mise > /dev/null 2>&1; then
-  eval "$(mise activate zsh)"
 fi
 
 # PLUGINS
@@ -79,10 +79,12 @@ source $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # Set Bitwarden as SSH agent
 if [[ "$(uname)" == "Darwin" ]]; then
-    export SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+  export SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 else
   # assume linux
-  export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
+  # export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
+  # use the flatpak version
+  export SSH_AUTH_SOCK=/home/erykksc/.var/app/com.bitwarden.desktop/.bitwarden-ssh-agent.sock
 fi
 
 # turn on starship prompt if installed

@@ -131,7 +131,7 @@ hotkey-overlay {
     skip-at-startup
 }
 prefer-no-csd
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "~/Pictures/Screenshots/Screenshot_from_%Y-%m-%d_%H-%M-%S.png"
 animations {
     workspace-switch {
         spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
@@ -197,7 +197,13 @@ window-rule {
     // match app-id=r#"^org\.gnome\.NautilusPreviewer$"#
     match app-id=r#"^steam$"#
     match app-id=r#"^xdg-desktop-portal$"#
+    match title=r#"^eryk.fuzzy-open$"#
     open-floating true
+}
+window-rule {
+    match title=r#"^eryk.fuzzy-open$"#
+    // default-floating-width { proportion 0.8; }
+    // default-floating-height { proportion 0.8; }
 }
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#

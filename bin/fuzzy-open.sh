@@ -11,7 +11,8 @@
 # 1. Use fd to find files (regular newlines are better for Rofi than -0)
 # 2. Pipe into rofi in dmenu mode
 # 3. -i makes it case-insensitive, -p sets the prompt
-FILE=$(fd . ~ --type f --hidden --exclude .git --exclude node_modules | rofi -dmenu -i -p "Open File:")
+# FILE=$(fd . ~ --type f --hidden --exclude .git --exclude node_modules | rofi -dmenu -i -p "Open File:")
+FILE=$(fd . ~ --hidden --exclude .git --exclude node_modules | fzf)
 
 # 4. If a file was selected (Rofi returns 0 exit code on success)
 if [[ -n "$FILE" ]]; then

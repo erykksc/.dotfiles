@@ -216,6 +216,7 @@ vim.keymap.set("n", "[c", function()
 		gitsigns.nav_hunk("prev")
 	end
 end)
+vim.keymap.set("n", "<leader>hb", gitsigns.blame_line)
 vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk)
 vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)
 vim.keymap.set("n", "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
@@ -224,30 +225,30 @@ vim.keymap.set("n", "<leader>hQ", function()
 	gitsigns.setqflist("all", {})
 end, { desc = "All [H]unk to [Q]uicklist", silent = true })
 
--- plugin: harpoon
-vim.pack.add({
-	{
-		src = "https://github.com/ThePrimeagen/harpoon",
-		version = "harpoon2",
-	},
-	"https://github.com/nvim-lua/plenary.nvim", --depencency
-})
-local harpoon = require("harpoon")
-harpoon.setup()
-
-vim.keymap.set("n", "<leader>a", function()
-	harpoon:list():add()
-end, { desc = "Add file to Harpoon" })
-vim.keymap.set("n", "<M-e>", function()
-	harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Toggle Harpoon quick menu" })
-
-local harpoon_keys = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }
-for i, key in ipairs(harpoon_keys) do
-	vim.keymap.set("n", "<M-" .. key .. ">", function()
-		harpoon:list():select(i)
-	end, { desc = "Select Harpoon file " .. i })
-end
+-- -- plugin: harpoon
+-- vim.pack.add({
+-- 	{
+-- 		src = "https://github.com/ThePrimeagen/harpoon",
+-- 		version = "harpoon2",
+-- 	},
+-- 	"https://github.com/nvim-lua/plenary.nvim", --depencency
+-- })
+-- local harpoon = require("harpoon")
+-- harpoon.setup()
+--
+-- vim.keymap.set("n", "<leader>a", function()
+-- 	harpoon:list():add()
+-- end, { desc = "Add file to Harpoon" })
+-- vim.keymap.set("n", "<M-e>", function()
+-- 	harpoon.ui:toggle_quick_menu(harpoon:list())
+-- end, { desc = "Toggle Harpoon quick menu" })
+--
+-- local harpoon_keys = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }
+-- for i, key in ipairs(harpoon_keys) do
+-- 	vim.keymap.set("n", "<M-" .. key .. ">", function()
+-- 		harpoon:list():select(i)
+-- 	end, { desc = "Select Harpoon file " .. i })
+-- end
 
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
@@ -320,10 +321,13 @@ require("nvim-treesitter.configs").setup({
 vim.pack.add({ "https://github.com/brianhuster/live-preview.nvim" })
 
 -- plugin: telescope
-vim.pack.add({ {
-	src = "https://github.com/nvim-telescope/telescope.nvim",
-	version = vim.version.range("0.1.*"),
-} })
+vim.pack.add({
+	{
+		src = "https://github.com/nvim-telescope/telescope.nvim",
+		version = vim.version.range("0.1.*"),
+	},
+	"https://github.com/nvim-lua/plenary.nvim", --depencency
+})
 
 require("telescope").setup({})
 local builtin = require("telescope.builtin")
@@ -445,7 +449,6 @@ end
 local servers = {
 	arduino_language_server = {},
 	bashls = {},
-	cmake = {},
 	docker_language_server = {},
 	gopls = {},
 	golangci_lint_ls = {},
@@ -474,6 +477,7 @@ local servers = {
 		-- },
 	},
 	yamlls = {},
+	vacuum = {},
 	matlab_ls = {},
 }
 
@@ -489,13 +493,14 @@ vim.list_extend(ensure_installed, {
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 -- Define LSPs that don't need automatic installation
-servers.clangd = {
-	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--clang-tidy" },
-	capabilities = { offsetEncoding = "utf-8" },
-	root_dir = function()
-		return vim.fn.getcwd()
-	end,
-}
+-- servers.clangd = {
+-- 	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--clang-tidy" },
+-- 	capabilities = { offsetEncoding = "utf-8" },
+-- 	root_dir = function()
+-- 		return vim.fn.getcwd()
+-- 	end,
+-- }
+servers.clangd = {}
 servers.gdscript = {}
 
 -- configure and enable the LSPs

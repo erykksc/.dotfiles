@@ -20,9 +20,11 @@
 [interactive]
     diffFilter = delta --color-only
 [delta]
-	side-by-side = true
+	side-by-side = false
 	line-numbers = true
-    navigate = true  # use n and N to move between diff sections
+	color-only = false
+	diff-so-fancy = true
+    navigate = false  # use n and N to move between diff sections
 [merge]
     conflictstyle = zdiff3
 [push]

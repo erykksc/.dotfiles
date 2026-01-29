@@ -13,8 +13,11 @@ font-feature = -dlig
 macos-option-as-alt = true
 macos-titlebar-proxy-icon = hidden
 font-thicken = true
-quit-after-last-window-closed = true
 
 macos-titlebar-style = hidden
+
+# automatically install ghostty on ssh machines
+# requires infocmp on host and tic on remote
+# shell-integration-features  =  ssh-terminfo
 
 window-decoration = none

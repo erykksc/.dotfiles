@@ -114,11 +114,12 @@ binds {
     Ctrl+XF86Launch1 { screenshot-screen; }
     Print { screenshot; }
     XF86Launch1 { screenshot; }
-    Ctrl+Shift+space cooldown-ms=200 hotkey-overlay-title="Rofimoji" { spawn "rofimoji"; }
+    Ctrl+Alt+space hotkey-overlay-title="Rofimoji" cooldown-ms=200 { spawn "rofimoji"; }
     Super+B hotkey-overlay-title="Firefox" { spawn "firefox"; }
-    Super+backslash hotkey-overlay-title="Bitwarden" { spawn "bitwarden-desktop"; }
     Super+E hotkey-overlay-title="Open Files" { spawn "nautilus"; }
+    Super+O hotkey-overlay-title="Fuzzy Open" { spawn "ghostty" "--title=eryk.fuzzy-open" "-e" "fuzzy-open.sh"; }
     Super+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
+    Super+backslash hotkey-overlay-title="Bitwarden" { spawn "bitwarden-desktop"; }
     Mod+D repeat=false { toggle-overview; }
     Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+Slash { show-hotkey-overlay; }

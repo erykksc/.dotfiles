@@ -13,6 +13,14 @@ if command -v snapper >/dev/null 2>&1; then
 	echo "--- Pre-snapshot #$PRE_NUM created ---"
 fi
 
+# mise
+if command -v mise >/dev/null 2>&1; then
+	(
+		cd "$HOME"
+		mise upgrade --jobs=$(nproc)
+	)
+fi
+
 # brew (MacOS)
 if command -v brew >/dev/null 2>&1; then
 	brew update
