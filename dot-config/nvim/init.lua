@@ -4,6 +4,7 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 vim.g.netrw_banner = 0
 vim.g.netrw_preview = 1
+-- vim.g.netrw_liststyle = 3
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 vim.opt.cursorline = true    -- Show which line your cursor is on
 vim.opt.scrolloff = 8        -- Minimal number of screen lines to keep above and below the cursor.
