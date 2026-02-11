@@ -103,7 +103,10 @@ sudo dnf install -y \
 	keyd \
 	ghostty \
 	kernel-headers \
-	v4l2loopback
+	v4l2loopback \
+	sqlite \
+	sqlite-devel \
+	ffmpeg
 
 sudo dnf group install -y multimedia --with-optional
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
@@ -130,6 +133,11 @@ sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 # 	telegram-desktop \
 # 	kdeconnect \
 # 	thunderbird
+
+# install brave browser
+sudo dnf install dnf-plugins-core
+sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+sudo dnf install brave-browser
 
 if command -v mise >/dev/null 2>&1; then
 	echo "mise already installed"
