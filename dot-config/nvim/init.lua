@@ -236,33 +236,6 @@ vim.pack.add({
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
 
-
-
--- -- plugin: harpoon
--- vim.pack.add({
--- 	{
--- 		src = "https://github.com/ThePrimeagen/harpoon",
--- 		version = "harpoon2",
--- 	},
--- 	"https://github.com/nvim-lua/plenary.nvim", --depencency
--- })
--- local harpoon = require("harpoon")
--- harpoon.setup()
---
--- vim.keymap.set("n", "<leader>a", function()
--- 	harpoon:list():add()
--- end, { desc = "Add file to Harpoon" })
--- vim.keymap.set("n", "<M-e>", function()
--- 	harpoon.ui:toggle_quick_menu(harpoon:list())
--- end, { desc = "Toggle Harpoon quick menu" })
---
--- local harpoon_keys = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }
--- for i, key in ipairs(harpoon_keys) do
--- 	vim.keymap.set("n", "<M-" .. key .. ">", function()
--- 		harpoon:list():select(i)
--- 	end, { desc = "Select Harpoon file " .. i })
--- end
-
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
 
