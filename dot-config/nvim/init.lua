@@ -226,6 +226,18 @@ vim.keymap.set("n", "<leader>hQ", function()
 	gitsigns.setqflist("all", {})
 end, { desc = "All [H]unk to [Q]uicklist", silent = true })
 
+
+vim.pack.add({
+	"https://github.com/NeogitOrg/neogit",
+	"https://github.com/nvim-lua/plenary.nvim",      -- required
+	"https://github.com/esmuellert/codediff.nvim",   -- optional
+	"https://github.com/nvim-telescope/telescope.nvim", -- optional
+})
+
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
+
+
+
 -- -- plugin: harpoon
 -- vim.pack.add({
 -- 	{
