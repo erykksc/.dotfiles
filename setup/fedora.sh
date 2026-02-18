@@ -27,9 +27,6 @@ sudo usermod -aG input $USER
 sudo dnf copr enable -y scottames/ghostty
 sudo dnf copr enable -y alternateved/keyd
 
-sudo dnf group install -y multimedia --with-optional
-sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
-
 # Distro
 sudo dnf install -y \
 	keyd \
@@ -56,14 +53,24 @@ sudo dnf install -y \
 	docker \
 	docker-compose \
 	postgresql \
-	kdenlikve \
-	HandBrake-gui \
 	ffmpeg
 
 # install brave browser
 sudo dnf install dnf-plugins-core
-sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+if [ ! -f "/etc/yum.repos.d/brave-browser.repo" ]; then
+	sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+else
+	echo "Brave repository already configured."
+fi
 sudo dnf install brave-browser
+
+# setup video codecs
+sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+
+sudo dnf5 group upgrade -y multimedia --setopt=install_weak_deps=0 --exclude=PackageKit-gstreamer-plugin
+sudo dnf install libavcodec-freeworld
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 if command -v mise >/dev/null 2>&1; then
 	echo "mise already installed"
@@ -87,6 +94,8 @@ flatpak install --assumeyes \
 	it.mijorus.smile \
 	com.obsproject.Studio \
 	com.obsproject.Studio.Plugin.DroidCam \
+	org.kde.kdenlive \
+	fr.handbrake.ghb \
 	com.slack.Slack
 
 # setup droidcam
