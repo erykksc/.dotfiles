@@ -124,6 +124,7 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		bash = { "shfmt" },
+		caddy = { "caddy" },
 		dockerfile = { "remove_trailing_whitespace" },
 		lua = { "stylua" },
 		python = function(bufnr)
@@ -147,7 +148,7 @@ require("conform").setup({
 		json5 = { "prettierd", "prettier", stop_after_first = true },
 		jsonc = { "prettierd", "prettier", stop_after_first = true },
 		less = { "prettierd", "prettier", stop_after_first = true },
-		markdown = { "prettierd", "prettier", stop_after_first = true },
+		-- markdown = { "prettierd", "prettier", stop_after_first = true },
 		mdx = { "prettierd", "prettier", stop_after_first = true },
 		rust = { "rustfmt" },
 		scss = { "prettierd", "prettier", stop_after_first = true },
@@ -184,8 +185,24 @@ require("conform").setup({
 			},
 			stdin = true,
 		},
+		caddy = {
+			command = 'caddy',
+			args = { 'fmt', '-' },
+			stdin = true,
+		},
 	},
 })
+
+vim.filetype.add {
+	extension = {
+		caddy = 'caddy',
+		templ = 'templ'
+	},
+	filename = {
+		Caddyfile = 'caddy',
+	},
+}
+
 
 -- plugin: gitsigns
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
@@ -234,7 +251,7 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope.nvim", -- optional
 })
 
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
+vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
 
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
@@ -442,9 +459,11 @@ local servers = {
 	arduino_language_server = {},
 	bashls = {},
 	docker_language_server = {},
+	denols = {},
 	gopls = {},
 	golangci_lint_ls = {},
 	html = {},
+	cssls = {},
 	-- htmx = {},
 	jsonls = {},
 	lua_ls = {},
@@ -455,6 +474,8 @@ local servers = {
 	-- tofu_ls = {},
 	terraformls = {},
 	ts_ls = {},
+	tinymist = {},
+	svelte = {},
 	texlab = {
 		-- -- settings to use with tectonic (modern latexpdf alternative)
 		-- settings = {
@@ -468,6 +489,7 @@ local servers = {
 		-- 	},
 		-- },
 	},
+	templ = {},
 	yamlls = {},
 	vacuum = {},
 	matlab_ls = {},
