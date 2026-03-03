@@ -9,6 +9,9 @@ alias vc='nvim .'
 alias gs='git status'
 alias ls='ls --color=auto -p -h'
 alias s='~/.dotfiles/bin/tmux-client.sh'
+alias c='wl-copy'
+alias p='wl-paste'
+alias o='xdg-open'
 
 
 # KEYBINDINGS
