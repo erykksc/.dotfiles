@@ -26,11 +26,13 @@ sudo usermod -aG input $USER
 
 sudo dnf copr enable -y scottames/ghostty
 sudo dnf copr enable -y alternateved/keyd
+sudo dnf copr enable -y jdxcode/mise
 
 # Distro
 sudo dnf install -y \
 	keyd \
 	ghostty \
+	mise \
 	kernel-headers \
 	v4l2loopback \
 	sqlite \
@@ -72,13 +74,6 @@ sudo dnf5 group upgrade -y multimedia --setopt=install_weak_deps=0 --exclude=Pac
 sudo dnf install libavcodec-freeworld
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
-if command -v mise >/dev/null 2>&1; then
-	echo "mise already installed"
-else
-	curl https://mise.run | sh
-	mise install
-fi
-
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak update
 flatpak install --assumeyes \
@@ -113,7 +108,4 @@ sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
 
 # keyd setup
-sudo mkdir -p /etc/keyd
-sudo cp $HOME/.dotfiles/etc/keyd/default.conf /etc/keyd/default.conf
-sudo systemctl enable --now keyd
-sudo keyd reload
+./keyd.sh
