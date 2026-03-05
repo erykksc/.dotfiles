@@ -44,9 +44,9 @@ fi
 
 # dnf (Fedora)
 if command -v dnf >/dev/null 2>&1; then
-	sudo dnf clean all
 	sudo dnf upgrade --refresh -y
 	sudo dnf autoremove -y
+	sudo dnf clean all
 fi
 
 # pacman (arch)
