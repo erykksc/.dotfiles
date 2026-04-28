@@ -1,0 +1,13 @@
+name: maxmed
+root: ~/dev/maxmed
+
+windows:
+  - editor: nvim pocketbase.go
+  - shell: mise run web
+  - ai: opencode
+  - services:
+      layout: even-vertical
+      panes:
+        - go run . serve --dev
+        - mise run frontend-dev
+        - mise run smtp4dev
