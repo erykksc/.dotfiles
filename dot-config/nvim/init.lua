@@ -2,8 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- visual
 vim.g.have_nerd_font = true
-vim.g.netrw_banner = 0
-vim.g.netrw_preview = 1
+vim.g.netrw_banner = 1
 -- vim.g.netrw_liststyle = 3
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 vim.opt.cursorline = true    -- Show which line your cursor is on
@@ -81,21 +80,29 @@ end
 
 -------------------------------- PLUGINS --------------------------------
 -- plugin: colorscheme
+-- vim.pack.add({
+-- 	"https://github.com/uloco/bluloco.nvim",
+-- 	"https://github.com/rktjmp/lush.nvim", -- required by bluloco
+-- })
+-- require("bluloco").setup({})
 vim.pack.add({
-	"https://github.com/uloco/bluloco.nvim",
-	"https://github.com/rktjmp/lush.nvim", -- required by bluloco
+	"https://github.com/Mofiqul/adwaita.nvim",
 })
-require("bluloco").setup({})
+-- vim.g.adwaita_darker = true
 
 vim.opt.termguicolors = true
-vim.cmd("colorscheme bluloco")
+vim.cmd("colorscheme adwaita")
 
 -- plugin: blink
 vim.pack.add({ {
 	src = "https://github.com/saghen/blink.cmp",
 	version = vim.version.range("1.*"),
 } })
-require("blink.cmp").setup()
+require("blink.cmp").setup({
+	sources = {
+		default = { "lsp", "path", "snippets", "buffer" },
+	},
+})
 
 -- plugin: conform
 vim.pack.add({
@@ -148,7 +155,7 @@ require("conform").setup({
 		json5 = { "prettierd", "prettier", stop_after_first = true },
 		jsonc = { "prettierd", "prettier", stop_after_first = true },
 		less = { "prettierd", "prettier", stop_after_first = true },
-		-- markdown = { "prettierd", "prettier", stop_after_first = true },
+		markdown = { "prettierd", "prettier", stop_after_first = true },
 		mdx = { "prettierd", "prettier", stop_after_first = true },
 		rust = { "rustfmt" },
 		scss = { "prettierd", "prettier", stop_after_first = true },
@@ -285,8 +292,8 @@ vim.pack.add({ "https://github.com/tpope/vim-sleuth" })
 
 -- plugin: vim-slime
 vim.pack.add({ "https://github.com/jpalardy/vim-slime" })
-vim.g.slime_target = "tmux"
-vim.g.slime_bracketed_paste = 1
+vim.g.slime_target = "kitty"
+-- vim.g.slime_bracketed_paste = 1
 
 -- plugin: nvim-treesitter
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -466,9 +473,20 @@ local servers = {
 	cssls = {},
 	-- htmx = {},
 	jsonls = {},
-	lua_ls = {},
+	lua_ls = {
+		settings = {
+			Lua = {
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						vim.fn.stdpath("data") .. "/site/pack/core/opt/wezterm-types/lua",
+					},
+				},
+			},
+		},
+	},
 	-- ltex_plus = {},
-	basedpyright = {},
+	pyright = {},
 	ruff = {},
 	rust_analyzer = {},
 	-- tofu_ls = {},
@@ -493,6 +511,7 @@ local servers = {
 	yamlls = {},
 	vacuum = {},
 	matlab_ls = {},
+	prettierd = {},
 }
 
 -- Ensure the servers and tools above are installed
