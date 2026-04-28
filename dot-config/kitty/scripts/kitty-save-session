@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+session_dir="${HOME}/.config/kitty/sessions"
+mkdir -p "$session_dir"
+
+selection="$({
+  python - "$session_dir" <<'PY'
+import os
+import sys
+
+session_dir = sys.argv[1]
+names = []
+for entry in sorted(os.listdir(session_dir)):
+    path = os.path.join(session_dir, entry)
+    if not os.path.isfile(path):
+        continue
+    for suffix in (".kitty-session", ".kitty_session", ".session"):
+        if entry.endswith(suffix):
+            names.append(entry[: -len(suffix)])
+            break
+print("\n".join(names))
+PY
+} | fzf \
+  --print-query \
+  --prompt='session name> ' \
+  --header='Type a name or pick an existing session' \
+  --height=80% \
+  --layout=reverse \
+  --border \
+  --select-1 \
+  --exit-0)"
+
+name=""
+while IFS= read -r line; do
+  line="${line#${line%%[![:space:]]*}}"
+  line="${line%${line##*[![:space:]]}}"
+  if [ -n "$line" ]; then
+    name="$line"
+    break
+  fi
+done <<EOF
+$selection
+EOF
+
+[ -n "$name" ] || exit 0
+
+name="${name##*/}"
+for suffix in ".kitty-session" ".kitty_session" ".session"; do
+  name="${name%$suffix}"
+done
+
+case "$name" in
+  *$'\n'* | *$'\r'* | '' | '.' | '..')
+    kitten @ action --match state:overlay_parent show_error "Invalid session name" "Please choose a valid session filename."
+    exit 1
+    ;;
+esac
+
+path="$session_dir/$name.kitty-session"
+quoted_path="$(python - "$path" <<'PY'
+import shlex
+import sys
+
+print(shlex.quote(sys.argv[1]))
+PY
+)"
+
+kitten @ action --match state:overlay_parent save_as_session "--save-only --use-foreground-process --match=session:. $quoted_path"
+kitten @ action --match state:overlay_parent show_error "Session saved" "Saved current session to $path"

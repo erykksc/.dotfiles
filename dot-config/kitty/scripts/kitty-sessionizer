@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+ROOTS=(
+  "$HOME/projects"
+  "$HOME/work"
+  "$HOME/personal"
+  "$HOME/dev"
+)
+
+selected=$(find "${ROOTS[@]}" -mindepth 1 -maxdepth 2 -type d | fzf)
+
+[ -z "$selected" ] && exit 0
+
+name=$(basename "$selected" | tr . _)
+
+session_dir="$HOME/.config/kitty/sessions"
+session_file="$session_dir/$name.kitty-session"
+
+mkdir -p "$session_dir"
+
+cat >"$session_file" <<EOF
+cd $selected
+
+new_tab editor
+layout tall
+launch nvim
+launch
+
+new_tab git
+launch lazygit
+
+# focus_tab 0
+EOF
+
+kitty --session "$session_file"

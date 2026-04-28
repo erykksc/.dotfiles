@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$#" -lt 2 ]; then
+  printf 'usage: %s <tab-title> <command> [args...]\n' "$0" >&2
+  exit 1
+fi
+
+socket="${KITTY_LISTEN_ON:-unix:/tmp/mykitty}"
+tab_title="$1"
+shift
+
+tab_id="$({ kitty @ --to "$socket" ls | jq -r --arg title "$tab_title" '
+  .[]
+  | .tabs[]?
+  | select(.title == $title)
+  | .id
+' | head -n 1; } || true)"
+
+if [ -n "${tab_id:-}" ]; then
+  exec kitty @ --to "$socket" focus-tab --match "id:${tab_id}"
+fi
+
+exec kitty @ --to "$socket" launch --type=tab --cwd=current --tab-title "$tab_title" "$@"

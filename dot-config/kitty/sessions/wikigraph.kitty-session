@@ -1,0 +1,10 @@
+new_tab editor
+cd /home/erykksc/dev/wikigraph
+layout tall
+launch zsh -lc "exec nvim ."
+
+new_tab git
+cd /home/erykksc/dev/wikigraph
+launch lazygit
+
+# focus_tab 0

@@ -1,0 +1,11 @@
+cd /home/erykksc/dev/map-project
+
+new_tab editor
+layout tall
+launch nvim
+launch
+
+new_tab git
+launch lazygit
+
+# focus_tab 0
