@@ -10,6 +10,7 @@ $git_branch\
 $git_state\
 $git_status\
 $cmd_duration\
+$status\
 $line_break\
 $python\
 $character"""
@@ -29,9 +30,9 @@ truncate_to_repo=false
 truncation_length=0
 
 [character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+success_symbol = "[\\$](bold green)"
+vicmd_symbol = "[v](bold yellow)"
+error_symbol = "[\\$](bold red)"
 
 [git_branch]
 format = "[$branch]($style)"
@@ -61,3 +62,11 @@ format = "[$virtualenv]($style) "
 # style = "bright-black"
 detect_extensions = []
 detect_files = []
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+symbol = "error:"
+pipestatus = true
+style = "bold red"
+
