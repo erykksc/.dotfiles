@@ -1,5 +1,5 @@
 nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-    run 'nixpkgs#stow' -- -R .
+   run 'nixpkgs#stow' -- -R .
 
 nix profile add "nixpkgs#{
 zsh,

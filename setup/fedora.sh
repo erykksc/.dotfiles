@@ -24,20 +24,21 @@ sudo dnf update -y
 
 sudo usermod -aG input $USER
 
-sudo dnf copr enable -y scottames/ghostty
 sudo dnf copr enable -y alternateved/keyd
 sudo dnf copr enable -y jdxcode/mise
 
 # Distro
 sudo dnf install -y \
+	kitty \
+	xdg-terminal-exec \
 	keyd \
-	ghostty \
 	mise \
 	kernel-headers \
 	v4l2loopback \
 	sqlite \
 	sqlite-devel \
 	zsh \
+	htop \
 	rsync \
 	man-db \
 	man-pages \
@@ -49,13 +50,23 @@ sudo dnf install -y \
 	make \
 	cmake \
 	git \
+	git-lfs \
 	geary \
 	dbus-devel \
 	glib2-devel \
 	docker \
 	docker-compose \
 	postgresql \
-	ffmpeg
+	ffmpeg \
+	node \
+	npm \
+	fd-find \
+	ripgrep \
+	neovim \
+	rust \
+	go \
+	jq \
+	uv
 
 # install brave browser
 sudo dnf install dnf-plugins-core

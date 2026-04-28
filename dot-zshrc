@@ -6,9 +6,10 @@
 # ALIASES
 alias v='nvim'
 alias vc='nvim .'
+alias mux='tmuxinator'
 alias gs='git status'
 alias ls='ls --color=auto -p -h'
-alias s='~/.dotfiles/bin/tmux-client.sh'
+alias s='~/.dotfiles/bin/fzf-terminal.sh'
 alias c='wl-copy'
 alias p='wl-paste'
 alias o='xdg-open'
