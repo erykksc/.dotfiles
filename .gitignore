@@ -18,3 +18,4 @@ dot-config/claude/
 dot-config/gh/hosts.yml
 /dot-config/kitty/__pycache__
 /dot-config/wezterm/plugins/wez-tmux
+/bin/zpng
