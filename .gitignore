@@ -19,3 +19,4 @@ dot-config/gh/hosts.yml
 /dot-config/kitty/__pycache__
 /dot-config/wezterm/plugins/wez-tmux
 /bin/zpng
+/dot-config/opencode/opencode.json
