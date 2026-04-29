@@ -521,6 +521,7 @@ require("mason").setup()
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"shfmt",
+	"golangci-lint",
 }) -- add additional tools like formatters
 -- TODO: install the LSPs and formatters through nix
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
