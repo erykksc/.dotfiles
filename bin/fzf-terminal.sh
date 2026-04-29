@@ -1,10 +1,12 @@
 #!/bin/bash
 
-search_paths=(~ ~/dev ~/Documents ~/Documents/TU-Berlin/Master-semester-1)
+search_paths=(~ ~/dev)
 
 selected=$(
 	{
+		echo "$HOME" # first entry is home to put it as the first result
 		find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d
+		find -L ~/Documents -type d
 		find -L "${search_paths[@]}" -maxdepth 2 -name "*.kitty-session"
 		find -L "$HOME/.config/kitty" -maxdepth 2 -name "*.kitty-session"
 	} | fzf --header "Enter: Open Kitty | Ctrl-E: Open in Neovim" \
