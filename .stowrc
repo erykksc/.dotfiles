@@ -4,6 +4,7 @@
 --ignore=.envrc
 --ignore=^\.git$
 --ignore=.gitignore
+--ignore=install.sh
 --ignore=.gitmodules
 --ignore=.stowrc
 --ignore=Brewfile
