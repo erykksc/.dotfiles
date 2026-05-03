@@ -3,13 +3,28 @@
 # Load secrets
 [ -f ~/.secrets ] && source ~/.secrets
 
+fzf_to_project(){
+  search_paths=(~/dev ~)
+  selected=$(
+      {
+          echo "$HOME"
+          find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d
+          find -L ~/Documents -type d
+      } | fzf 
+  )
+  if [[ -z $selected ]]; then
+      echo "Nothing selected, exiting"
+      return
+  fi
+  cd "$selected"
+}
+
 # ALIASES
 alias v='nvim'
 alias vc='nvim .'
-alias mux='tmuxinator'
 alias gs='git status'
 alias ls='ls --color=auto -p -h'
-alias s='~/.dotfiles/bin/fzf-terminal.sh'
+alias f='fzf_to_project'
 alias c='wl-copy'
 alias p='wl-paste'
 alias o='xdg-open'
@@ -82,6 +97,14 @@ if [[ ! -d $ZPLUGINDIR/zsh-syntax-highlighting ]]; then
 fi
 source $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
+
+# enable kitty shell integration, this makes it work in distrobox
+if [[ -n "$KITTY_INSTALLATION_DIR" ]]; then
+    export KITTY_SHELL_INTEGRATION="enabled"
+    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
+fi
 
 # Set Bitwarden as SSH agent
 if [[ "$(uname)" == "Darwin" ]]; then
