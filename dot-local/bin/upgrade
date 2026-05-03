@@ -67,6 +67,14 @@ if command -v distrobox-upgrade >/dev/null 2>&1; then
 	)
 fi
 
+if [ -d "$HOME/dev/neovim" ]; then
+	(
+		cd "$HOME/dev/neovim"
+		git pull
+		sudo make install
+	)
+fi
+
 # Create POST snapshot
 if command -v snapper >/dev/null 2>&1; then
 	POST_NUM=$(sudo snapper -c root create -t post --pre-number "$PRE_NUM" -d "$DESCRIPTION")
