@@ -473,6 +473,7 @@ local servers = {
 	cssls = {},
 	-- htmx = {},
 	jsonls = {},
+	jdtls = {},
 	lua_ls = {
 		settings = {
 			Lua = {
