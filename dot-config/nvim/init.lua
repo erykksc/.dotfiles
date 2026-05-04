@@ -17,10 +17,6 @@ vim.opt.listchars = {
 	space = "·",
 	trail = "·",
 	nbsp = "␣",
-	tab = "»>",
-	extends = "»",
-	precedes = "«",
-	eol = "↲",
 }
 -- indentation
 vim.opt.tabstop = 4               -- Number of spaces a tab counts for
