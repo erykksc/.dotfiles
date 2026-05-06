@@ -162,6 +162,7 @@ require("conform").setup({
 		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 		vue = { "prettierd", "prettier", stop_after_first = true },
 		yaml = { "prettierd", "prettier", stop_after_first = true },
+		zsh = { "shfmt" },
 		-- Use a function as a catch-all for all other filetypes
 		-- ["*"] = { "remove_trailing_whitespace" },
 	},
@@ -525,6 +526,7 @@ require("mason").setup()
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"shfmt",
+	"prettierd",
 	"golangci-lint",
 }) -- add additional tools like formatters
 -- TODO: install the LSPs and formatters through nix
