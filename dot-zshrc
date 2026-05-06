@@ -3,20 +3,42 @@
 # Load secrets
 [ -f ~/.secrets ] && source ~/.secrets
 
-fzf_to_project(){
+fzf_to_project() {
+  local -a search_paths fzf_result
+  local action selected
+
   search_paths=(~/dev ~)
-  selected=$(
-      {
-          echo "$HOME"
-          find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d
-          find -L ~/Documents -type d
-      } | fzf 
-  )
+  fzf_result=("${(@f)$(
+    {
+      echo "$HOME"
+      echo "$HOME/.local/share/applications"
+      find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+      find "$HOME/Documents" \( -name "node_modules" -o -name ".venv" -o -name ".git" \) -prune -o -type d 2>/dev/null
+    } | fzf \
+      --expect=ctrl-e,ctrl-o,ctrl-t \
+      --header "Enter: cd/open session | Ctrl-E: Neovim | Ctrl-O: xdg-open" \
+      --scheme=path
+  )}")
+
+  action="$fzf_result[1]"
+  selected="$fzf_result[2]"
+
   if [[ -z $selected ]]; then
-      echo "Nothing selected, exiting"
-      return
+    echo "Nothing selected, exiting"
+    return
   fi
-  cd "$selected"
+
+  case "$action" in
+  ctrl-e)
+    nvim "$selected"
+    ;;
+  ctrl-o)
+    xdg-open "$selected" >/dev/null 2>&1 &|
+    ;;
+  *)
+    cd "$selected"
+    ;;
+  esac
 }
 
 # ALIASES
@@ -28,7 +50,6 @@ alias f='fzf_to_project'
 alias c='wl-copy'
 alias p='wl-paste'
 alias o='xdg-open'
-
 
 # KEYBINDINGS
 bindkey -e
@@ -55,13 +76,13 @@ setopt AUTO_PUSHD
 
 setopt EXTENDED_GLOB
 
-if command -v mise > /dev/null 2>&1; then
+if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
 # FZF
 # Set up fzf key bindings and fuzzy completion
-if command -v fzf > /dev/null 2>&1; then
+if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
@@ -75,7 +96,7 @@ fpath=(
 autoload -Uz compinit
 compinit
 
-if command -v direnv > /dev/null 2>&1; then
+if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
@@ -108,6 +129,6 @@ else
 fi
 
 # turn on starship prompt if installed
-if command -v starship > /dev/null 2>&1; then
+if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
