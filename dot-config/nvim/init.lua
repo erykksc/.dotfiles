@@ -460,6 +460,14 @@ end
 --
 local servers = {
 	arduino_language_server = {},
+	astro = {
+		before_init = function(_, config)
+			local tsdk = vim.fs.joinpath(config.root_dir or vim.fn.getcwd(), "node_modules", "typescript", "lib")
+			config.init_options = config.init_options or {}
+			config.init_options.typescript = config.init_options.typescript or {}
+			config.init_options.typescript.tsdk = tsdk
+		end,
+	},
 	bashls = {},
 	docker_language_server = {},
 	denols = {},
@@ -508,7 +516,6 @@ local servers = {
 	yamlls = {},
 	vacuum = {},
 	matlab_ls = {},
-	prettierd = {},
 }
 
 -- Ensure the servers and tools above are installed
