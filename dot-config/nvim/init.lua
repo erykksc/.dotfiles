@@ -89,6 +89,20 @@ vim.pack.add({
 vim.opt.termguicolors = true
 vim.cmd("colorscheme adwaita")
 
+-- plugin: smart-splits.nvim
+vim.pack.add({ "https://github.com/mrjones2014/smart-splits.nvim" })
+
+local smart_splits = require("smart-splits")
+smart_splits.setup({
+	-- Kitty cannot expose enough layout information for edge wrapping.
+	at_edge = "stop",
+})
+
+vim.keymap.set("n", "<A-h>", smart_splits.move_cursor_left, { desc = "Move to left split" })
+vim.keymap.set("n", "<A-j>", smart_splits.move_cursor_down, { desc = "Move to lower split" })
+vim.keymap.set("n", "<A-k>", smart_splits.move_cursor_up, { desc = "Move to upper split" })
+vim.keymap.set("n", "<A-l>", smart_splits.move_cursor_right, { desc = "Move to right split" })
+
 -- plugin: blink
 vim.pack.add({ {
 	src = "https://github.com/saghen/blink.cmp",
