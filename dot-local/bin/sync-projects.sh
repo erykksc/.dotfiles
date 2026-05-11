@@ -27,8 +27,10 @@ desktop-exec-arg() {
 desktop-content() {
 	local projectPath="$1"
 	local projectName
+	local appId
 	local definedSession
 	projectName=$(basename "$projectPath")
+	appId="auto-kitty-session_$projectName"
 
 	definedSession=$(find "$HOME/.dotfiles/dot-config/kitty/sessions/" -type f -name "$projectName.kitty-session" -print -quit)
 
@@ -40,9 +42,11 @@ desktop-content() {
 		'[Desktop Entry]' \
 		'Type=Application' \
 		"Name=$(desktop-escape "$projectName")" \
-		"Exec=kitty --detach --directory $(desktop-exec-arg "$projectPath") --session $(desktop-exec-arg "$definedSession")" \
+		"Exec=kitty --detach --class $(desktop-exec-arg "$appId") --directory $(desktop-exec-arg "$projectPath") --session $(desktop-exec-arg "$definedSession")" \
 		'Icon=kitty' \
 		'Terminal=false' \
+		'StartupNotify=true' \
+		"StartupWMClass=$(desktop-escape "$appId")" \
 		'Categories=System;TerminalEmulator;' \
 		'TryExec=kitty' \
 		'X-Kitty-Session-Managed=true' \
