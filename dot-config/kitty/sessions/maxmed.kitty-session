@@ -8,7 +8,7 @@ new_tab ai
 launch --hold opencode
 
 new_tab lazygit
-launch --hold lazygit
+launch zsh -lic lazygit
 
 new_tab services
 launch --hold mise run dev-all

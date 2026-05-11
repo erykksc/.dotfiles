@@ -8,6 +8,6 @@ new_tab opencode
 launch opencode
 
 new_tab lazygit
-launch lazygit
+launch zsh -lic lazygit
 
 focus_tab title:neovim
