@@ -1,0 +1,19 @@
+new_tab neovim
+launch --hold zsh -ilc 'nvim pocketbase.go'
+
+new_tab shell
+launch zsh
+
+new_tab ai
+launch --hold opencode
+
+new_tab lazygit
+launch --hold lazygit
+
+new_tab services
+launch --hold mise run dev-all
+
+new_tab web
+launch kitty --detach --directory /home/erykksc/dev/maxmed mise run web
+
+focus_tab title:neovim

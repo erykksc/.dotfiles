@@ -1,0 +1,13 @@
+new_tab neovim
+launch nvim .
+
+new_tab shell
+launch zsh
+
+new_tab opencode
+launch --hold opencode
+
+new_tab open-browser
+launch sh -c "brave-browser --new-window https://isis.tu-berlin.de/course/view.php?id=47320 https://seclab.mlsec.tu-berlin.de/units/ https://seclab.mlsec.tu-berlin.de/highscore/ https://seclab.mlsec.tu-berlin.de/vms/"
+
+focus_tab title:neovim

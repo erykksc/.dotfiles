@@ -1,0 +1,16 @@
+new_tab neovim
+launch nvim .
+
+new_tab shell
+launch zsh
+
+new_tab opencode
+launch opencode
+
+new_tab lazygit
+launch lazygit
+
+new_tab server
+launch npm run dev -- --open
+
+focus_tab title:neovim

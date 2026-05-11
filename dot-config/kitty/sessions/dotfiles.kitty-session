@@ -1,5 +1,0 @@
-new_tab
-cd ~/.dotfiles
-
-launch zsh -c 'nvim ~/.dotfiles/dot-config/kitty/kitty.conf'
-focus
