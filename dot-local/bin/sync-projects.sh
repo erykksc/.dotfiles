@@ -3,7 +3,7 @@
 APP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
 
 shopt -s nullglob
-projects=("$HOME"/dev/*/)
+projects=("$HOME"/dev/*/ "$HOME"/.dotfiles/)
 
 desktop-escape() {
 	local value="$1"
