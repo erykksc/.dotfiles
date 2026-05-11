@@ -49,16 +49,20 @@ desktop-content() {
 		"X-Kitty-Session-Path=$(desktop-escape "$definedSession")"
 }
 
-echo "Deleting old auto kitty sessions"
 mkdir -p "$APP_DIR"
+deletedCount=$(find "$APP_DIR" -type f -name "auto-kitty-session*" -printf . | wc -c)
 find "$APP_DIR" -type f -name "auto-kitty-session*" -delete
+echo "Deleted $deletedCount old auto kitty sessions"
 
+createdCount=0
 for project in "${projects[@]}"; do
 	pname=$(basename "$project")
 	desktopFilepath="$APP_DIR/auto-kitty-session_$pname.desktop"
 	desktop-content "$project" >"$desktopFilepath"
 	echo "Created $desktopFilepath"
+	createdCount=$((createdCount + 1))
 done
+echo "Created $createdCount new desktop project files"
 
 # force update of desktop entries by DE
 update-desktop-database ~/.local/share/applications
