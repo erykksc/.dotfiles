@@ -28,7 +28,6 @@ vim.opt.undofile = true           -- Save undo history
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.updatetime = 250 -- Decrease update time
-vim.o.swapfile = false
 vim.opt.diffopt = vim.opt.diffopt + { "vertical" }
 
 vim.opt.spelllang = { 'en_us', 'de', 'pl', 'es' }
@@ -262,6 +261,7 @@ vim.keymap.set("n", "<leader>hQ", function()
 end, { desc = "All [H]unk to [Q]uicklist", silent = true })
 
 
+-- plugin: neogit
 vim.pack.add({
 	"https://github.com/NeogitOrg/neogit",
 	"https://github.com/nvim-lua/plenary.nvim",      -- required
