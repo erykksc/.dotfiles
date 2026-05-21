@@ -42,8 +42,6 @@ vim.keymap.set("n", "<leader>er", "<CMD>Rex<CR>", { desc = "[E]xplore [R]ex" })
 vim.keymap.set("n", "<leader>ep", "<CMD>Explore .<CR>", { desc = "[E]xplore [P]roject" })
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile" })
 
-vim.keymap.set("n", "<leader>m", ":make<CR>", { desc = "Run :make" })
-
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
 	callback = function() vim.hl.on_yank() end
@@ -90,15 +88,9 @@ vim.keymap.set("n", "<leader>u", "<CMD>Undotree<CR>", { desc = "Open [U]ndo Tree
 
 -------------------------------- PLUGINS --------------------------------
 -- plugin: colorscheme
--- vim.pack.add({
--- 	"https://github.com/uloco/bluloco.nvim",
--- 	"https://github.com/rktjmp/lush.nvim", -- required by bluloco
--- })
--- require("bluloco").setup({})
 vim.pack.add({
 	"https://github.com/Mofiqul/adwaita.nvim",
 })
--- vim.g.adwaita_darker = true
 
 vim.opt.termguicolors = true
 vim.cmd("colorscheme adwaita")
@@ -117,17 +109,6 @@ vim.keymap.set("n", "<A-j>", smart_splits.move_cursor_down, { desc = "Move to lo
 vim.keymap.set("n", "<A-k>", smart_splits.move_cursor_up, { desc = "Move to upper split" })
 vim.keymap.set("n", "<A-l>", smart_splits.move_cursor_right, { desc = "Move to right split" })
 
--- plugin: blink
--- vim.pack.add({ {
--- 	src = "https://github.com/saghen/blink.cmp",
--- 	version = vim.version.range("1.*"),
--- } })
--- require("blink.cmp").setup({
--- 	sources = {
--- 		default = { "lsp", "path", "snippets", "buffer" },
--- 	},
--- })
--- TODO: in the builtin one show previews of the functions and their docs
 vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noselect", "popup" }
 
 -- plugin: conform
@@ -273,17 +254,6 @@ vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)
 vim.keymap.set("n", "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
 vim.keymap.set("n", "<leader>hd", gitsigns.diffthis, { desc = "[H]unk [D]iffthis", silent = true })
 
--- plugin: neogit
--- deprecated: remove if left unused
--- vim.pack.add({
--- 	"https://github.com/NeogitOrg/neogit",
--- 	"https://github.com/nvim-lua/plenary.nvim",      -- required
--- 	"https://github.com/esmuellert/codediff.nvim",   -- optional
--- 	"https://github.com/nvim-telescope/telescope.nvim", -- optional
--- })
---
--- vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
-
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
 
@@ -306,16 +276,6 @@ vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 require("oil").setup({
 	default_file_explorer = false,
 })
-
--- -- plugin: vim-sleuth
--- deprecated: if left unused, I'll remove it
--- vim.pack.add({ "https://github.com/tpope/vim-sleuth" })
-
--- plugin: vim-slime
--- deprecated: if left unused, I'll remove it
--- vim.pack.add({ "https://github.com/jpalardy/vim-slime" })
--- vim.g.slime_target = "kitty"
--- vim.g.slime_bracketed_paste = 1
 
 -- plugin: nvim-treesitter
 vim.api.nvim_create_autocmd("PackChanged", {
