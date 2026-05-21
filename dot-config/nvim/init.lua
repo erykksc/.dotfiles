@@ -9,7 +9,9 @@ vim.opt.cursorline = true    -- Show which line your cursor is on
 vim.opt.scrolloff = 8        -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.wrap = false         -- Disable line wrapping
 vim.opt.number = true        -- show absolute number on cursor line
+vim.opt.swapfile = false
 vim.opt.relativenumber = true
+vim.opt.autocomplete = true
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "+1"
 vim.o.winborder = "single" -- Set the floating window border (like lsp hover)
@@ -32,27 +34,19 @@ vim.opt.diffopt = vim.opt.diffopt + { "vertical" }
 
 vim.opt.spelllang = { 'en_us', 'de', 'pl', 'es' }
 
-vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
+vim.keymap.set("x", "<leader>p", [["_dP]])                   -- greatest remap ever
+vim.keymap.set("n", "<leader>w", "<CMD>noautocmd write<CR>") -- greatest remap ever
 
 -- File Explorer
 vim.keymap.set("n", "<leader>er", "<CMD>Rex<CR>", { desc = "[E]xplore [R]ex" })
 vim.keymap.set("n", "<leader>ep", "<CMD>Explore .<CR>", { desc = "[E]xplore [P]roject" })
 vim.keymap.set("n", "<leader>ef", "<CMD>Explore<CR>", { desc = "[E]xplore [F]ile" })
 
--- Execute lua keymaps
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute current lua file" })
-vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute current lua line" })
-vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute selected lua" })
-
 vim.keymap.set("n", "<leader>m", ":make<CR>", { desc = "Run :make" })
 
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
+vim.api.nvim_create_autocmd('TextYankPost', {
+	callback = function() vim.hl.on_yank() end
 })
 
 -- Diagnostic Config
@@ -68,10 +62,31 @@ vim.diagnostic.config({
 	},
 })
 
+-- -- disable automcomplete in telescope
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "TelescopePrompt",
+	callback = function()
+		vim.opt_local.autocomplete = false
+	end,
+})
+
+-- mise support with treesitter
+require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, _)
+	local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)
+	local filename = vim.fn.fnamemodify(filepath, ":t")
+	return string.match(filename, ".*mise.*%.toml$") ~= nil
+end, { force = true, all = false })
+
 -- if nvim version doesn't support pack manager (versions < 0.12)
 if vim.pack == nil then
 	return
 end
+
+-- builtin plugins
+vim.cmd.packadd("cfilter")
+vim.cmd.packadd("nvim.undotree")
+vim.keymap.set("n", "<leader>u", "<CMD>Undotree<CR>", { desc = "Open [U]ndo Tree" })
+
 
 -------------------------------- PLUGINS --------------------------------
 -- plugin: colorscheme
@@ -103,15 +118,17 @@ vim.keymap.set("n", "<A-k>", smart_splits.move_cursor_up, { desc = "Move to uppe
 vim.keymap.set("n", "<A-l>", smart_splits.move_cursor_right, { desc = "Move to right split" })
 
 -- plugin: blink
-vim.pack.add({ {
-	src = "https://github.com/saghen/blink.cmp",
-	version = vim.version.range("1.*"),
-} })
-require("blink.cmp").setup({
-	sources = {
-		default = { "lsp", "path", "snippets", "buffer" },
-	},
-})
+-- vim.pack.add({ {
+-- 	src = "https://github.com/saghen/blink.cmp",
+-- 	version = vim.version.range("1.*"),
+-- } })
+-- require("blink.cmp").setup({
+-- 	sources = {
+-- 		default = { "lsp", "path", "snippets", "buffer" },
+-- 	},
+-- })
+-- TODO: in the builtin one show previews of the functions and their docs
+vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noselect", "popup" }
 
 -- plugin: conform
 vim.pack.add({
@@ -235,7 +252,6 @@ gitsigns.setup({
 	},
 })
 
--- Navigation
 vim.keymap.set("n", "]c", function()
 	if vim.wo.diff then
 		vim.cmd.normal({ "]c", bang = true })
@@ -256,20 +272,17 @@ vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk)
 vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)
 vim.keymap.set("n", "<leader>hp", gitsigns.preview_hunk, { desc = "[H]unk [P]review", silent = true })
 vim.keymap.set("n", "<leader>hd", gitsigns.diffthis, { desc = "[H]unk [D]iffthis", silent = true })
-vim.keymap.set("n", "<leader>hQ", function()
-	gitsigns.setqflist("all", {})
-end, { desc = "All [H]unk to [Q]uicklist", silent = true })
-
 
 -- plugin: neogit
-vim.pack.add({
-	"https://github.com/NeogitOrg/neogit",
-	"https://github.com/nvim-lua/plenary.nvim",      -- required
-	"https://github.com/esmuellert/codediff.nvim",   -- optional
-	"https://github.com/nvim-telescope/telescope.nvim", -- optional
-})
-
-vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
+-- deprecated: remove if left unused
+-- vim.pack.add({
+-- 	"https://github.com/NeogitOrg/neogit",
+-- 	"https://github.com/nvim-lua/plenary.nvim",      -- required
+-- 	"https://github.com/esmuellert/codediff.nvim",   -- optional
+-- 	"https://github.com/nvim-telescope/telescope.nvim", -- optional
+-- })
+--
+-- vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<cr>", { desc = "Show Neogit UI" })
 
 -- plugin: nvim-lint
 vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
@@ -294,16 +307,14 @@ require("oil").setup({
 	default_file_explorer = false,
 })
 
--- plugin: undotree
-vim.pack.add({ "https://github.com/mbbill/undotree" })
-vim.keymap.set("n", "<leader>u", "<CMD>UndotreeToggle<CR>", { desc = "Toggle [U]ndo Tree" })
-
--- plugin: vim-sleuth
-vim.pack.add({ "https://github.com/tpope/vim-sleuth" })
+-- -- plugin: vim-sleuth
+-- deprecated: if left unused, I'll remove it
+-- vim.pack.add({ "https://github.com/tpope/vim-sleuth" })
 
 -- plugin: vim-slime
-vim.pack.add({ "https://github.com/jpalardy/vim-slime" })
-vim.g.slime_target = "kitty"
+-- deprecated: if left unused, I'll remove it
+-- vim.pack.add({ "https://github.com/jpalardy/vim-slime" })
+-- vim.g.slime_target = "kitty"
 -- vim.g.slime_bracketed_paste = 1
 
 -- plugin: nvim-treesitter
@@ -325,8 +336,24 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
+})
+
+
+local treesitter = require('nvim-treesitter')
+treesitter.install { "stable", "unstable" }
+require('treesitter-context').setup()
+
+vim.api.nvim_create_autocmd('FileType', {
+	callback = function(args)
+		if vim.treesitter.language.add(vim.bo[args.buf].filetype) then
+			vim.treesitter.start(args.buf)
+
+			-- indentation, provided by nvim-treesitter
+			vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
+	end,
 })
 
 require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, _)
@@ -334,15 +361,6 @@ require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, 
 	local filename = vim.fn.fnamemodify(filepath, ":t")
 	return string.match(filename, ".*mise.*%.toml$") ~= nil
 end, { force = true, all = false })
-
-require("nvim-treesitter.configs").setup({
-	auto_install = true,
-	highlight = {
-		enable = true,
-		disable = { "latex", "bibtex" },
-	},
-	indent = { enable = true },
-})
 
 -- plugin: live-preview.nvim
 vim.pack.add({ "https://github.com/brianhuster/live-preview.nvim" })
@@ -386,7 +404,7 @@ vim.pack.add({
 	-- Useful status updates for LSP.
 	"https://github.com/j-hui/fidget.nvim",
 	-- Allows extra capabilities provided by blink.cmp
-	"https://github.com/saghen/blink.cmp",
+	-- "https://github.com/saghen/blink.cmp",
 })
 require("fidget").setup()
 
@@ -420,16 +438,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("gW", teleBuiltin.lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-		-- The following code creates a keymap to toggle inlay hints in your
-		-- code, if the language server you are using supports them
-		--
-		-- This may be unwanted, since they displace some of your code
-		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-			map("<leader>th", function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end, "[T]oggle Inlay [H]ints")
-		end
 
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
@@ -469,10 +477,6 @@ if vim.fn.filereadable(projectfile) == 1 then
 end
 
 -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
---
--- Some languages (like typescript) have entire language plugins that can be useful:
---    https://github.com/pmizio/typescript-tools.nvim
---
 local servers = {
 	arduino_language_server = {},
 	astro = {
@@ -514,19 +518,7 @@ local servers = {
 	ts_ls = {},
 	tinymist = {},
 	svelte = {},
-	texlab = {
-		-- -- settings to use with tectonic (modern latexpdf alternative)
-		-- settings = {
-		-- 	texlab = {
-		-- 		build = {
-		-- 			executable = "tectonic",
-		-- 			args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-		-- 			-- args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-		-- 			onSave = true,
-		-- 		},
-		-- 	},
-		-- },
-	},
+	texlab = {},
 	templ = {},
 	yamlls = {},
 	vacuum = {},
@@ -543,7 +535,6 @@ vim.list_extend(ensure_installed, {
 	"prettierd",
 	"golangci-lint",
 }) -- add additional tools like formatters
--- TODO: install the LSPs and formatters through nix
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 -- Define LSPs that don't need automatic installation

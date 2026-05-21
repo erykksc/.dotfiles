@@ -73,7 +73,6 @@ if [ -d "$HOME/dev/neovim" ]; then
 		git pull
 		sudo make install
 	)
-	nvim --headless "+MasonUpdate" "+MasonToolsUpdate" "+qa"
 fi
 
 # Create POST snapshot
