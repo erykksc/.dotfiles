@@ -2,7 +2,7 @@ new_tab neovim
 launch nvim .
 
 new_tab shell
-launch zsh
+launch --keep zsh
 
 new_tab opencode
 launch opencode
