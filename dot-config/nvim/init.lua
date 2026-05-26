@@ -40,6 +40,7 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>")
 
 -- File Explorer
+vim.keymap.set("n", "<leader>er", "<CMD>Rexplore<CR>", { desc = "[E]xplore [P]roject" })
 vim.keymap.set("n", "<leader>ep", "<CMD>Explore .<CR>", { desc = "[E]xplore [P]roject" })
 vim.keymap.set("n", "<leader>ef", vim.cmd.Ex, { desc = "[E]xplore [F]ile" })
 
@@ -89,8 +90,9 @@ vim.pack.add({
 	"https://github.com/mrjones2014/smart-splits.nvim",
 })
 
-vim.opt.termguicolors = true
-vim.cmd.colorscheme("adwaita")
+-- vim.opt.termguicolors = true
+-- vim.cmd.colorscheme("adwaita")
+vim.cmd.colorscheme("lunaperche")
 
 require("oil").setup({
 	default_file_explorer = false,
@@ -112,4 +114,5 @@ require("erykksc.gitsigns")
 require("erykksc.lint")
 require("erykksc.treesitter")
 require("erykksc.telescope")
+require("erykksc.fff")
 require("erykksc.lsp")
