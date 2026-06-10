@@ -88,11 +88,12 @@ vim.pack.add({
 	"https://github.com/brianhuster/live-preview.nvim",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/mrjones2014/smart-splits.nvim",
+	'https://github.com/tpope/vim-sleuth'
 })
 
--- vim.opt.termguicolors = true
--- vim.cmd.colorscheme("adwaita")
-vim.cmd.colorscheme("lunaperche")
+vim.opt.termguicolors = true
+vim.cmd.colorscheme("adwaita")
+-- vim.cmd.colorscheme("lunaperche")
 
 require("oil").setup({
 	default_file_explorer = false,
