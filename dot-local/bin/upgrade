@@ -75,6 +75,13 @@ if [ -d "$HOME/dev/neovim" ]; then
 	)
 fi
 
+if command -v nvim >/dev/null 2>&1; then
+	(
+		nvim --headless "+MasonUpdate" +qa
+		nvim --headless "+lua vim.pack.update(nil, { force = true })" +qa
+	)
+fi
+
 # Create POST snapshot
 if command -v snapper >/dev/null 2>&1; then
 	POST_NUM=$(sudo snapper -c root create -t post --pre-number "$PRE_NUM" -d "$DESCRIPTION")
