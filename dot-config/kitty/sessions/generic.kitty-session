@@ -10,4 +10,6 @@ launch opencode
 new_tab lazygit
 launch zsh -lic lazygit
 
+new_tab services
+
 focus_tab title:neovim
