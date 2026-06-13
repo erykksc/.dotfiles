@@ -127,6 +127,7 @@ local servers = {
 	yamlls = {},
 	vacuum = {},
 	matlab_ls = {},
+	zls = {},
 }
 
 -- Ensure the servers and tools above are installed

@@ -36,8 +36,7 @@ require("conform").setup({
 			end
 		end,
 
-		go = { "golangci-lint", "goimports", "gofmt", stop_after_first = true },
-		gotmpl = { "prettier_gotmpl" },
+		go = { "golangci-lint" },
 		nix = { "nixfmt" },
 		css = { "prettierd", "prettier", stop_after_first = true },
 		graphql = { "prettierd", "prettier", stop_after_first = true },

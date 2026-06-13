@@ -4,25 +4,12 @@
       "rev": "c607954f7b2cf56b24e921db0dab4749f3430a22",
       "src": "https://github.com/Mofiqul/adwaita.nvim"
     },
-    "blink.cmp": {
-      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
-      "src": "https://github.com/saghen/blink.cmp",
-      "version": "'v1'"
-    },
-    "bluloco.nvim": {
-      "rev": "4daabf6a9e6b9ecdcb19e7c78e888be0bacd866c",
-      "src": "https://github.com/uloco/bluloco.nvim"
-    },
-    "codediff.nvim": {
-      "rev": "7608f3b436ce1f84a4888f75e53079caa981a2e9",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fff.nvim": {
-      "rev": "ec57eb02a679737dbf4f88520a0a79cc62eb1664",
+      "rev": "cf171e067d99a7ee1298bd3903f14a04addd8b39",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
     },
     "fidget.nvim": {
@@ -33,16 +20,12 @@
       "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "lazydev.nvim": {
-      "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
-      "src": "https://github.com/folke/lazydev.nvim"
-    },
     "live-preview.nvim": {
       "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",
       "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "906c32c8a034dd3d51353d63226bf91aeacd927c",
+      "rev": "21c5b3ebeaa0412e28096bb0701434c51c1fbf76",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -53,16 +36,12 @@
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/williamboman/mason.nvim"
     },
-    "neogit": {
-      "rev": "99326a1310fb2d616b455d2fd16d01bf00682f06",
-      "src": "https://github.com/NeogitOrg/neogit"
-    },
     "nvim-lint": {
       "rev": "99cbc3ca8a76845fca50e496be7212bebf907dd3",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
+      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -82,7 +61,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "6806149fd36d1c5e797debe3e18b2c07219b685a",
+      "rev": "501ea73e433246cbd53f0b14bbd205fa44831e4d",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
     "telescope.nvim": {
@@ -90,17 +69,9 @@
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "0.1.0 - 0.2.0"
     },
-    "undotree": {
-      "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
-      "src": "https://github.com/mbbill/undotree"
-    },
     "vim-sleuth": {
       "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
       "src": "https://github.com/tpope/vim-sleuth"
-    },
-    "vim-slime": {
-      "rev": "2cfdc3b24e7ebaa64f5a1a04b00555600c622b79",
-      "src": "https://github.com/jpalardy/vim-slime"
     }
   }
 }

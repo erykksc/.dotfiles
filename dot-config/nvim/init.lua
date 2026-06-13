@@ -38,6 +38,7 @@ vim.opt.spelllang = { 'en_us', 'de', 'pl', 'es' }
 vim.keymap.set("x", "<leader>p", [["_dP]]) -- greatest remap ever
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>")
+vim.keymap.set("n", "<leader>m", "<cmd>make<CR>")
 
 -- File Explorer
 vim.keymap.set("n", "<leader>er", "<CMD>Rexplore<CR>", { desc = "[E]xplore [P]roject" })
