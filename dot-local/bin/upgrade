@@ -78,6 +78,7 @@ fi
 if command -v nvim >/dev/null 2>&1; then
 	(
 		nvim --headless "+MasonUpdate" +qa
+		nvim --headless "+MasonToolsUpdateSync" +qa
 		nvim --headless "+lua vim.pack.update(nil, { force = true })" +qa
 	)
 fi
