@@ -1,4 +1,5 @@
 [tools]
+air = "latest"
 bun = "latest"
 cloudflared = "latest"
 codex = "latest"
