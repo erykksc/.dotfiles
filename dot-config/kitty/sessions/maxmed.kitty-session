@@ -5,7 +5,7 @@ new_tab shell
 launch zsh
 
 new_tab ai
-launch --hold opencode
+launch --hold codex resume --last
 
 new_tab lazygit
 launch zsh -lic lazygit

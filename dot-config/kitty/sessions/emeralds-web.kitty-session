@@ -4,12 +4,13 @@ launch zsh -lic "nvim . ;zsh"
 new_tab shell
 launch zsh -l
 
-new_tab opencode
+new_tab ai
 launch zsh -lic "codex resume --last;zsh"
 
 new_tab lazygit
 launch zsh -lic "lazygit ;zsh"
 
 new_tab services
+launch zsh -lic "npm run dev;zsh"
 
 focus_tab title:neovim
