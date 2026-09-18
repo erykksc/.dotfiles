@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd('OptionSet', {
 	pattern = 'background',
 	callback = function()
 		if vim.v.option_new == 'dark' then
-			vim.cmd.colorscheme('carbonfox')
+			vim.cmd.colorscheme('nordfox')
 		else
 			vim.cmd.colorscheme('dayfox')
 		end
@@ -120,7 +120,7 @@ vim.api.nvim_create_autocmd('OptionSet', {
 if vim.opt.background:get() == "light" then
 	vim.cmd.colorscheme("dayfox")
 else
-	vim.cmd.colorscheme("carbonfox")
+	vim.cmd.colorscheme("nordfox")
 end
 
 -- plugin: smart-splits.nvim
