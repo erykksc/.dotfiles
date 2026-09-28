@@ -1,10 +1,6 @@
 -- plugin: LSP
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
-	-- Automatically install LSPs and related tools to stdpath for Neovim
-	"https://github.com/williamboman/mason.nvim",
-	"https://github.com/williamboman/mason-lspconfig.nvim", --translate between mason and lspconfig
-	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	-- Useful status updates for LSP.
 	"https://github.com/j-hui/fidget.nvim",
 	-- Allows extra capabilities provided by blink.cmp
@@ -82,78 +78,18 @@ end
 
 -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 local servers = {
-	arduino_language_server = {},
-	astro = {
-		before_init = function(_, config)
-			local tsdk = vim.fs.joinpath(config.root_dir or vim.fn.getcwd(), "node_modules", "typescript", "lib")
-			config.init_options = config.init_options or {}
-			config.init_options.typescript = config.init_options.typescript or {}
-			config.init_options.typescript.tsdk = tsdk
-		end,
-	},
 	bashls = {},
 	docker_language_server = {},
-	denols = {},
-	gopls = {},
-	golangci_lint_ls = {},
 	html = {},
-	kotlin_lsp = {},
 	cssls = {},
-	-- htmx = {},
 	jsonls = {},
-	lua_ls = {
-		settings = {
-			Lua = {
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.fn.stdpath("data") .. "/site/pack/core/opt/wezterm-types/lua",
-					},
-				},
-			},
-		},
-	},
-	-- ltex_plus = {},
-	pyright = {},
-	ruff = {},
-	rust_analyzer = {},
-	-- tofu_ls = {},
-	terraformls = {},
-	ts_ls = {},
-	tinymist = {},
-	svelte = {},
-	texlab = {},
-	templ = {},
+	marksman = {},
+	taplo = {},
 	yamlls = {},
-	vacuum = {},
-	matlab_ls = {},
-	zls = {},
+	lua_ls = {},
 }
 
--- Ensure the servers and tools above are installed
-require("mason").setup()
-
--- Make mason-tool-installer install tools
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-	"shfmt",
-	"prettierd",
-	"golangci-lint",
-}) -- add additional tools like formatters
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
--- Define LSPs that don't need automatic installation
--- servers.clangd = {
--- 	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--clang-tidy" },
--- 	capabilities = { offsetEncoding = "utf-8" },
--- 	root_dir = function()
--- 		return vim.fn.getcwd()
--- 	end,
--- }
-servers.clangd = {}
-servers.gdscript = {}
-
--- configure and enable the LSPs
+-- Project-specific servers are added in a trusted project .nvim.lua when needed.
 for server_name, server_config in pairs(servers) do
 	vim.lsp.config(server_name, server_config)
 	vim.lsp.enable(server_name)
