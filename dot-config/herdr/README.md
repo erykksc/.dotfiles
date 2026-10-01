@@ -98,7 +98,9 @@ within the current workspace. Use copy mode for pane history; kitty's Ctrl+Shift
 scrolling and custom copy-hint sequences are retired. Normal Ctrl+Shift+C/V
 clipboard access, font controls, appearance, and Ctrl+Shift+Q stay in kitty.
 
-In workspace navigation mode (P w), use Up/Down or k/j to move the selection.
+Ctrl+Shift+K/J switches directly to the previous/next workspace without opening
+workspace navigation. In workspace navigation mode (P w), use Up/Down or k/j
+to move the selection.
 
 P l is still focus-right, P o still opens the notification target, and P q still
 detaches. No last-tab, pane-cycle, or pane-number aliases replace these defaults.
