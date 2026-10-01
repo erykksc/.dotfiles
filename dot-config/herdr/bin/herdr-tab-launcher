@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+source "$(dirname -- "${BASH_SOURCE[0]}")/context.bash"
+workspace=${HERDR_ACTIVE_WORKSPACE_ID:-}
+[[ -n $workspace ]] || fail 'missing originating HERDR_ACTIVE_WORKSPACE_ID'
+case ${1:-} in
+    lazygit)
+        tabs=$(herdr_cli tab list --workspace "$workspace") || fail 'cannot list workspace tabs'
+        tab=$(jq -er --arg workspace "$workspace" '
+            .result.tabs | sort_by(.number) |
+            map(select(.workspace_id == $workspace and .label == "lazygit")) |
+            if length == 0 then "" else .[0].tab_id end' <<<"$tabs") || fail 'invalid tab list response'
+        if [[ -n $tab ]]; then
+            herdr_cli tab focus "$tab" >/dev/null || fail "cannot focus $tab"
+            exit
+        fi
+        cwd=${HERDR_ACTIVE_PANE_CWD:-}
+        [[ -n $cwd && -d $cwd ]] || fail 'missing or unavailable originating pane directory'
+        command=lazygit
+        ;;
+    dotfiles)
+        cwd=$HOME/.dotfiles
+        [[ -d $cwd ]] || fail "directory does not exist: $cwd"
+        command='nvim .'
+        ;;
+    *) fail 'usage: herdr-tab-launcher lazygit|dotfiles' ;;
+esac
+created=$(herdr_cli tab create --workspace "$workspace" --cwd "$cwd" --label "$1" --focus) || fail "cannot create $1 tab"
+pane=$(jq -er '.result.root_pane.pane_id | select(type == "string" and length > 0)' <<<"$created") || fail 'new tab response has no pane ID; command was not run'
+# pane run submits to this new interactive shell; exiting the app returns here.
+herdr_cli pane run "$pane" "$command" >/dev/null || fail "created $1 tab, but could not run $command in $pane"

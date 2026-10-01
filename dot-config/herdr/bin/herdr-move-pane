@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+# Popup commands have an active tiled pane, not their own HERDR_PANE_ID.
+source "$(dirname -- "${BASH_SOURCE[0]}")/context.bash"
+fail() {
+    printf '\nMove pane: %s\n' "$*" >&2
+    if [[ -t 0 ]]; then
+        printf 'Press any key to close.\n' >&2
+        IFS= read -rsn1 _ || true
+    fi
+    exit 1
+}
+workspace=${HERDR_ACTIVE_WORKSPACE_ID:-}
+source_tab=${HERDR_ACTIVE_TAB_ID:-}
+[[ -n $workspace && -n $source_tab ]] || fail 'missing originating workspace/tab context'
+tabs=$(herdr_cli tab list --workspace "$workspace") || fail 'cannot list workspace tabs'
+rows=$(jq -er --arg workspace "$workspace" '
+    .result.tabs | if type == "array" then . else error("expected tabs") end |
+    map(select(.workspace_id == $workspace)) | to_entries[] |
+    if (.value.tab_id | type) != "string" or (.value.label | type) != "string"
+    then error("invalid tab")
+    else [.key + 1, .value.tab_id, (.value.label | gsub("[[:cntrl:]]"; " "))] | @tsv end
+' <<<"$tabs") || fail 'invalid or empty workspace tab list'
+
+# Number the current tab order afresh; use stable IDs only when moving panes.
+declare -A tab_ids=() tab_labels=()
+numbers=()
+found_source=false
+while IFS=$'\t' read -r number tab label; do
+    [[ -z ${tab_ids[$number]+present} ]] || fail 'duplicate tab number'
+    tab_ids[$number]=$tab
+    tab_labels[$number]=$label
+    numbers+=("$number")
+    [[ $tab != "$source_tab" ]] || found_source=true
+done <<<"$rows"
+$found_source || fail 'the originating tab is no longer available'
+
+# Keep the controls visible even when there are more tabs than popup rows.
+page_size=6
+if [[ -t 0 ]]; then
+    read -r popup_rows popup_columns < <(stty size) || fail 'cannot read popup size'
+    page_size=$((popup_rows - 8))
+    ((page_size > 0)) || page_size=1
+fi
+page_count=$(((${#numbers[@]} + page_size - 1) / page_size))
+page=0
+choice=''
+draw_menu() {
+    local index number suffix
+    printf '\033[2J\033[HMove pane to tab\n\n'
+    for ((index=page*page_size; index<${#numbers[@]} && index<(page+1)*page_size; index++)); do
+        number=${numbers[$index]}
+        suffix=''
+        [[ ${tab_ids[$number]} != "$source_tab" ]] || suffix=' (current)'
+        printf ' %2s  %.40s%s\n' "$number" "${tab_labels[$number]}" "$suffix"
+    done
+    printf '\n  c  New tab\n  q / Esc  Cancel\n'
+    if ((page_count > 1)); then
+        printf '  [ / ]  Previous/next page (%s/%s)\n' "$((page + 1))" "$page_count"
+    fi
+    printf '\nNumber or c: '
+}
+draw_menu
+
+move_pane() {
+    local result reason
+    result=$(herdr_cli pane move "$source_pane" "$@" --focus) || fail 'could not move the originating pane'
+    if ! jq -e '.result.move_result.changed == true' <<<"$result" >/dev/null; then
+        reason=$(jq -r '.result.move_result.reason // "invalid move response"' <<<"$result")
+        [[ $reason != zoomed_tab ]] || fail 'unzoom the source and destination tabs, then try again'
+        fail "pane was not moved: $reason"
+    fi
+    exit 0
+}
+
+while IFS= read -rsn1 key; do
+    case $key in
+        $'\e'|q) exit 0 ;;
+        c) move_pane --new-tab --workspace "$workspace" ;;
+        '['|']')
+            if [[ $key == ']' ]]; then
+                page=$(((page + 1) % page_count))
+            else
+                page=$(((page + page_count - 1) % page_count))
+            fi
+            choice=''
+            draw_menu
+            continue
+            ;;
+        $'\x7f'|$'\b')
+            choice=${choice%?}
+            printf '\r\033[KNumber or c: %s' "$choice"
+            continue
+            ;;
+        '') # Enter confirms a number when it is a prefix of another number.
+            [[ -n $choice ]] || continue
+            ;;
+        [0-9]) choice+=$key; printf '%s' "$key" ;;
+        *) continue ;;
+    esac
+    ambiguous=false
+    for number in "${!tab_ids[@]}"; do
+        if [[ $number == "$choice"* && $number != "$choice" ]]; then
+            ambiguous=true
+            break
+        fi
+    done
+    if [[ -n ${tab_ids[$choice]+present} ]]; then
+        if [[ -n $key ]] && $ambiguous; then
+            printf '\r\033[KNumber or c: %s (Enter confirms)' "$choice"
+            continue
+        fi
+        if [[ ${tab_ids[$choice]} != "$source_tab" ]]; then
+            # Herdr splits beside this tab's focused pane atomically.
+            move_pane --tab "${tab_ids[$choice]}" --split right
+        fi
+        printf '\nAlready in that tab. Choose another.\nNumber or c: '
+    elif $ambiguous && [[ -n $key ]]; then
+        continue
+    else
+        printf '\nNo tab with that number.\nNumber or c: '
+    fi
+    choice=''
+done

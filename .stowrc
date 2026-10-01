@@ -19,3 +19,5 @@
 --ignore=setup
 --ignore=scripts
 --ignore=rofimoji-themes
+
+--ignore=^(dot-config|\.config)/herdr/release-notes\.json$

@@ -20,3 +20,5 @@ dot-config/gh/hosts.yml
 /dot-config/wezterm/plugins/wez-tmux
 /bin/zpng
 /dot-config/opencode/opencode.json
+
+/dot-config/herdr/release-notes.json
