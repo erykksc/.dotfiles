@@ -79,14 +79,14 @@ end
 -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 local servers = {
 	bashls = {},
+	cssls = {},
 	docker_language_server = {},
 	html = {},
-	cssls = {},
 	jsonls = {},
-	marksman = {},
-	taplo = {},
-	yamlls = {},
 	lua_ls = {},
+	marksman = {},
+	taplo = {}, -- toml LSP
+	yamlls = {},
 }
 
 -- Project-specific servers are added in a trusted project .nvim.lua when needed.
