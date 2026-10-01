@@ -13,7 +13,6 @@ delivery = "terminal"
 # Compatibility spelling: 0.9.1 servers require a scalar prefix;
 # 0.9.3 clients also recognize extra_prefixes. Both enter the same mode.
 prefix = "ctrl+b"
-extra_prefixes = ["ctrl+space"]
 split_vertical = ["prefix+v", "prefix+%"]
 split_horizontal = ['prefix+minus', 'prefix+"']
 rename_tab = ["prefix+shift+t", "prefix+comma"]
