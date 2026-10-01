@@ -5,7 +5,7 @@ new_tab shell
 launch zsh -l
 
 new_tab opencode
-launch zsh -lic "codex resume --last;zsh"
+launch zsh -lic "codex resume --last ;zsh"
 
 new_tab lazygit
 launch zsh -lic "lazygit ;zsh"
