@@ -1,0 +1,6 @@
+interface:
+  display_name: "Setup Project Tooling"
+  short_description: "Configure project LSPs and diagnostics with mise"
+  default_prompt: "Use $setup-project-tooling to configure this project"
+policy:
+  allow_implicit_invocation: false
