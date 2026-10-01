@@ -100,7 +100,6 @@ vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Open [U]ndo Tree" }
 vim.pack.add({
 	"https://github.com/edeneast/nightfox.nvim",
 	"https://github.com/brianhuster/live-preview.nvim",
-	"https://github.com/mrjones2014/smart-splits.nvim",
 	'https://github.com/tpope/vim-sleuth'
 })
 
@@ -122,17 +121,6 @@ if vim.opt.background:get() == "light" then
 else
 	vim.cmd.colorscheme("nordfox")
 end
-
--- plugin: smart-splits.nvim
-local smart_splits = require("smart-splits")
-smart_splits.setup({
-	-- Kitty cannot expose enough layout information for edge wrapping.
-	at_edge = "stop",
-})
-vim.keymap.set("n", "<A-h>", smart_splits.move_cursor_left, { desc = "Move to left split" })
-vim.keymap.set("n", "<A-j>", smart_splits.move_cursor_down, { desc = "Move to lower split" })
-vim.keymap.set("n", "<A-k>", smart_splits.move_cursor_up, { desc = "Move to upper split" })
-vim.keymap.set("n", "<A-l>", smart_splits.move_cursor_right, { desc = "Move to right split" })
 
 require("erykksc.conform")
 require("erykksc.gitsigns")

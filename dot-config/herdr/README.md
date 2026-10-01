@@ -65,14 +65,8 @@ those bindings are validated by config checks and live swapping tests. All other
 removed or explicitly disabled to prevent built-in actions from taking them.
 This compatibility exception was chosen instead of changing upstream herdr.
 
-Alt navigation inspects the originating pane's foreground processes. In Neovim,
-it forwards the chord so the existing `smart-splits.nvim` mappings navigate
-editor splits first, then herdr panes, and stop at the outer edge. Native prefix
-navigation always goes directly to herdr. Empty or failed inspection and missing
-neighbors forward the key to the originating application. Helpers require the
-binary, socket, and active-pane context supplied by herdr; failures print a
-`herdr shortcut:` diagnostic. Detached command errors may appear in server
-output/logs; run a helper from a shell with the same supplied context to diagnose.
+Pane focus uses Herdr's built-in bindings directly. In Neovim, use Neovim's own
+window navigation keys for editor splits.
 
 Alt+G focuses the first exact-title `lazygit` tab in the originating workspace.
 Otherwise it creates one in the originating pane's directory. Ctrl+Shift+.
@@ -112,7 +106,7 @@ For a clean install, link the repo with `stow .`, then check the config and
 helper scripts from the repository:
 
 ```sh
-bash -n dot-config/herdr/bin/context.bash dot-config/herdr/bin/herdr-navigate dot-config/herdr/bin/herdr-tab-launcher dot-config/herdr/bin/herdr-move-pane
+bash -n dot-config/herdr/bin/context.bash dot-config/herdr/bin/herdr-tab-launcher dot-config/herdr/bin/herdr-move-pane
 HERDR_CONFIG_PATH="$PWD/dot-config/herdr/config.toml" herdr config check
 python3 scripts/tests/test_herdr_helpers.py
 kitty +runpy 'import runpy; runpy.run_path("scripts/tests/check_kitty_forwarding.py", run_name="__main__")'
@@ -135,9 +129,9 @@ Herdr, use the UI's reload action (P Shift+R) too, so the client restores its
 local keybindings.
 
 For a manual isolated check, run `herdr --session dotfiles-shortcuts-test` in a
-fresh kitty window. Exercise both prefixes, split orientation, arrows/Alt
-navigation, swapping, Alt+1–9, tab ordering, inherited directories, repeated
-Alt+G, and Neovim internal/boundary navigation. Put distinct history in two
+fresh kitty window. Exercise both prefixes, split orientation, prefix and Alt
+navigation, swapping, Alt+1–9, tab ordering, inherited directories, and repeated
+Alt+G. Put distinct history in two
 panes and confirm P [ selects the focused pane's history. Detach with P d and
 reattach to the same session; running applications must remain alive. Stop only
 this test session after validation.

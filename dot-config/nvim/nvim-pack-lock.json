@@ -44,10 +44,6 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
-    "smart-splits.nvim": {
-      "rev": "ec76708f1617ef9e2ac353357fe52d2c997a0f06",
-      "src": "https://github.com/mrjones2014/smart-splits.nvim"
-    },
     "telescope.nvim": {
       "rev": "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9",
       "src": "https://github.com/nvim-telescope/telescope.nvim",

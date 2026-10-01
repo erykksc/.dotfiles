@@ -45,50 +45,6 @@ class Helpers(unittest.TestCase):
         self.assertTrue(all(c['socket']=='/tmp/origin.sock' for c in calls))
         return result, [c['args'] for c in calls]
 
-    def test_neovim_forwarding_all_directions(self):
-        for direction, letter in [('left','h'),('down','j'),('up','k'),('right','l')]:
-            with self.subTest(direction=direction):
-                self.calls.unlink(missing_ok=True)
-                self.responses['pane process-info']['process_info']['foreground_processes']=[{'name':'nvim'}]
-                result,calls=self.run_helper('herdr-navigate',direction)
-                self.assertEqual(result.returncode,0,result.stderr)
-                self.assertEqual(calls,[['pane','process-info','--pane','w3:p7'],['pane','send-keys','w3:p7','alt+'+letter]])
-
-    def test_neovim_argv_path(self):
-        self.responses['pane process-info']['process_info']['foreground_processes']=[{'name':'wrapped','argv':['/usr/bin/nvim']}]
-        _,calls=self.run_helper('herdr-navigate','left')
-        self.assertEqual(calls[-1],['pane','send-keys','w3:p7','alt+h'])
-
-    def test_ordinary_navigation(self):
-        result,calls=self.run_helper('herdr-navigate','right')
-        self.assertEqual(result.returncode,0,result.stderr)
-        self.assertEqual(calls[-1],['pane','focus','--pane','w3:p7','--direction','right'])
-
-    def test_missing_neighbor(self):
-        self.responses['pane neighbor']={'neighbor': {}}
-        _,calls=self.run_helper('herdr-navigate','down')
-        self.assertEqual(calls[-1],['pane','send-keys','w3:p7','alt+j'])
-
-    def test_failed_inspection(self):
-        result,calls=self.run_helper('herdr-navigate','up','pane process-info')
-        self.assertEqual(result.returncode,0,result.stderr)
-        self.assertIn('inspection failed',result.stderr)
-        self.assertEqual(calls[-1],['pane','send-keys','w3:p7','alt+k'])
-
-    def test_empty_inspection(self):
-        self.responses['pane process-info']={}
-        _,calls=self.run_helper('herdr-navigate','left')
-        self.assertEqual(calls[-1],['pane','send-keys','w3:p7','alt+h'])
-
-    def test_failed_neighbor_lookup(self):
-        _,calls=self.run_helper('herdr-navigate','left','pane neighbor')
-        self.assertEqual(calls[-1],['pane','send-keys','w3:p7','alt+h'])
-
-    def test_focus_failure_is_readable(self):
-        result,_=self.run_helper('herdr-navigate','left','pane focus')
-        self.assertNotEqual(result.returncode,0)
-        self.assertIn('cannot focus left of w3:p7',result.stderr)
-
     def test_first_exact_title_in_origin_workspace(self):
         self.responses['tab list']['tabs']=[
             {'workspace_id':'w9','label':'lazygit','number':1,'tab_id':'w9:t1'},
@@ -133,12 +89,6 @@ class Helpers(unittest.TestCase):
         self.assertNotEqual(result.returncode,0)
         self.assertIn('no pane ID',result.stderr)
         self.assertFalse(any(c[:2]==['pane','run'] for c in calls))
-
-    def test_missing_context_never_uses_focused_pane(self):
-        result,calls=self.run_helper('herdr-navigate','left',overrides={'HERDR_ACTIVE_PANE_ID':''})
-        self.assertNotEqual(result.returncode,0)
-        self.assertIn('originating',result.stderr)
-        self.assertEqual(calls,[])
 
     def move_menu(self, input, fail=None, overrides=None):
         self.responses.setdefault('pane move', {'move_result': {'changed': True}})

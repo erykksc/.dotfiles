@@ -30,40 +30,15 @@ navigate_workspace_up = ["up", "k"]
 navigate_workspace_down = ["down", "j"]
 move_tab_previous = "ctrl+alt+shift+left"
 move_tab_next = "ctrl+alt+shift+right"
-focus_pane_left = ["prefix+h", "prefix+left"]
-focus_pane_down = ["prefix+j", "prefix+down"]
-focus_pane_up = ["prefix+k", "prefix+up"]
-focus_pane_right = ["prefix+l", "prefix+right"]
+focus_pane_left = ["prefix+h", "prefix+left", "alt+h"]
+focus_pane_down = ["prefix+j", "prefix+down", "alt+j"]
+focus_pane_up = ["prefix+k", "prefix+up", "alt+k"]
+focus_pane_right = ["prefix+l", "prefix+right", "alt+l"]
 swap_pane_left = ["prefix+shift+h", "alt+shift+h"]
 swap_pane_down = ["prefix+shift+j", "alt+shift+j"]
 swap_pane_up = ["prefix+shift+k", "alt+shift+k"]
 swap_pane_right = ["prefix+shift+l", "alt+shift+l"]
 close_pane = ["prefix+x", "ctrl+shift+w"]
-
-# Direct navigation lets smart-splits handle Neovim's internal splits first.
-[[keys.command]]
-key = "alt+h"
-type = "shell"
-command = 'bash "$HOME/.config/herdr/bin/herdr-navigate" left'
-description = "focus left (Neovim aware)"
-
-[[keys.command]]
-key = "alt+j"
-type = "shell"
-command = 'bash "$HOME/.config/herdr/bin/herdr-navigate" down'
-description = "focus down (Neovim aware)"
-
-[[keys.command]]
-key = "alt+k"
-type = "shell"
-command = 'bash "$HOME/.config/herdr/bin/herdr-navigate" up'
-description = "focus up (Neovim aware)"
-
-[[keys.command]]
-key = "alt+l"
-type = "shell"
-command = 'bash "$HOME/.config/herdr/bin/herdr-navigate" right'
-description = "focus right (Neovim aware)"
 
 [[keys.command]]
 key = "alt+g"
