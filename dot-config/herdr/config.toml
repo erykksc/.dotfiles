@@ -74,5 +74,5 @@ width = 60
 height = 16
 
 [theme]
-name = "terminal"
+name = "kanagawa"
 auto_switch = false
