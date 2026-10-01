@@ -34,3 +34,6 @@ starship = "latest"
 stylua = "latest"
 taplo = "latest"
 watchexec = "latest"
+
+[settings]
+minimum_release_age_excludes = ["codex", "antigravity-cli", "pi"]
