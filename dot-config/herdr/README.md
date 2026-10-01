@@ -48,7 +48,7 @@ server may report that it ignores `keys.extra_prefixes`; the client still uses i
 | New tab | P c | Ctrl+Shift+T |
 | Previous / next tab | P p / P n | Ctrl+PageUp / Ctrl+PageDown |
 | Tab 1–9 | P 1–9 | Alt+1–9 |
-| Agent 1–9 | Unbound | Ctrl+1–9 |
+| Workspace 1–9 | Unbound | Ctrl+1–9 |
 | Reorder tab backward / forward | Unbound | Ctrl+Shift+PageUp / Ctrl+Shift+PageDown |
 | Focus left / down / up / right | P h/j/k/l | P Left/Down/Up/Right; Alt+H/J/K/L |
 | Swap left / down / up / right | P Shift+H/J/K/L | Alt+Shift+H/J/K/L |
@@ -76,8 +76,8 @@ inherit the source directory and open without a naming prompt.
 
 Zoom (P z), pane cycling (P Tab / P Shift+Tab), copy mode (P [), scrollback
 editing in Neovim (P e), help (P ?), resizing, and other workspace controls remain
-inherited. Ctrl+1–9 focuses agents by index; Alt+1–9 switches tabs within the
-current workspace. Use copy mode for pane history; kitty's Ctrl+Shift+U/D history
+inherited. Ctrl+1–9 switches workspaces by sidebar order; Alt+1–9 switches tabs
+within the current workspace. Use copy mode for pane history; kitty's Ctrl+Shift+U/D history
 scrolling and custom copy-hint sequences are retired. Normal Ctrl+Shift+C/V
 clipboard access, font controls, appearance, and Ctrl+Shift+Q stay in kitty.
 Project layouts and project launchers remain outside this migration.

@@ -4,7 +4,7 @@ onboarding = false
 new_cwd = "follow"
 
 [ui]
-prompt_new_tab_name = true
+prompt_new_tab_name = false
 
 [ui.toast]
 delivery = "terminal"
@@ -25,7 +25,6 @@ new_tab = ["prefix+c", "ctrl+shift+t"]
 previous_tab = ["prefix+p", "ctrl+alt+left"]
 next_tab = ["prefix+n", "ctrl+alt+right"]
 switch_tab = ["prefix+1..9", "alt+1..9"]
-focus_agent = "ctrl+1..9"
 navigate_workspace_up = ["up", "k"]
 navigate_workspace_down = ["down", "j"]
 move_tab_previous = "ctrl+alt+shift+left"
@@ -39,6 +38,10 @@ swap_pane_down = ["prefix+shift+j", "alt+shift+j"]
 swap_pane_up = ["prefix+shift+k", "alt+shift+k"]
 swap_pane_right = ["prefix+shift+l", "alt+shift+l"]
 close_pane = ["prefix+x", "ctrl+shift+w"]
+
+[keys.indexed]
+workspaces = "ctrl"
+agents = ""
 
 [[keys.command]]
 key = "alt+g"
