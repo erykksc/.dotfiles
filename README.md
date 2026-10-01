@@ -57,3 +57,8 @@ Enable tap to click on trackpad in 'System Settings.app'
 ### Install Nix
 
 https://nixos.org/download/
+
+### Herdr in kitty (Linux)
+
+Launch `herdr` manually. See [shortcuts, setup, and rollback](dot-config/herdr/README.md)
+for the default-preserving tmux aliases and Neovim-aware navigation.
