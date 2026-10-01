@@ -58,7 +58,19 @@ Enable tap to click on trackpad in 'System Settings.app'
 
 https://nixos.org/download/
 
-### Herdr in kitty (Linux)
+### Quick Linux setup for Herdr
 
-Launch `herdr` manually. See [shortcuts, setup, and rollback](dot-config/herdr/README.md)
-for the default-preserving tmux aliases and Neovim-aware navigation.
+Install Mise, GNU Stow, Bash, jq, and Neovim. Clone the repo, install Herdr and
+lazygit from its Mise config, link the dotfiles, and check the Herdr config:
+
+```sh
+git clone git@github.com:erykksc/.dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+mise install herdr lazygit
+stow .
+HERDR_CONFIG_PATH="$HOME/.config/herdr/config.toml" herdr config check
+```
+
+Launch `herdr` in the directory where you want to work. Herdr's config and
+helpers work independently of Kitty. Kitty's key forwarding is an optional
+companion. See [Herdr setup, shortcuts, and rollback](dot-config/herdr/README.md).

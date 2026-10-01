@@ -1,8 +1,36 @@
-# Herdr shortcuts in kitty
+# Herdr setup and shortcuts on Linux
 
-On Linux, keep kitty as the terminal and start `herdr` manually in the directory
-where you want to work. Requirements: herdr 0.9.3+, Bash, jq, Neovim, lazygit,
-and GNU Stow. Terminal notifications preserve the active herdr setting. `$EDITOR` is already `nvim` in `dot-zprofile`.
+Herdr's configuration and helper scripts are managed by this dotfiles repo and
+work with Linux terminals that pass the configured key chords through to Herdr.
+Requirements: herdr 0.9.3+, Bash, jq, Neovim, lazygit, and GNU Stow. Herdr and
+lazygit are listed in Mise; the other tools can be installed with your system
+package manager. Terminal notifications preserve the active Herdr setting.
+
+## Quick setup on a new machine
+
+Install Mise, GNU Stow, Bash, jq, and Neovim. Clone the repo, install Herdr and
+lazygit from its Mise config, then link the repo:
+
+```sh
+git clone git@github.com:erykksc/.dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+mise install herdr lazygit
+stow .
+HERDR_CONFIG_PATH="$HOME/.config/herdr/config.toml" herdr config check
+```
+
+Start Herdr manually in the directory where you want to work. The tracked
+`dot-config/herdr` files provide the Herdr config and helper commands. If this
+machine already has a Herdr or Kitty config, use the backup rollout script
+below before linking files.
+
+## Optional Kitty shortcuts
+
+Kitty remains optional. Its companion config forwards selected physical key
+chords that Kitty would otherwise consume. With another terminal, Herdr's
+configured prefix bindings remain available; terminal-specific forwarding and
+shortcuts such as PageUp/PageDown may need equivalent mappings in that terminal.
+The Kitty config is included when running the repo-wide `stow .` workflow.
 
 `P` means either Ctrl+B or Ctrl+Space. Unlisted herdr bindings inherit their
 defaults. The config uses `prefix = "ctrl+b"` plus `extra_prefixes = ["ctrl+space"]`,
@@ -80,25 +108,31 @@ before moving.
 
 ## Setup and reload
 
-From the repository:
+For a clean install, link the repo with `stow .`, then check the config and
+helper scripts from the repository:
 
 ```sh
 bash -n dot-config/herdr/bin/context.bash dot-config/herdr/bin/herdr-navigate dot-config/herdr/bin/herdr-tab-launcher dot-config/herdr/bin/herdr-move-pane
 HERDR_CONFIG_PATH="$PWD/dot-config/herdr/config.toml" herdr config check
 python3 scripts/tests/test_herdr_helpers.py
 kitty +runpy 'import runpy; runpy.run_path("scripts/tests/check_kitty_forwarding.py", run_name="__main__")'
-bash setup/herdr-rollout.sh
-herdr server reload-config
+```
+
+For an existing machine with configs to preserve, run
+`bash setup/herdr-rollout.sh` instead of `stow .`. It backs up existing Herdr and
+Kitty configs under `~/.config/herdr/backups/<timestamp>/`, then stows the
+Herdr files and Kitty companion config. Helpers live in `bin` because `.stowrc`
+ignores directories named `scripts`. After setup, reload the Herdr config with
+`herdr server reload-config`. When using Kitty, reload its config with:
+
+```sh
 kitten @ --to "${KITTY_LISTEN_ON:-unix:@mykitty}" load-config "$HOME/.config/kitty/kitty.conf"
 ```
 
-The rollout script backs up existing herdr/kitty config files under
-`~/.config/herdr/backups/<timestamp>/` and uses Stow's `--dotfiles` convention,
-limited to herdr and `kitty.conf`. Helpers live in `bin` because `.stowrc`
-ignores directories named `scripts`. A normal future `stow .` also includes the
-herdr configuration. No server restart is needed. If another kitty instance has
-a different socket, use its `KITTY_LISTEN_ON` value or reload that instance with Ctrl+Shift+F5. In herdr, use the
-UI's reload action (P Shift+R) to reload both local-client and server settings.
+No server restart is needed. If another Kitty instance has a different socket,
+use its `KITTY_LISTEN_ON` value or reload that instance with Ctrl+Shift+F5. In
+Herdr, use the UI's reload action (P Shift+R) too, so the client restores its
+local keybindings.
 
 For a manual isolated check, run `herdr --session dotfiles-shortcuts-test` in a
 fresh kitty window. Exercise both prefixes, split orientation, arrows/Alt
