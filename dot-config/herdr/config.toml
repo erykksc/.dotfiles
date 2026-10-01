@@ -38,6 +38,8 @@ swap_pane_down = ["prefix+shift+j", "alt+shift+j"]
 swap_pane_up = ["prefix+shift+k", "alt+shift+k"]
 swap_pane_right = ["prefix+shift+l", "alt+shift+l"]
 close_pane = ["prefix+x", "ctrl+shift+w"]
+new_worktree = "prefix+shift+g"
+remove_worktree = "prefix+shift+backspace"
 
 [keys.indexed]
 workspaces = "ctrl"
@@ -54,6 +56,12 @@ key = "ctrl+shift+."
 type = "shell"
 command = 'bash "$HOME/.config/herdr/bin/herdr-tab-launcher" dotfiles'
 description = "open dotfiles in Neovim"
+
+[[keys.command]]
+key = "prefix+shift+f"
+type = "shell"
+command = 'bash "$HOME/.config/herdr/bin/herdr-generic-layout"'
+description = "open generic project layout in current workspace"
 
 [[keys.command]]
 key = "prefix+!"

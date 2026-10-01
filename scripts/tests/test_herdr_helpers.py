@@ -33,6 +33,10 @@ class Helpers(unittest.TestCase):
                         HERDR_ACTIVE_PANE_CWD=str(self.root), HERDR_PANE_ID='w99:p99')
         self.responses = {'pane process-info': {'process_info': {'foreground_processes': [{'name':'bash'}]}},
                           'pane neighbor': {'neighbor': {'neighbor_pane_id':'w3:p8'}},
+                          'workspace list': {'workspaces': []},
+                          'workspace create': {'workspace': {'workspace_id':'w4'},
+                                               'tab': {'tab_id':'w4:t1'},
+                                               'root_pane': {'pane_id':'w4:p1'}},
                           'tab list': {'tabs': []},
                           'tab create': {'root_pane': {'pane_id':'w3:p9'}}}
 
@@ -89,6 +93,59 @@ class Helpers(unittest.TestCase):
         self.assertNotEqual(result.returncode,0)
         self.assertIn('no pane ID',result.stderr)
         self.assertFalse(any(c[:2]==['pane','run'] for c in calls))
+
+    def test_generic_layout_creates_tabs_and_starts_expected_commands(self):
+        result,calls=self.run_helper('herdr-generic-layout')
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(calls[0],['workspace','list'])
+        self.assertEqual(calls[1],['workspace','create','--cwd',str(self.root),'--label',self.root.name,'--focus'])
+        self.assertEqual(calls[2],['tab','rename','w4:t1','neovim'])
+        self.assertEqual(calls[3],['pane','run','w4:p1','nvim .'])
+        self.assertEqual(calls[4:10],[
+            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','shell','--no-focus'],
+            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','opencode','--no-focus'],
+            ['pane','run','w3:p9','codex resume --last'],
+            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','lazygit','--no-focus'],
+            ['pane','run','w3:p9','lazygit'],
+            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','services','--no-focus']])
+        self.assertEqual(calls[-1],['tab','focus','w4:t1'])
+
+    def test_generic_layout_focuses_existing_workspace_for_same_directory(self):
+        self.responses['workspace list']['workspaces']=[
+            {'workspace_id':'w8','cwd':str(self.root),'label':self.root.name}]
+        result,calls=self.run_helper('herdr-generic-layout')
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(calls,[['workspace','list'],['workspace','focus','w8']])
+
+    def test_generic_layout_requires_available_origin_directory(self):
+        result,calls=self.run_helper('herdr-generic-layout',overrides={'HERDR_ACTIVE_PANE_CWD':''})
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn('originating pane directory',result.stderr)
+        self.assertEqual(calls,[])
+
+    def test_generic_layout_rejects_malformed_workspace_list(self):
+        self.responses['workspace list']={}
+        result,calls=self.run_helper('herdr-generic-layout')
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn('invalid workspace list response',result.stderr)
+        self.assertEqual(calls,[['workspace','list']])
+
+    def test_generic_layout_rejects_malformed_workspace_creation(self):
+        self.responses['workspace create']={}
+        result,calls=self.run_helper('herdr-generic-layout')
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn('no workspace ID',result.stderr)
+        self.assertEqual(calls,[['workspace','list'],
+                                ['workspace','create','--cwd',str(self.root),'--label',self.root.name,'--focus']])
+
+    def test_generic_layout_failures_stop_subsequent_commands(self):
+        for operation in ['workspace list','workspace create','tab create','pane run']:
+            with self.subTest(operation=operation):
+                self.calls.unlink(missing_ok=True)
+                result,calls=self.run_helper('herdr-generic-layout',fail=operation)
+                self.assertNotEqual(result.returncode,0)
+                self.assertIn('herdr shortcut:',result.stderr)
+                self.assertFalse(any(c[:3]==['pane','run','w3:p7'] for c in calls))
 
     def move_menu(self, input, fail=None, overrides=None):
         self.responses.setdefault('pane move', {'move_result': {'changed': True}})

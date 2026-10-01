@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+source "$(dirname -- "${BASH_SOURCE[0]}")/context.bash"
+
+source_cwd=${HERDR_ACTIVE_PANE_CWD:-}
+[[ -n $source_cwd && -d $source_cwd ]] || fail 'missing or unavailable originating pane directory'
+cwd=$(cd -- "$source_cwd" && pwd -P) || fail 'cannot resolve originating pane directory'
+workspace=${HERDR_ACTIVE_WORKSPACE_ID:-}
+[[ -n $workspace ]] || fail 'missing originating workspace context'
+active_tab=${HERDR_ACTIVE_TAB_ID:-}
+source_pane=${HERDR_ACTIVE_PANE_ID:-}
+[[ -n $active_tab && -n $source_pane ]] || fail 'missing originating pane/tab context'
+
+tabs=$(herdr_cli tab list --workspace "$workspace") || fail 'cannot list workspace tabs'
+jq -e '
+    .result.tabs | type == "array" and all(.[];
+        (.workspace_id | type == "string") and
+        (.label | type == "string") and
+        (.tab_id | type == "string" and length > 0))
+' <<<"$tabs" >/dev/null || fail 'invalid workspace tab list response'
+
+active_label=$(jq -r --arg workspace "$workspace" --arg tab "$active_tab" '
+    .result.tabs | map(select(.workspace_id == $workspace and .tab_id == $tab)) |
+    .[0].label // ""
+' <<<"$tabs")
+[[ -n $active_label ]] || fail 'originating tab is missing from the active workspace'
+case $active_label in
+    neovim|shell|opencode|lazygit|services) source_is_layout_tab=true ;;
+    *) source_is_layout_tab=false ;;
+esac
+
+existing_tab() {
+    jq -r --arg workspace "$workspace" --arg label "$1" '
+        .result.tabs |
+        map(select(.workspace_id == $workspace and .label == $label)) |
+        .[0].tab_id // ""
+    ' <<<"$tabs"
+}
+
+ensure_tab() {
+    local tab_label=$1
+    local command=${2:-}
+    local focus=${3:-no}
+    local tab pane result
+
+    tab=$(existing_tab "$tab_label")
+    if [[ -n $tab ]]; then
+        if [[ $focus == yes ]]; then
+            herdr_cli tab focus "$tab" >/dev/null || fail "cannot focus $tab_label tab"
+        fi
+        LAYOUT_TAB_ID=$tab
+        return 0
+    fi
+
+    if [[ $focus == yes ]]; then
+        result=$(herdr_cli tab create --workspace "$workspace" --cwd "$cwd" --label "$tab_label" --focus) || fail "cannot create $tab_label tab"
+    else
+        result=$(herdr_cli tab create --workspace "$workspace" --cwd "$cwd" --label "$tab_label" --no-focus) || fail "cannot create $tab_label tab"
+    fi
+    pane=$(jq -er '.result.root_pane.pane_id | select(type == "string" and length > 0)' <<<"$result") || fail "new $tab_label tab response has no pane ID; command was not run"
+    LAYOUT_TAB_ID=$(jq -er '.result.tab.tab_id | select(type == "string" and length > 0)' <<<"$result") || fail "new $tab_label tab response has no tab ID"
+    [[ -n $command ]] || return 0
+    herdr_cli pane run "$pane" "$command" >/dev/null || fail "cannot start command in $tab_label tab"
+}
+
+ensure_tab neovim 'nvim .' yes
+neovim_tab=$LAYOUT_TAB_ID
+ensure_tab shell
+ensure_tab opencode 'codex resume --last'
+ensure_tab lazygit lazygit
+ensure_tab services
+
+if [[ $source_is_layout_tab == false ]]; then
+    herdr_cli pane close "$source_pane" >/dev/null || fail 'cannot close the original pane after creating the layout'
+fi
+herdr_cli tab focus "$neovim_tab" >/dev/null || fail 'cannot focus neovim tab'

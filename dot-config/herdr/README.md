@@ -2,9 +2,9 @@
 
 Herdr's configuration and helper scripts are managed by this dotfiles repo and
 work with Linux terminals that pass the configured key chords through to Herdr.
-Requirements: herdr 0.9.3+, Bash, jq, Neovim, lazygit, and GNU Stow. Herdr and
-lazygit are listed in Mise; the other tools can be installed with your system
-package manager. Terminal notifications preserve the active Herdr setting.
+Requirements: herdr 0.9.3+, Bash, jq, Neovim, lazygit, and GNU Stow.
+Herdr and lazygit are listed in Mise; the other tools can be installed with your
+system package manager. Terminal notifications preserve the active Herdr setting.
 
 ## Quick setup on a new machine
 
@@ -53,8 +53,11 @@ server may report that it ignores `keys.extra_prefixes`; the client still uses i
 | Focus left / down / up / right | P h/j/k/l | P Left/Down/Up/Right; Alt+H/J/K/L |
 | Swap left / down / up / right | P Shift+H/J/K/L | Alt+Shift+H/J/K/L |
 | Close pane | P x | Ctrl+Shift+W |
+| Create Git worktree from selected workspace | Unbound | P Shift+G |
+| Remove selected worktree checkout | Unbound | P Shift+Backspace |
 | Focus/create lazygit tab | Unbound | Alt+G |
 | New dotfiles Neovim tab | Unbound | Ctrl+Shift+. |
+| Open generic project layout in current workspace | Unbound | P Shift+F |
 | Move pane to new/existing tab | Unbound | P ! |
 
 Herdr 0.9.3 does not parse PageUp/PageDown key names. The four kitty `send_key`
@@ -74,13 +77,26 @@ always creates a `dotfiles` tab in `$HOME/.dotfiles`. Applications run only in
 the new pane's interactive shell; quitting returns to that shell. New tabs
 inherit the source directory and open without a naming prompt.
 
+P Shift+G creates a Git worktree from the selected workspace. Herdr opens it as
+a grouped workspace and prompts for the branch name. P Shift+Backspace removes
+the selected managed worktree checkout after confirmation; Git keeps its branch.
+
+P Shift+F adds the generic Kitty session layout to the current Herdr workspace,
+using the focused pane's directory for new tabs. It ensures the workspace has
+`neovim`, `shell`, `opencode`, `lazygit`, and `services` tabs, then focuses
+`neovim`. Existing tabs with those exact labels are reused without starting
+another command in them; missing tabs are created, and the `opencode` tab runs
+`codex resume --last` when created. When the active pane is sitting at a shell
+prompt in a tab outside this layout, the helper closes that original pane only
+after all missing layout tabs and commands have been set up. If the active tab
+already has one of the layout labels, it stays in place as part of the layout.
+
 Zoom (P z), pane cycling (P Tab / P Shift+Tab), copy mode (P [), scrollback
 editing in Neovim (P e), help (P ?), resizing, and other workspace controls remain
 inherited. Ctrl+1–9 switches workspaces by sidebar order; Alt+1–9 switches tabs
 within the current workspace. Use copy mode for pane history; kitty's Ctrl+Shift+U/D history
 scrolling and custom copy-hint sequences are retired. Normal Ctrl+Shift+C/V
 clipboard access, font controls, appearance, and Ctrl+Shift+Q stay in kitty.
-Project layouts and project launchers remain outside this migration.
 
 In workspace navigation mode (P w), use Up/Down or k/j to move the selection.
 
@@ -106,7 +122,7 @@ For a clean install, link the repo with `stow .`, then check the config and
 helper scripts from the repository:
 
 ```sh
-bash -n dot-config/herdr/bin/context.bash dot-config/herdr/bin/herdr-tab-launcher dot-config/herdr/bin/herdr-move-pane
+bash -n dot-config/herdr/bin/context.bash dot-config/herdr/bin/herdr-tab-launcher dot-config/herdr/bin/herdr-generic-layout dot-config/herdr/bin/herdr-move-pane
 HERDR_CONFIG_PATH="$PWD/dot-config/herdr/config.toml" herdr config check
 python3 scripts/tests/test_herdr_helpers.py
 kitty +runpy 'import runpy; runpy.run_path("scripts/tests/check_kitty_forwarding.py", run_name="__main__")'
