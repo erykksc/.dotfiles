@@ -1,0 +1,180 @@
+model = "gpt-6-luna"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "high"
+approvals_reviewer = "auto_review"
+
+[mcp_servers.posthog]
+url = "https://mcp.posthog.com/mcp"
+
+[mcp_servers.node_repl]
+command = "/usr/lib/chatgpt/resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120.0
+
+[mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.911.61220"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+CODEX_CLI_PATH = "/usr/lib/chatgpt/resources/codex"
+CODEX_HOME = "/home/erykksc/.codex"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/usr/lib/chatgpt/resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/home/erykksc/.codex:/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/home/erykksc/.codex/plugins/cache/openai-bundled/browser/26.911.61220/scripts/browser-service.mjs"}'
+
+[mcp_servers.chrome-devtools]
+command = "mise"
+args = ["exec", "--", "chrome-devtools-mcp", "--headless"]
+
+[projects."/home/erykksc/dev/maxmed"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/home/erykksc"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/homelab"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/postiz-docker-compose"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/TerseTS"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/leetcode"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/iarp-kurs-ai"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/emeralds-discord"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/portfolio-website"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/.local/share/applications"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/emeralds-web"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Downloads/postiz"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/.config/orca/rate-limit-pty-cwd"]
+trust_level = "trusted"
+
+[tui]
+theme = "base16-256"
+pet = "disabled"
+screen_reader_detection_done = true
+resume_cwd = "session"
+fullscreen_transcript = false
+
+terminal_title = ["activity", "thread-name"]
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+"gpt-5.6-sol" = 4
+gpt-6-astra = 4
+"gpt-6.1-sol" = 4
+
+[tui.keymap.global]
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/home/erykksc/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = "/home/erykksc/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[features]
+hooks = true
+js_repl = false
+daemon_auto_start = false
+
+[desktop]
+conversationDetailMode = "STEPS_COMMANDS"
+sansFontSize = 14
+codeFontSize = 13
+ambient-suggestions-enabled = true
+followUpQueueMode = "queue"
+show-context-window-usage = true
+composerEnterBehavior = "enter"
+
+[hooks.state]
+
+[hooks.state."browser@openai-bundled:plugin.json#hooks[0]:stop:0:0"]
+trusted_hash = "sha256:317a07045dfc95aef2e80c55428a2f817e2768be867e3b1ef29a73da8636ae7f"
+
+[hooks.state."/home/erykksc/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:4a42e8ee8bdc7976df641994dc6b6c8a5a334876663e1af8f0d784e4f58e6ade"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:65f2a7ebca2f0eb91c53daaa91c71be2547b585b1c77c0e9acaf83d044aabd04"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:ea69cc8d22d6a4e93d9cbce2ff4716355ecbac0a45971af5c438812004660524"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:af525db0ea8a9ae96aa9556dd86561ec410049eca26376562febc79d21f8c40b"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:87cace11d27db7b96a9bf3e4bf1e3eccee04993fe213fb7812f9f8d67aa0a458"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:7ff652386645a449943ded93154c2036fc2f10226a66e02adc5b7e6ca2dcd5c2"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:subagent_stop:0:0"]
+trusted_hash = "sha256:fd3c809e7bbde2152910180ac8248c97db93ded464dfc7731168820b3a951b88"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:49689c233cdfa149b0b3c24b08f42aeef52fdc6ba109dcf2e4f1c90146f5985f"
+enabled = false
+
+[hooks.state."/home/erykksc/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:d95c85058e89d12b78d5ed80b6ca8c5f7c06954fc367115151cf3b32edec34fc"

@@ -39,6 +39,18 @@ stow .
 brew uninstall stow
 ```
 
+The Codex configuration is tracked at [dot-codex/config.toml](dot-codex/config.toml)
+and Stowed to `~/.codex/config.toml`. The repository's `--dotfiles` mapping
+turns the `dot-codex` package path into `~/.codex`. Apply it from the repository
+with:
+
+```sh
+cd ~/.dotfiles
+stow dot-codex
+```
+
+Codex uses `~/.codex` by default; `CODEX_HOME` is not set by these dotfiles.
+
 ### Mac App Store
 
 Sign in to mac app store manually
