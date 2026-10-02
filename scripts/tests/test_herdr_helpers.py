@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -11,12 +12,22 @@ MOCK = '''#!/usr/bin/python3
 import json, os, sys
 args=sys.argv[1:]
 with open(os.environ['CALLS'], 'a') as f:
-    f.write(json.dumps({'args':args, 'socket':os.environ.get('HERDR_SOCKET_PATH')})+'\\n')
+    f.write(json.dumps({'args':args, 'socket':os.environ.get('HERDR_SOCKET_PATH'),
+        'context':[os.environ.get(k) for k in ['HERDR_ACTIVE_WORKSPACE_ID', 'HERDR_ACTIVE_TAB_ID', 'HERDR_ACTIVE_PANE_ID']],
+        'binary':os.environ.get('HERDR_BIN_PATH'), 'cwd':os.getcwd()})+'\\n')
 operation=' '.join(args[:2])
 if operation == os.environ.get('FAIL'):
     print('mock server failure',file=sys.stderr); sys.exit(1)
 responses=json.loads(os.environ['RESPONSES'])
 print(json.dumps({'result':responses.get(operation,{})}))
+'''
+MISE_MOCK = '''#!/usr/bin/python3
+import json, os, sys
+with open(os.environ['MISE_CALLS'], 'a') as f:
+    f.write(json.dumps({'args':sys.argv[1:], 'cwd':os.getcwd()})+'\\n')
+if os.environ.get('MISE_FAIL'):
+    print('mock mise lookup failure', file=sys.stderr); sys.exit(1)
+print(os.environ['MISE_RESULT'])
 '''
 
 class Helpers(unittest.TestCase):
@@ -25,9 +36,17 @@ class Helpers(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
         self.binary = self.root/'herdr'; self.binary.write_text(MOCK); self.binary.chmod(0o755)
+        self.tools = self.root/'tools'; self.tools.mkdir()
+        # Keep PATH deterministic, including when testing missing Mise.
+        for name in ['bash', 'dirname', 'jq']:
+            (self.tools/name).symlink_to(shutil.which(name))
+        self.mise = self.tools/'mise'; self.mise.write_text(MISE_MOCK); self.mise.chmod(0o755)
+        self.mise_calls = self.root/'mise-calls'
+        self.project = self.root/'project'; self.project.mkdir()
         (self.root/'.dotfiles').mkdir()
         self.calls = self.root/'calls'
         self.env = dict(os.environ, HOME=str(self.root), CALLS=str(self.calls),
+                        PATH=str(self.tools), MISE_CALLS=str(self.mise_calls), MISE_RESULT=str(self.binary), MISE_FAIL='',
                         HERDR_BIN_PATH=str(self.binary), HERDR_SOCKET_PATH='/tmp/origin.sock',
                         HERDR_ACTIVE_PANE_ID='w3:p7', HERDR_ACTIVE_WORKSPACE_ID='w3', HERDR_ACTIVE_TAB_ID='w3:t1',
                         HERDR_ACTIVE_PANE_CWD=str(self.root), HERDR_PANE_ID='w99:p99')
@@ -43,11 +62,64 @@ class Helpers(unittest.TestCase):
     def run_helper(self, name, arg=None, fail=None, overrides=None, input=None):
         env = dict(self.env, RESPONSES=json.dumps(self.responses), FAIL=fail or '')
         env.update(overrides or {})
+        env = {key:value for key,value in env.items() if value is not None}
         argv = ['bash',str(SCRIPTS/name)] + ([] if arg is None else [arg])
-        result = subprocess.run(argv,env=env,text=True,capture_output=True,input=input)
+        self.mise_calls.unlink(missing_ok=True)
+        result = subprocess.run(argv,env=env,text=True,capture_output=True,input=input,cwd=self.project)
+        lookups = [json.loads(line) for line in self.mise_calls.read_text().splitlines()] if self.mise_calls.exists() else []
+        self.assertEqual(lookups, [{'args':['-C',str(self.root),'which','herdr'], 'cwd':str(self.project)}] if self.mise.exists() else [])
         calls = [json.loads(line) for line in self.calls.read_text().splitlines()] if self.calls.exists() else []
         self.assertTrue(all(c['socket']=='/tmp/origin.sock' for c in calls))
+        self.assertTrue(all(c['context']==[env['HERDR_ACTIVE_WORKSPACE_ID'], env['HERDR_ACTIVE_TAB_ID'], env['HERDR_ACTIVE_PANE_ID']] for c in calls))
+        self.assertTrue(all(c['binary']==str(self.binary) and c['cwd']==str(self.project) for c in calls))
         return result, [c['args'] for c in calls]
+
+    def helper_cases(self):
+        self.layout_responses()
+        self.responses['pane move'] = {'move_result':{'changed':True}}
+        return [('herdr-tab-launcher','dotfiles',None),
+                ('herdr-generic-layout',None,None), ('herdr-move-pane',None,'c')]
+
+    def test_mise_replaces_valid_missing_and_deleted_inherited_paths(self):
+        old_binary = self.root/'old-herdr'
+        old_binary.write_text('#!/bin/sh\nexit 99\n'); old_binary.chmod(0o755)
+        deleted_binary = self.root/'deleted-herdr'
+        deleted_binary.write_text(MOCK); deleted_binary.unlink()
+        for name,arg,input in self.helper_cases():
+            for inherited in [str(old_binary), None, '', str(deleted_binary)]:
+                with self.subTest(helper=name, inherited=inherited):
+                    self.calls.unlink(missing_ok=True)
+                    result,calls=self.run_helper(name,arg,overrides={'HERDR_BIN_PATH':inherited},input=input)
+                    self.assertEqual(result.returncode,0,result.stderr)
+                    self.assertTrue(calls)
+                    if name == 'herdr-move-pane':
+                        self.assertEqual(calls[-1],['pane','move','w3:p7','--new-tab','--workspace','w3','--focus'])
+
+    def assert_resolution_failure(self, overrides, message):
+        for name,arg,input in self.helper_cases():
+            with self.subTest(helper=name):
+                self.calls.unlink(missing_ok=True)
+                result,calls=self.run_helper(name,arg,overrides=overrides,input=input)
+                self.assertNotEqual(result.returncode,0)
+                self.assertIn('herdr shortcut:',result.stderr)
+                self.assertIn(message,result.stderr)
+                self.assertEqual(calls,[])
+
+    def test_missing_mise_stops_before_herdr(self):
+        self.mise.unlink()
+        self.assert_resolution_failure({}, 'mise is required')
+
+    def test_mise_lookup_failure_stops_before_herdr(self):
+        self.assert_resolution_failure({'MISE_FAIL':'1'}, 'mise could not resolve herdr')
+
+    def test_mise_empty_output_stops_before_herdr(self):
+        self.assert_resolution_failure({'MISE_RESULT':''}, 'empty herdr executable path')
+
+    def test_mise_unavailable_executable_stops_before_herdr(self):
+        nonexecutable = self.root/'nonexecutable'; nonexecutable.write_text(MOCK)
+        for path in [nonexecutable, self.root/'missing', self.root]:
+            with self.subTest(path=path):
+                self.assert_resolution_failure({'MISE_RESULT':str(path)}, 'unavailable herdr executable')
 
     def test_first_exact_title_in_origin_workspace(self):
         self.responses['tab list']['tabs']=[
@@ -94,28 +166,37 @@ class Helpers(unittest.TestCase):
         self.assertIn('no pane ID',result.stderr)
         self.assertFalse(any(c[:2]==['pane','run'] for c in calls))
 
-    def test_generic_layout_creates_tabs_and_starts_expected_commands(self):
-        result,calls=self.run_helper('herdr-generic-layout')
-        self.assertEqual(result.returncode,0,result.stderr)
-        self.assertEqual(calls[0],['workspace','list'])
-        self.assertEqual(calls[1],['workspace','create','--cwd',str(self.root),'--label',self.root.name,'--focus'])
-        self.assertEqual(calls[2],['tab','rename','w4:t1','neovim'])
-        self.assertEqual(calls[3],['pane','run','w4:p1','nvim .'])
-        self.assertEqual(calls[4:10],[
-            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','shell','--no-focus'],
-            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','opencode','--no-focus'],
-            ['pane','run','w3:p9','codex resume --last'],
-            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','lazygit','--no-focus'],
-            ['pane','run','w3:p9','lazygit'],
-            ['tab','create','--workspace','w4','--cwd',str(self.root),'--label','services','--no-focus']])
-        self.assertEqual(calls[-1],['tab','focus','w4:t1'])
+    def layout_responses(self):
+        self.responses['tab list']['tabs']=[
+            {'workspace_id':'w3','label':'scratch','number':1,'tab_id':'w3:t1'}]
+        self.responses['tab create']={'tab':{'tab_id':'w3:t9'},
+                                      'root_pane':{'pane_id':'w3:p9'}}
 
-    def test_generic_layout_focuses_existing_workspace_for_same_directory(self):
-        self.responses['workspace list']['workspaces']=[
-            {'workspace_id':'w8','cwd':str(self.root),'label':self.root.name}]
+    def test_generic_layout_creates_tabs_and_starts_expected_commands(self):
+        self.layout_responses()
         result,calls=self.run_helper('herdr-generic-layout')
         self.assertEqual(result.returncode,0,result.stderr)
-        self.assertEqual(calls,[['workspace','list'],['workspace','focus','w8']])
+        self.assertEqual(calls,[
+            ['tab','list','--workspace','w3'],
+            ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','neovim','--focus'],
+            ['pane','run','w3:p9','nvim .'],
+            ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','shell','--no-focus'],
+            ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','agent','--no-focus'],
+            ['pane','run','w3:p9','codex --no-daemon resume --last'],
+            ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','lazygit','--no-focus'],
+            ['pane','run','w3:p9','lazygit'],
+            ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','services','--no-focus'],
+            ['pane','close','w3:p7'],
+            ['tab','focus','w3:t9']])
+
+    def test_generic_layout_reuses_tabs_without_restarting_agents(self):
+        self.responses['tab list']['tabs']=[
+            {'workspace_id':'w3','label':label,'number':i,'tab_id':f'w3:t{i}'}
+            for i,label in enumerate(['neovim','shell','agent','lazygit','services'],1)]
+        result,calls=self.run_helper('herdr-generic-layout')
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(calls,[['tab','list','--workspace','w3'],
+                                ['tab','focus','w3:t1'],['tab','focus','w3:t1']])
 
     def test_generic_layout_requires_available_origin_directory(self):
         result,calls=self.run_helper('herdr-generic-layout',overrides={'HERDR_ACTIVE_PANE_CWD':''})
@@ -123,29 +204,32 @@ class Helpers(unittest.TestCase):
         self.assertIn('originating pane directory',result.stderr)
         self.assertEqual(calls,[])
 
-    def test_generic_layout_rejects_malformed_workspace_list(self):
-        self.responses['workspace list']={}
+    def test_generic_layout_rejects_malformed_tab_list(self):
+        self.responses['tab list']={}
         result,calls=self.run_helper('herdr-generic-layout')
         self.assertNotEqual(result.returncode,0)
-        self.assertIn('invalid workspace list response',result.stderr)
-        self.assertEqual(calls,[['workspace','list']])
+        self.assertIn('invalid workspace tab list response',result.stderr)
+        self.assertEqual(calls,[['tab','list','--workspace','w3']])
 
-    def test_generic_layout_rejects_malformed_workspace_creation(self):
-        self.responses['workspace create']={}
+    def test_generic_layout_rejects_malformed_tab_creation(self):
+        self.layout_responses()
+        self.responses['tab create']={}
         result,calls=self.run_helper('herdr-generic-layout')
         self.assertNotEqual(result.returncode,0)
-        self.assertIn('no workspace ID',result.stderr)
-        self.assertEqual(calls,[['workspace','list'],
-                                ['workspace','create','--cwd',str(self.root),'--label',self.root.name,'--focus']])
+        self.assertIn('no pane ID',result.stderr)
+        self.assertEqual(calls,[['tab','list','--workspace','w3'],
+                                ['tab','create','--workspace','w3','--cwd',str(self.root),'--label','neovim','--focus']])
 
     def test_generic_layout_failures_stop_subsequent_commands(self):
-        for operation in ['workspace list','workspace create','tab create','pane run']:
+        self.layout_responses()
+        for operation in ['tab list','tab create','pane run']:
             with self.subTest(operation=operation):
                 self.calls.unlink(missing_ok=True)
                 result,calls=self.run_helper('herdr-generic-layout',fail=operation)
                 self.assertNotEqual(result.returncode,0)
                 self.assertIn('herdr shortcut:',result.stderr)
                 self.assertFalse(any(c[:3]==['pane','run','w3:p7'] for c in calls))
+                self.assertFalse(any(c[:2]==['pane','close'] for c in calls))
 
     def move_menu(self, input, fail=None, overrides=None):
         self.responses.setdefault('pane move', {'move_result': {'changed': True}})

@@ -24,8 +24,8 @@ active_label=$(jq -r --arg workspace "$workspace" --arg tab "$active_tab" '
 ' <<<"$tabs")
 [[ -n $active_label ]] || fail 'originating tab is missing from the active workspace'
 case $active_label in
-    neovim|shell|opencode|lazygit|services) source_is_layout_tab=true ;;
-    *) source_is_layout_tab=false ;;
+neovim | shell | agent | lazygit | services) source_is_layout_tab=true ;;
+*) source_is_layout_tab=false ;;
 esac
 
 existing_tab() {
@@ -65,7 +65,7 @@ ensure_tab() {
 ensure_tab neovim 'nvim .' yes
 neovim_tab=$LAYOUT_TAB_ID
 ensure_tab shell
-ensure_tab opencode 'codex resume --last'
+ensure_tab agent 'codex --no-daemon resume --last'
 ensure_tab lazygit lazygit
 ensure_tab services
 

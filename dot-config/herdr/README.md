@@ -2,9 +2,23 @@
 
 Herdr's configuration and helper scripts are managed by this dotfiles repo and
 work with Linux terminals that pass the configured key chords through to Herdr.
-Requirements: herdr 0.9.3+, Bash, jq, Neovim, lazygit, and GNU Stow.
+Requirements: herdr 0.9.3+, Mise, Bash, jq, Neovim, lazygit, and GNU Stow.
 Herdr and lazygit are listed in Mise; the other tools can be installed with your
 system package manager. Terminal notifications preserve the active Herdr setting.
+
+Every helper invocation replaces the inherited `HERDR_BIN_PATH` with the result
+of [`mise -C "$HOME" which herdr`](https://mise.jdx.dev/cli/which.html).
+Mise must be on the helper's `PATH`, with Herdr installed in the home Mise config;
+there is no executable fallback or automatic installation. Resolving from home
+avoids project-specific Mise configs and leaves the helper's working directory
+unchanged. The original socket and active workspace, tab, and pane context are
+preserved, so commands continue targeting the originating session.
+
+A running session can retain a deleted executable path after an upgrade (as
+happened with Herdr 0.9.1 after installing 0.9.3). Previously this caused custom
+shortcuts to fail with `herdr shortcut: missing executable HERDR_BIN_PATH`.
+The stowed helper now resolves the installed executable on the next shortcut
+invocation; no Herdr restart is needed for this script change.
 
 ## Quick setup on a new machine
 
@@ -23,6 +37,35 @@ Start Herdr manually in the directory where you want to work. The tracked
 `dot-config/herdr` files provide the Herdr config and helper commands. If this
 machine already has a Herdr or Kitty config, use the backup rollout script
 below before linking files.
+
+## Codex pane environment
+
+Codex's shared app-server can execute tools and hooks without the launching
+pane's `HERDR_*` variables. This is tracked in
+[Herdr issue #4649](https://github.com/herdrdev/herdr/issues/4649).
+
+The stowed `.zshenv` wraps `codex` to add `--no-daemon` when `HERDR_ENV=1`.
+This applies to new interactive and non-interactive Zsh shells, including
+agent launches and restored panes. An existing `--no-daemon` flag is preserved
+without adding it twice. Codex outside Herdr uses its normal launch behavior.
+The generic layout also passes `--no-daemon` explicitly.
+
+Disable automatic daemon startup once on each machine:
+
+```sh
+codex features disable daemon_auto_start
+```
+
+That setting alone can still connect to an existing daemon, so the automatic
+`--no-daemon` flag is needed. Each Herdr Codex session then runs its own backend
+and inherits its pane's environment; it does not use the shared daemon's remote
+control or cross-client session sharing. Explicit remote-server connections
+still use that server's environment.
+
+Already-running Codex sessions need to be exited and resumed from the same pane.
+Existing shell panes can load the wrapper with `source ~/.zshenv` before starting
+Codex again. New panes load it automatically. For Bash or other shells, pass
+`--no-daemon` in their Codex launcher as well.
 
 ## Optional Kitty shortcuts
 
@@ -83,11 +126,11 @@ the selected managed worktree checkout after confirmation; Git keeps its branch.
 
 P Shift+F adds the generic Kitty session layout to the current Herdr workspace,
 using the focused pane's directory for new tabs. It ensures the workspace has
-`neovim`, `shell`, `opencode`, `lazygit`, and `services` tabs, then focuses
+`neovim`, `shell`, `agent`, `lazygit`, and `services` tabs, then focuses
 `neovim`. Existing tabs with those exact labels are reused without starting
-another command in them; missing tabs are created, and the `opencode` tab runs
-`codex resume --last` when created. When the active pane is sitting at a shell
-prompt in a tab outside this layout, the helper closes that original pane only
+another command in them; missing tabs are created, and the `agent` tab runs
+`codex --no-daemon resume --last` when created. When the active pane is sitting
+at a shell prompt in a tab outside this layout, the helper closes that original pane only
 after all missing layout tabs and commands have been set up. If the active tab
 already has one of the layout labels, it stays in place as part of the layout.
 

@@ -6,3 +6,21 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+
+# A shared Codex daemon can lose Herdr's per-pane environment. Keep Codex
+# launches in their pane, including non-interactive shells used for restores.
+codex() {
+  local codex_arg
+  if [[ ${HERDR_ENV:-} == 1 ]]; then
+    for codex_arg in "$@"; do
+      if [[ $codex_arg == --no-daemon ]]; then
+        command codex "$@"
+        return $?
+      fi
+      [[ $codex_arg == -- ]] && break
+    done
+    command codex --no-daemon "$@"
+  else
+    command codex "$@"
+  fi
+}
