@@ -7,6 +7,12 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# Keep mise available in SSH commands and non-login shells without running it
+# during startup. Interactive shells activate direct tool paths in .zshrc.
+typeset -U PATH path
+path=("$HOME/.local/bin" "${MISE_DATA_DIR:-$XDG_DATA_HOME/mise}/shims" $path)
+export PATH
+
 # A shared Codex daemon can lose Herdr's per-pane environment. Keep Codex
 # launches in their pane, including non-interactive shells used for restores.
 codex() {
