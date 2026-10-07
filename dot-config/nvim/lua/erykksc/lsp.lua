@@ -85,6 +85,7 @@ local servers = {
 	jsonls = {},
 	lua_ls = {},
 	marksman = {},
+	pyright = {},
 	taplo = {}, -- toml LSP
 	yamlls = {},
 }
