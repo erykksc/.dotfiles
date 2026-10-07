@@ -1,7 +1,8 @@
-model = "gpt-6-luna"
-model_reasoning_effort = "high"
+model = "gpt-6.1-sol"
+model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 approvals_reviewer = "auto_review"
+service_tier = "default"
 
 [mcp_servers.posthog]
 url = "https://mcp.posthog.com/mcp"
@@ -74,6 +75,9 @@ trust_level = "trusted"
 [projects."/home/erykksc/.config/orca/rate-limit-pty-cwd"]
 trust_level = "trusted"
 
+[projects."/home/erykksc/dev/swipe-warrior"]
+trust_level = "trusted"
+
 [tui]
 theme = "base16-256"
 pet = "disabled"
@@ -122,7 +126,7 @@ enabled = true
 [plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
-[plugins."unified-computer-use@openai-bundled"]
+[plugins."sites@openai-bundled"]
 enabled = true
 
 [features]
@@ -131,8 +135,8 @@ js_repl = false
 daemon_auto_start = false
 
 [desktop]
-conversationDetailMode = "STEPS_COMMANDS"
-sansFontSize = 14
+conversationDetailMode = "STEPS_PROSE"
+sansFontSize = 15
 codeFontSize = 13
 ambient-suggestions-enabled = true
 followUpQueueMode = "queue"
