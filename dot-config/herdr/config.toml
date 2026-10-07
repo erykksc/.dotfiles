@@ -74,5 +74,7 @@ width = 60
 height = 16
 
 [theme]
-name = "kanagawa"
-auto_switch = false
+name = "tokyo-night"
+auto_switch = true
+dark_name = "tokyo-night"
+light_name = "tokyo-night-day"

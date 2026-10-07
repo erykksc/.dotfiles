@@ -98,29 +98,26 @@ vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Open [U]ndo Tree" }
 
 -------------------------------- PLUGINS --------------------------------
 vim.pack.add({
-	"https://github.com/rebelot/kanagawa.nvim",
+	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/brianhuster/live-preview.nvim",
 	'https://github.com/tpope/vim-sleuth'
 })
 
 vim.opt.termguicolors = true
 
-require("kanagawa").setup({
-	theme = "wave",
-	background = {
-		dark = "wave",
-		light = "lotus",
-	},
+require("tokyonight").setup({
+	style = "night",
+	light_style = "day",
 })
 
 vim.api.nvim_create_autocmd('OptionSet', {
 	pattern = 'background',
 	callback = function()
-		vim.cmd.colorscheme('kanagawa')
+		vim.cmd.colorscheme('tokyonight')
 	end,
 })
 
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("tokyonight")
 
 require("erykksc.conform")
 require("erykksc.gitsigns")

@@ -11,6 +11,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # launches in their pane, including non-interactive shells used for restores.
 codex() {
   local codex_arg
+  # Codex 0.160 caches the terminal background at startup. ANSI colors keep
+  # its prompt on the terminal's live background when light/dark mode changes.
+  local -x FORCE_COLOR=1
   if [[ ${HERDR_ENV:-} == 1 ]]; then
     for codex_arg in "$@"; do
       if [[ $codex_arg == --no-daemon ]]; then

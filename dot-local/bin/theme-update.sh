@@ -1,40 +1,33 @@
 #!/bin/bash
 
-ALACRITTY_CONFIG_FILE="$XDG_CONFIG_HOME/alacritty/alacritty.toml"
-LIGHT_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/github_light.toml"
-DARK_ALACRITTY_THEME="$XDG_CONFIG_HOME/alacritty/themes/github_dark.toml"
+set -euo pipefail
 
-LIGHT_KITTY_THEME="Atom One Light"
-DARK_KITTY_THEME="OneDark-Pro"
+KITTY_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/kitty"
 
-# Check if there is user override
-if [ "$1" == "dark" ]; then
-    APPLY_THEME="dark"
-elif [ "$1" == "light" ]; then
-    APPLY_THEME="light"
-else
-    # Otherwise, detect automatically
-    if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark'; then
-        APPLY_THEME="dark"
-    else
-        APPLY_THEME="light"
-    fi
-fi
+case "${1:-auto}" in
+    dark|light)
+        APPLY_THEME="$1"
+        ;;
+    auto)
+        if [[ "$(uname -s)" == Darwin ]]; then
+            if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark'; then
+                APPLY_THEME="dark"
+            else
+                APPLY_THEME="light"
+            fi
+        elif [[ "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null || true)" == "'prefer-dark'" ]]; then
+            APPLY_THEME="dark"
+        else
+            APPLY_THEME="light"
+        fi
+        ;;
+    *)
+        echo "Usage: $0 [auto|dark|light]" >&2
+        exit 1
+        ;;
+esac
 
-
-# Apply the theme
-if [ "$APPLY_THEME" == "dark" ]; then
-    # Switch to dark theme
-#     sed -i '' -e "/import = \[/,/\]/c\\
-# import = [\\
-#     \"$DARK_ALACRITTY_THEME\",\\
-# ]" $ALACRITTY_CONFIG_FILE
-    kitty +kitten themes --cache-age 1 --reload-in=all $DARK_KITTY_THEME
-else
-    # Switch to light theme
-#     sed -i '' -e "/import = \[/,/\]/c\\
-# import = [\\
-#     \"$LIGHT_ALACRITTY_THEME\",\\
-# ]" $ALACRITTY_CONFIG_FILE
-    kitty +kitten themes --cache-age 1 --reload-in=all $LIGHT_KITTY_THEME
-fi
+# Use the same local Tokyo Night palette as Kitty's automatic mode switching.
+KITTY_THEME="$KITTY_CONFIG_DIR/$APPLY_THEME-theme.auto.conf"
+cp "$KITTY_THEME" "$KITTY_CONFIG_DIR/current-theme.conf"
+kitty @ --to "${KITTY_LISTEN_ON:-unix:@mykitty}" set-colors --all --configured "$KITTY_THEME"
