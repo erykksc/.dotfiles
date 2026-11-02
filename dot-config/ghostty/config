@@ -1,8 +1,7 @@
-# theme = dark:"nord",light:"nord-light"
+theme = dark:"Bluloco Dark",light:"Bluloco Light"
 # theme = dark:"GitHub-Dark-Default",light:"GitHub-Light-Default"
 # theme = dark:"tokyonight_moon",light:"tokyonight-day"
 # theme = dark:"Ayu Mirage",light:"ayu_light"
-theme = "Bluloco Dark"
 
 font-size = 14
 font-feature = -calt
@@ -18,6 +17,12 @@ macos-titlebar-style = hidden
 
 # automatically install ghostty on ssh machines
 # requires infocmp on host and tic on remote
-# shell-integration-features  =  ssh-terminfo
+shell-integration-features = ssh-env,ssh-terminfo
 
-window-decoration = none
+cursor-style = block
+
+# Navigate Ghostty splits when a split exists in that direction.
+keybind = performable:alt+h=goto_split:left
+keybind = performable:alt+j=goto_split:down
+keybind = performable:alt+k=goto_split:up
+keybind = performable:alt+l=goto_split:right

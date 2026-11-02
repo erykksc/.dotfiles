@@ -6,6 +6,7 @@ new_cwd = "follow"
 [ui]
 prompt_new_tab_name = false
 
+status_indicators = "symbols"
 [ui.toast]
 delivery = "terminal"
 
@@ -74,7 +75,5 @@ width = 60
 height = 16
 
 [theme]
-name = "tokyo-night"
-auto_switch = true
-dark_name = "tokyo-night"
-light_name = "tokyo-night-day"
+name = "terminal"
+auto_switch = false

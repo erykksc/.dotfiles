@@ -98,26 +98,27 @@ vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Open [U]ndo Tree" }
 
 -------------------------------- PLUGINS --------------------------------
 vim.pack.add({
-	"https://github.com/folke/tokyonight.nvim",
+	"https://github.com/rktjmp/lush.nvim",
+	"https://github.com/uloco/bluloco.nvim",
 	"https://github.com/brianhuster/live-preview.nvim",
 	'https://github.com/tpope/vim-sleuth'
 })
 
 vim.opt.termguicolors = true
 
-require("tokyonight").setup({
-	style = "night",
-	light_style = "day",
+require("bluloco").setup({
+	style = "auto",
+	terminal = false,
 })
 
 vim.api.nvim_create_autocmd('OptionSet', {
 	pattern = 'background',
 	callback = function()
-		vim.cmd.colorscheme('tokyonight')
+		vim.cmd.colorscheme('bluloco')
 	end,
 })
 
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("bluloco")
 
 require("erykksc.conform")
 require("erykksc.gitsigns")
