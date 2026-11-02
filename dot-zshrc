@@ -38,26 +38,6 @@ fzf_to_project() {
   esac
 }
 
-transcribe() {
-  local filename="$1"
-  local model_path="$HOME/dev/whisper.cpp/models/ggml-${2:-"medium.en"}.bin"
-
-  if [[ -z "$filename" ]]; then
-    echo "Error: The first argument is required."
-    echo "Usage: transcribe <filename> [model, default: medium.en]"
-    return 1
-  fi
-
-  ffmpeg -i "$filename" -f wav -ar 16000 -ac 1 -c:a pcm_s16le - |
-    whisper-cli \
-      -m "$model_path" \
-      -t 6 \
-      --print-progress \
-      -osrt \
-      -f - \
-      --output-file "$(basename "$filename")"
-}
-
 # ALIASES
 alias vim='nvim'
 alias gs='git status'
@@ -66,6 +46,7 @@ alias f='fzf_to_project'
 alias c='wl-copy'
 alias p='wl-paste'
 alias o='xdg-open'
+alias q='pi --no-session --model "openai-codex/gpt-6.1-terra:medium" -p'
 
 # KEYBINDINGS
 bindkey -e
