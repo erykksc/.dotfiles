@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 ROOTS=(
-  "$HOME/projects"
+  "$HOME/Projects"
   "$HOME/work"
   "$HOME/personal"
-  "$HOME/dev"
 )
 
 selected=$(find "${ROOTS[@]}" -mindepth 1 -maxdepth 2 -type d | fzf)

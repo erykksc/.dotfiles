@@ -4,7 +4,7 @@ fzf_to_project() {
   local -a search_paths fzf_result
   local action selected
 
-  search_paths=(~/dev ~)
+  search_paths=("$HOME/Projects" "$HOME")
   fzf_result=("${(@f)$(
     {
       echo "$HOME"

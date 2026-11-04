@@ -8,7 +8,7 @@ fi
 set -euo pipefail
 set -x
 
-mkdir -p $HOME/dev
+mkdir -p "$HOME/Projects"
 
 # enable RPM Fusion repositories
 # enable free repository

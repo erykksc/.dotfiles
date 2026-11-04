@@ -169,7 +169,7 @@ if [[ $CURRENT_SHELL != "/bin/zsh" ]]; then
 	chsh -s /bin/zsh
 fi
 
-mkdir -p $HOME/dev
+mkdir -p "$HOME/Projects"
 
 # Setup docker
 sudo systemctl enable --now docker.service
