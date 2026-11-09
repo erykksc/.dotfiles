@@ -81,12 +81,15 @@ local servers = {
 	bashls = {},
 	cssls = {},
 	docker_language_server = {},
+	gopls = {},
 	html = {},
 	jsonls = {},
 	lua_ls = {},
-	marksman = {},
+	marksman = {}, -- markdown
 	pyright = {},
+	rust_analyzer = {},
 	taplo = {}, -- toml LSP
+	ts_ls = {},
 	yamlls = {},
 }
 
