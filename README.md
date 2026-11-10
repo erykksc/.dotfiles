@@ -40,13 +40,12 @@ brew uninstall stow
 ```
 
 The Codex configuration is tracked at [dot-codex/config.toml](dot-codex/config.toml)
-and Stowed to `~/.codex/config.toml`. The repository's `--dotfiles` mapping
-turns the `dot-codex` package path into `~/.codex`. Apply it from the repository
-with:
+and Stowed to `~/.codex/config.toml`. Stow the repository as a single package;
+its `--dotfiles` mapping turns the `dot-codex` directory into `~/.codex`:
 
 ```sh
 cd ~/.dotfiles
-stow dot-codex
+stow .
 ```
 
 Codex uses `~/.codex` by default; `CODEX_HOME` is not set by these dotfiles.
@@ -86,6 +85,28 @@ HERDR_CONFIG_PATH="$HOME/.config/herdr/config.toml" herdr config check
 Launch `herdr` in the directory where you want to work. Herdr's config and
 helpers work independently of Kitty. Kitty's key forwarding is an optional
 companion. See [Herdr setup, shortcuts, and rollback](dot-config/herdr/README.md).
+
+### Shared Git worktrees
+
+New shared worktrees use `~/Projects/.worktrees/{repo}/{branch-slug}`.
+Use the primary checkout's directory name and replace `/` with `-` in branches:
+
+```sh
+git -C "$HOME/Projects/frontend" worktree add \
+  -b feature/auth "$HOME/Projects/.worktrees/frontend/feature-auth"
+```
+
+Worktrunk and Herdr share this root; Worktrunk installation is separate.
+Use Worktrunk or Git to manage checkouts and open agents at existing paths.
+Check for collisions: `feature/auth` and `feature-auth`, or repositories with
+identical directory names, share destinations. Never overwrite a checkout.
+Existing and tool-managed private worktrees stay where they are.
+
+Stow deploys global Codex guidance from `dot-codex/AGENTS.md`; back up any
+existing regular `~/.codex/AGENTS.md` first. `AGENTS.override.md` takes precedence.
+Apply with `stow .` and `herdr server reload-config`.
+The project picker and ordinary fd searches exclude `.worktrees`;
+searching directly inside a checkout still works.
 
 ### Zen Browser shortcuts on Linux
 
