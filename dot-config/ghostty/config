@@ -4,8 +4,6 @@ theme = dark:"Bluloco Dark",light:"Bluloco Light"
 # theme = dark:"Ayu Mirage",light:"ayu_light"
 
 font-size = 14
-window-width = 100
-window-height = 35
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
