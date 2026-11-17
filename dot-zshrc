@@ -4,13 +4,13 @@ fzf_to_project() {
   local -a search_paths fzf_result
   local action selected
 
-  search_paths=("$HOME/Projects" "$HOME")
+  search_paths=("$HOME/dev" "$HOME/Projects" "$HOME" "$HOME/Projects/Archive")
   fzf_result=("${(@f)$(
     {
       echo "$HOME"
       echo "$HOME/.local/share/applications"
-      find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null
-      find "$HOME/Documents" \( -name "node_modules" -o -name ".venv" -o -name ".git" \) -prune -o -type d 2>/dev/null
+      find -L "${search_paths[@]}" -mindepth 1 -maxdepth 1 -type d ! -name ".worktrees" 2>/dev/null
+      find "$HOME/Documents" \( -name "node_modules" -o -name ".venv" -o -name ".git" -o -name ".worktrees" \) -prune -o -type d 2>/dev/null
     } | sed "s|^$HOME|~|" | fzf \
       --expect=ctrl-e,ctrl-o,ctrl-t \
       --header "Enter: cd/open session | Ctrl-E: Neovim | Ctrl-O: xdg-open" \

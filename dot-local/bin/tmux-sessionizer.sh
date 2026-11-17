@@ -6,7 +6,8 @@
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	selected=$(find -L ~ "$HOME/Projects" ~/Documents ~/Documents/TU-Berlin/Master-semester-1 -mindepth 1 -maxdepth 1 -type d | fzf --tmux)
+	selected=$(find -L ~ "$HOME/dev" "$HOME/Projects" ~/Documents ~/Documents/TU-Berlin/Master-semester-1 \
+		-mindepth 1 -maxdepth 1 -type d ! -name .worktrees | fzf --tmux)
 fi
 
 if [[ -z $selected ]]; then

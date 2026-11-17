@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 ROOTS=(
+  "$HOME/dev"
   "$HOME/Projects"
   "$HOME/work"
   "$HOME/personal"
 )
 
-selected=$(find "${ROOTS[@]}" -mindepth 1 -maxdepth 2 -type d | fzf)
+selected=$(find "${ROOTS[@]}" -mindepth 1 -maxdepth 2 -type d \
+  \( -name .worktrees -prune -o -print \) | fzf)
 
 [ -z "$selected" ] && exit 0
 

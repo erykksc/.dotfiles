@@ -72,25 +72,25 @@ if command -v rustup >/dev/null 2>&1; then
 	rustup update
 fi
 
-# if [ -d "$HOME/Projects/neovim" ]; then
+# if [ -d "$HOME/dev/neovim" ]; then
 # 	(
-# 		cd "$HOME/Projects/neovim"
+# 		cd "$HOME/dev/neovim"
 # 		git pull
 # 		# sudo make install
 # 	)
 # fi
 
-# if [ -d "$HOME/Projects/MosaicWM" ]; then
+# if [ -d "$HOME/dev/MosaicWM" ]; then
 # 	(
-# 		cd "$HOME/Projects/MosaicWM"
+# 		cd "$HOME/dev/MosaicWM"
 # 		git pull
 # 		./scripts/build.sh -i
 # 	)
 # fi
 
-# if [ -d "$HOME/Projects/whisper.cpp" ]; then
+# if [ -d "$HOME/dev/whisper.cpp" ]; then
 # 	(
-# 		cd "$HOME/Projects/whisper.cpp"
+# 		cd "$HOME/dev/whisper.cpp"
 # 		git pull
 # 	)
 # fi

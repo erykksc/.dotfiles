@@ -88,12 +88,13 @@ companion. See [Herdr setup, shortcuts, and rollback](dot-config/herdr/README.md
 
 ### Shared Git worktrees
 
-New shared worktrees use `~/Projects/.worktrees/{repo}/{branch-slug}`.
+Keep Git synchronized repositories in `~/dev` and projects without Git (or projects with only local git) in `~/Projects`.
+New shared worktrees use `~/dev/.worktrees/{repo}/{branch-slug}`.
 Use the primary checkout's directory name and replace `/` with `-` in branches:
 
 ```sh
-git -C "$HOME/Projects/frontend" worktree add \
-  -b feature/auth "$HOME/Projects/.worktrees/frontend/feature-auth"
+git -C "$HOME/dev/frontend" worktree add \
+  -b feature/auth "$HOME/dev/.worktrees/frontend/feature-auth"
 ```
 
 Worktrunk and Herdr share this root; Worktrunk installation is separate.

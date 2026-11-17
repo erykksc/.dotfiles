@@ -31,7 +31,7 @@ BROWSER_USE_CODEX_APP_VERSION = "26.820.60940"
 NODE_REPL_TRUSTED_SERVICES = '{"browser":"/home/erykksc/.codex/plugins/cache/openai-bundled/browser/26.820.60940/scripts/browser-service.mjs"}'
 CODEX_CLI_PATH = "/usr/lib/chatgpt/resources/codex"
 
-[projects."/home/erykksc/Projects/maxmed"]
+[projects."/home/erykksc/dev/maxmed"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/.dotfiles"]
@@ -40,16 +40,16 @@ trust_level = "trusted"
 [projects."/home/erykksc"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/homelab"]
+[projects."/home/erykksc/dev/homelab"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/postiz-docker-compose"]
+[projects."/home/erykksc/dev/postiz-docker-compose"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/Projects/TerseTS"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/leetcode"]
+[projects."/home/erykksc/dev/leetcode"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/Projects/iarp-kurs-ai"]
@@ -58,22 +58,25 @@ trust_level = "trusted"
 [projects."/home/erykksc/Projects"]
 trust_level = "trusted"
 
+[projects."/home/erykksc/dev"]
+trust_level = "trusted"
+
 [projects."/home/erykksc/Projects/emeralds-discord"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/portfolio-website"]
+[projects."/home/erykksc/dev/portfolio-website"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/.local/share/applications"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/emeralds-web"]
+[projects."/home/erykksc/dev/emeralds-web"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/Downloads/postiz"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/swipe-warrior"]
+[projects."/home/erykksc/dev/swipe-warrior"]
 trust_level = "trusted"
 
 [projects."/home/erykksc/Documents/Codex/2026-10-08/realtime-voice-chat"]
@@ -97,7 +100,40 @@ trust_level = "trusted"
 [projects."/home/erykksc/Documents/TU-Berlin/Master-semester-3/ISIM_Industry_Spotlight_on_Innovation_Management/essay-task"]
 trust_level = "trusted"
 
-[projects."/home/erykksc/Projects/4toDown"]
+[projects."/home/erykksc/dev/4toDown"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/newworkspaceshortcut-barnix.io"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Projects/bitwa-slask"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Projects/cnae-otel-multi-cloud"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Projects/escooter-trips-generator"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Projects/gnome-shell-extension-arrangeWindows"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/gnome-happy-appy-hotkey"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/raycast-extensions"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/kwikquiz"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/nautilus-open-any-terminal"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/Projects/nautilus"]
+trust_level = "trusted"
+
+[projects."/home/erykksc/dev/gnome-shell-extension-task-widget"]
 trust_level = "trusted"
 
 [tui]

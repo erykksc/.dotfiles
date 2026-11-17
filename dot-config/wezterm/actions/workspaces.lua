@@ -80,6 +80,7 @@ local function get_sessionizer_roots()
 	return {
 		wezterm.home_dir,
 		wezterm.home_dir .. '/dev',
+		wezterm.home_dir .. '/Projects',
 		wezterm.home_dir .. '/Documents',
 		wezterm.home_dir .. '/Documents/TU-Berlin/Master-semester-1',
 	}
@@ -92,7 +93,7 @@ end
 function M.get_sessionizer_choices()
 	local parts = {}
 	for _, root in ipairs(get_sessionizer_roots()) do
-		table.insert(parts, 'find -L ' .. shell_quote(root) .. ' -mindepth 1 -maxdepth 1 -type d 2>/dev/null')
+		table.insert(parts, 'find -L ' .. shell_quote(root) .. ' -mindepth 1 -maxdepth 1 -type d ! -name .worktrees 2>/dev/null')
 	end
 
 	local handle = io.popen(table.concat(parts, '; '))

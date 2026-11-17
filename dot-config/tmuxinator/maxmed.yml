@@ -1,5 +1,5 @@
 name: maxmed
-root: ~/Projects/maxmed
+root: ~/dev/maxmed
 
 windows:
   - editor: nvim pocketbase.go
