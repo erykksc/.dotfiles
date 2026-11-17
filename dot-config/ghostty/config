@@ -17,7 +17,7 @@ macos-titlebar-style = hidden
 
 # automatically install ghostty on ssh machines
 # requires infocmp on host and tic on remote
-shell-integration-features = ssh-env,ssh-terminfo
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 
 cursor-style = block
 
