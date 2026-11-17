@@ -21,7 +21,8 @@ format = "[$user]($style)" # Removed default "with "
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style)" # Removed default "at "
+ssh_symbol = "ssh:"
+format = "[$ssh_symbol$hostname]($style)" # Removed default "at "
 
 [directory]
 style = "blue"
