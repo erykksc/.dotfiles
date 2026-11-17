@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+${custom.ssh_mark}\
 $username\
 @\
 $hostname\
@@ -23,11 +24,17 @@ format = "[$user]($style)" # Removed default "with "
 ssh_only = false
 format = "[$hostname]($style)" # Removed default "at "
 
+[custom.ssh_mark]
+command = "printf 'ssh:'"
+when = 'test -n "$SSH_CONNECTION"'
+format = "[$output]($style)"
+style = "bold cyan"
+
 [directory]
 style = "blue"
 format = "[$path]($style) " # Removed default "in "
-truncate_to_repo=false
-truncation_length=0
+truncate_to_repo = false
+truncation_length = 0
 
 [character]
 success_symbol = "[\\$](bold green)"
@@ -69,4 +76,3 @@ format = "[$symbol$status]($style) "
 symbol = "error:"
 pipestatus = true
 style = "bold red"
-
